@@ -2,9 +2,5 @@ import { DatePicker } from "antd";
 import React from "react";
 
 export default function Home() {
-  return (
-    <div>
-      <DatePicker />
-    </div>
-  );
+  return <div>Home </div>;
 }
