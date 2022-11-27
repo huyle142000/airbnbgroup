@@ -1,8 +1,6 @@
-import "./App.css";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
-// import "./../antd/dist/reset.css";
-
+import 'antd/dist/antd.min.css'
 function App() {
   return (
     <BrowserRouter>
