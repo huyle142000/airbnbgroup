@@ -3,7 +3,6 @@ import Home from "./pages/Home/Home";
 import "antd/dist/antd.min.css";
 import AdminTemplate from "./Templates/AdminTemplate/AdminTemplate";
 import User from "./pages/Admin/UserAdmin/User";
-import EditUser from "./pages/Admin/UserAdmin/EditUser/EditUser";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AddUser from "./pages/Admin/UserAdmin/AddUser/AddUser";
@@ -15,6 +14,7 @@ import EditRoom from "./pages/Admin/Rooms/EditRoom/EditRoom";
 import AddRoom from "./pages/Admin/Rooms/AddRoom/AddRoom";
 import ModalAirBnB from "./Templates/ModalAirBnB/ModalAirBnB";
 import Login from "./pages/Login/Login";
+import EditUser from "./pages/Admin/UserAdmin/EditUser/EditUser";
 function App() {
   return (
     <BrowserRouter>
