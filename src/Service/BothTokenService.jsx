@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { ACCESS_TOKEN, DOMAIN, TOKEN } from "../utils/setting";
+import { token, DOMAIN, TOKEN } from "../utils/setting";
 
 export class BothTokenService {
   put = (url, data) => {
@@ -8,6 +8,7 @@ export class BothTokenService {
       url: `${DOMAIN}${url}`,
       data,
       headers: {
+        token: JSON.parse(localStorage.getItem(token)),
         TokenCyberSoft: TOKEN,
       },
     });
@@ -18,6 +19,7 @@ export class BothTokenService {
       method: "POST",
       data,
       headers: {
+        token: JSON.parse(localStorage.getItem(token)),
         TokenCyberSoft: TOKEN,
       },
     });
@@ -27,6 +29,7 @@ export class BothTokenService {
       method: "GET",
       url: `${DOMAIN}${url}`,
       headers: {
+        token: JSON.parse(localStorage.getItem(token)),
         TokenCybersoft: TOKEN,
       },
     });
@@ -36,6 +39,7 @@ export class BothTokenService {
       method: "DELETE",
       url: `${DOMAIN}${url}`,
       headers: {
+        token: JSON.parse(localStorage.getItem(token)),
         TokenCyberSoft: TOKEN,
       },
     });

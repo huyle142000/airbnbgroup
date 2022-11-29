@@ -1,8 +1,6 @@
 import { toast } from "react-toastify";
-import { history } from "../../App";
 import { bothServiceToken } from "../../Service/BothTokenService";
 import { getInforUser, getUserList } from "../reducer/UserManagerReducer";
-
 export const getUserListAPI = () => {
   return async (dispacth) => {
     try {
@@ -13,6 +11,28 @@ export const getUserListAPI = () => {
     }
   };
 };
+//delete
+export function deleteUserAPI(user, navigate) {
+  return async (dispatch) => {
+    try {
+      const { data } = await bothServiceToken.delete(`users?id=${user}`);
+      toast.success("Success");
+      navigate(0);
+      getUserListAPI();
+    } catch (e) {}
+  };
+}
+//Create User
+export function createUser(value, navigate) {
+  return async (dispatch) => {
+    try {
+      const { data } = await bothServiceToken.post(`users`, value);
+      toast.success("Success");
+      navigate("/admin");
+    } catch (e) {}
+  };
+}
+
 export function getInfoUserAPI(id) {
   return async (dispatch) => {
     try {
@@ -32,7 +52,7 @@ export function editUserAPI(id, user, navigate) {
       navigate("/admin");
       getUserListAPI();
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
   };
 }
