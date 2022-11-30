@@ -1,9 +1,9 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home/Home";
+import Home from "./Pages/Home/Home";
 import "antd/dist/antd.min.css";
 import AdminTemplate from "./Templates/AdminTemplate/AdminTemplate";
-import User from "./pages/Admin/UserAdmin/User";
-import EditUser from "./pages/Admin/UserAdmin/EditUser/EditUser";
+import User from "./Pages/Admin/UserAdmin/User";
+import EditUser from "./Pages/Admin/UserAdmin/EditUser/EditUser";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 function App() {
