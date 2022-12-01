@@ -5,7 +5,6 @@ import { useAddLocation } from "./useAddLocation";
 const AddLocation = () => {
   const { formik, handleChangeFile, imgSrc } = useAddLocation();
   const { handleSubmit, handleChange } = formik;
-  console.log(imgSrc);
   return (
     <Form
       className="vh-100"

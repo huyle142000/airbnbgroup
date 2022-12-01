@@ -12,24 +12,21 @@ export default function AddUser(props) {
     // bật enableReinitialize khi thế giá trị bằng props nên dùng chỉ cho trang Edit
     enableReinitialize: true,
     initialValues: {
-      taiKhoan: "",
-      matKhau: "",
+      id: 0,
+      name: "",
       email: "",
-      soDt: "",
-      maNhom: "",
-      maLoaiNguoiDung: "",
-      hoTen: "",
+      password: "",
+      phone: "",
+      birthday: "",
+      gender: true,
+      role: "",
     },
     onSubmit: (values, { resetForm }) => {
       dispatch(createUser(values, navigate));
       resetForm();
     },
   });
-  const { handleSubmit, handleChange, setFieldValue, values } = formik;
-  const [componentSize, setComponentSize] = useState("default");
-  const onFormLayoutChange = ({ size }) => {
-    setComponentSize(size);
-  };
+  const { handleSubmit, handleChange } = formik;
   return (
     <Form
       className="mt-4"
@@ -40,23 +37,7 @@ export default function AddUser(props) {
       wrapperCol={{
         span: 14,
       }}
-      layout="horizontal"
-      initialValues={{
-        size: componentSize,
-      }}
-      onValuesChange={onFormLayoutChange}
-      size={componentSize}
     >
-      <Form.Item
-        label={<h6 className="font-weight-bold m-0">Form Size</h6>}
-        name="size"
-      >
-        <Radio.Group>
-          <Radio.Button value="small">Small</Radio.Button>
-          <Radio.Button value="default">Default</Radio.Button>
-          <Radio.Button value="large">Large</Radio.Button>
-        </Radio.Group>
-      </Form.Item>
       <Form.Item label={<h6 className="font-weight-bold m-0">Tài khoản</h6>}>
         <Input name="id" onChange={handleChange} />
       </Form.Item>

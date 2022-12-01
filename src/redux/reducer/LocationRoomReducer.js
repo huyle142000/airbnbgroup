@@ -12,7 +12,6 @@ export const LocationRoomReducer = createSlice({
   initialState,
   reducers: {
     getLocationList: (state, action) => {
-      console.log(action);
       state.locationList = action.payload;
     },
     getInforLocation: (state, action) => {

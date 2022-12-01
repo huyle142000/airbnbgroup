@@ -28,11 +28,14 @@ export function uploadLocation(datas) {
   };
 }
 //edit location
-export function editLocationAPI(id, datas) {
+export function editLocationAPI(id, datas, navigate) {
   return async (dispatch) => {
     try {
-      const { data } = await bothServiceToken.put(`/vi-tri/${id}`, datas);
+      const { data } = await bothServiceToken.put(`vi-tri/${id}`, datas);
+      toast.success("Cật nhập vị trí thành công!!!");
+      navigate("/location");
     } catch (e) {
+      console.log(e.response.data);
       toast.error("Error!!!");
     }
   };
@@ -50,34 +53,37 @@ export function getInfoLocationAPI(id) {
   };
 }
 // delete vị trí
-export function deleteLocationAPI(id) {
+export function deleteLocationAPI(id, navigate) {
   return async (dispatch) => {
     try {
       const { data } = await bothServiceToken.delete(`vi-tri/${id}`);
       toast.success("Success");
+      navigate(0);
     } catch (e) {
       toast.error("Error!!!");
     }
   };
 }
 /***************** ROOM ********************/
-export function getListRoomAPI() {
+export function getListRoomAPI(id) {
   return async (dispatch) => {
     try {
-      const { data } = await bothServiceToken.get("phong-thue");
-      console.log(data);
+      const { data } = await bothServiceToken.get(
+        `phong-thue/lay-phong-theo-vi-tri?maViTri=${id}`
+      );
       dispatch(getListRoom(data.content));
     } catch (error) {}
   };
 }
 // upLoad
-export function uploadRoomAPI(datas) {
-  console.log(123123)
+export function uploadRoomAPI(datas, navigate) {
   return async (dispatch) => {
     try {
       const { data } = await bothServiceToken.post("phong-thue", datas);
+      navigate(-1);
       toast.success("Success");
     } catch (e) {
+      console.log(e.response.data);
       toast.error("Error!!!");
     }
   };
@@ -86,9 +92,8 @@ export function uploadRoomAPI(datas) {
 export function editRoomAPI(id, datas) {
   return async (dispatch) => {
     try {
-      const { data } = await bothServiceToken.put(`phong-thue/${id}`,datas);
+      const { data } = await bothServiceToken.put(`phong-thue/${id}`, datas);
       toast.success("Thành công!!!");
-
     } catch (e) {
       toast.error("Error!!!");
     }
@@ -107,11 +112,12 @@ export function getInfoRoomAPI(id) {
   };
 }
 // delete vị trí
-export function deleteRoomAPI(id) {
+export function deleteRoomAPI(id, navigate) {
   return async (dispatch) => {
     try {
       const { data } = await bothServiceToken.delete(`phong-thue/${id}`);
       toast.success("Success");
+      navigate(0);
     } catch (e) {
       toast.error("Error!!!");
     }

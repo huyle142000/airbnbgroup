@@ -1,5 +1,8 @@
 import { toast } from "react-toastify";
+import Login from "../../pages/Login/Login";
 import { bothServiceToken } from "../../Service/BothTokenService";
+import { USER_LOGIN } from "../../utils/setting";
+import { openLogin } from "../reducer/ModalReducer";
 import { getInforUser, getUserList } from "../reducer/UserManagerReducer";
 export const getUserListAPI = () => {
   return async (dispacth) => {
@@ -16,7 +19,7 @@ export function deleteUserAPI(user, navigate) {
   return async (dispatch) => {
     try {
       const { data } = await bothServiceToken.delete(`users?id=${user}`);
-      toast.success("Success");
+      toast.success("Xóa thành công");
       navigate(0);
       getUserListAPI();
     } catch (e) {}
@@ -27,7 +30,7 @@ export function createUser(value, navigate) {
   return async (dispatch) => {
     try {
       const { data } = await bothServiceToken.post(`users`, value);
-      toast.success("Success");
+      toast.success("Tạo mới User thành công");
       navigate("/admin");
     } catch (e) {}
   };
@@ -48,9 +51,28 @@ export function editUserAPI(id, user, navigate) {
   return async (dispatch) => {
     try {
       const { data } = await bothServiceToken.put(`users/${id}`, user);
-      toast.success("Cật nhật thành công");
-      navigate("/admin");
-      getUserListAPI();
+
+      dispatch(getInfoUserAPI(id));
+      if (user.role.trim().toLowerCase() === "admin") {
+        getUserListAPI();
+        dispatch(openLogin(<Login classModal={"form_modal"} />));
+        navigate("/admin");
+        toast("Hãy đăng nhập tài khoản admin để cấp quyền quản trị!", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      } else if (user.role.trim().toLowerCase() === "user" && navigate) {
+        navigate("/home");
+        toast.success("Cật nhật thành công");
+        let userInfo = JSON.stringify(data.content);
+        localStorage.setItem(USER_LOGIN, userInfo);
+      }
     } catch (e) {
       console.log(e);
     }

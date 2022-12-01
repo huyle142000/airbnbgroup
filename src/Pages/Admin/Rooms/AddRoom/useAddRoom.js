@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   editRoomAPI,
   getInfoRoomAPI,
@@ -10,43 +10,35 @@ import {
 
 export const useAddRoom = () => {
   const dispatch = useDispatch();
-  const { inforRoom } = useSelector((state) => state.LocationRoomReducer);
+  const { id } = useParams();
+  const navigate = useNavigate();
   let [imgSrc, setImgSrc] = useState("");
   //   formik
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      id: "",
-      tenPhong: "",
-      khach: "",
-      phongNgu: "",
-      giuong: "",
-      phongTam: "",
-      moTa: "",
-      giaTien: "",
-      mayGiat: false,
-      banLa: false,
-      tivi: false,
-      dieuHoa: false,
-      wifi: false,
-      bep: false,
-      doXe: false,
-      hoBoi: false,
-      banUi: false,
-      maViTri: "",
-      hinhAnh: null,
+      id: 203,
+      tenPhong: "string",
+      khach: 0,
+      phongNgu: 0,
+      giuong: 0,
+      phongTam: 0,
+      moTa: "string",
+      giaTien: 0,
+      mayGiat: true,
+      banLa: true,
+      tivi: true,
+      dieuHoa: true,
+      wifi: true,
+      bep: true,
+      doXe: true,
+      hoBoi: true,
+      banUi: true,
+      maViTri: 1400,
+      hinhAnh: "string",
     },
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
-    //   let formData = new FormData();
-    //   for (let key in values) {
-    //     if (key !== "hinhAnh") {
-    //       formData.append(key, values[key]);
-    //     } else {
-    //       formData.append("File", values.hinhAnh, values.hinhAnh.name);
-    //     }
-    //   }
-      dispatch(uploadRoomAPI(values.id, values));
+      dispatch(uploadRoomAPI(values, navigate));
     },
   });
 
@@ -54,8 +46,13 @@ export const useAddRoom = () => {
   const { setFieldValue } = formik;
   const handleChangeSetFieldValue = (name) => {
     return (value) => {
+      console.log(name, value);
       setFieldValue(name, value);
     };
+  };
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setFieldValue(name, Number(value));
   };
   const handleChangeFile = async (e) => {
     let file = e.target.files[0];
@@ -68,17 +65,17 @@ export const useAddRoom = () => {
       reader.readAsDataURL(file);
       reader.onload = (e) => {
         setImgSrc(e.target.result);
+        setFieldValue("hinhAnh", e.target.result);
       };
       return;
     }
     alert("File chọn không phải kiểu hình ảnh");
   };
-
   return {
     formik,
     imgSrc,
     handleChangeSetFieldValue,
     handleChangeFile,
-    inforRoom,
+    handleInput,
   };
 };

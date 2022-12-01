@@ -15,9 +15,7 @@ export const useAddLocation = () => {
       hinhAnh: "string",
     },
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
-      // dispatch(uploadLocation(values));
-      // resetForm();
+      dispatch(uploadLocation(values));
     },
   });
   let [imgSrc, setImgSrc] = useState("");
@@ -31,8 +29,8 @@ export const useAddLocation = () => {
       reader.readAsDataURL(file);
       reader.onload = (e) => {
         setImgSrc(e.target.result);
+        formik.setFieldValue("hinhAnh", e.target.result);
       };
-      formik.setFieldValue("hinhAnh", file);
       return;
     }
     alert("File chọn không phải kiểu hình ảnh");

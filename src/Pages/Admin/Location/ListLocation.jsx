@@ -13,7 +13,10 @@ import "../admincss.css";
 
 import Axios from "axios";
 import { TOKEN } from "../../../utils/setting";
-import { getListLocationAPI } from "../../../redux/actions/LocationRoomAction";
+import {
+  deleteLocationAPI,
+  getListLocationAPI,
+} from "../../../redux/actions/LocationRoomAction";
 import { getLocationList } from "../../../redux/reducer/LocationRoomReducer";
 
 const { Search } = Input;
@@ -80,7 +83,7 @@ const ListLocation = (props) => {
               className="movie_admin-icon text-danger"
               onClick={() => {
                 if (window.confirm("Bạn muốn xóa vị trí này ?")) {
-                  dispatch();
+                  dispatch(deleteLocationAPI(vitri.id,navigate));
                 }
               }}
             >

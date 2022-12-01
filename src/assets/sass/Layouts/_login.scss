@@ -1,22 +1,22 @@
 .bg_form {
   margin: 0;
   padding: 0;
-  background: linear-gradient(#141e30, #243b55);
+  background: $color-white;
   height: 100vh;
 }
 
 .login_box {
   padding: 40px;
-  background: #212529;
+  background: $color-white;
   box-sizing: border-box;
-  box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
 }
 
 .login_box h2 {
   margin: 0 0 30px;
   padding: 0;
-  color: orange;
+  color: $color-red-1;
   text-align: center;
   font-size: 22px;
 }
@@ -27,37 +27,26 @@
 
 .login_box .user_box input {
   width: 100%;
-  font-size: 14px;
   line-height: 3rem;
-  color: #fff;
   margin-bottom: 10px;
-  border: none;
-  border-bottom: 1px solid #fff;
+  border: 1px solid rgb(127, 103, 103);
   outline: none;
   background: transparent;
+  border-radius: 4px;
+  padding: 0 10px;
 }
 
 .login_box .user_box label {
-  position: absolute;
-  top: 0;
-  left: 0;
   padding: 10px 0;
   font-size: 16px;
-  color: #fff;
+  font-weight: 600;
   pointer-events: none;
-  transition: .5s;
-}
-
-.login_box .user_box input:focus~label,
-.login_box .user_box input:valid~label {
-  top: -14px;
-  left: 0;
-  color: orange;
-  font-size: 12px;
+  transition: 1s;
 }
 
 .form_submit {
   padding: 6px;
-  background: orange;
+  background: $bx-hover-1;
   font-weight: 600;
 }
+

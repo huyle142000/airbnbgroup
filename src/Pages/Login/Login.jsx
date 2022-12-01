@@ -1,61 +1,86 @@
 import React from "react";
-import styles from "./login.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import Register from "../Register/Register";
 import { openRegister } from "../../redux/reducer/ModalReducer";
+import * as Yup from "yup";
+import { loginAction } from "../../redux/actions/FormAction";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const navigate = useNavigate();
   let dispatch = useDispatch();
-  useSelector((state) => state.ModalFilmReducer);
+  let { ulogin } = useSelector((state) => state.FormReducer);
   const formik = useFormik({
     initialValues: {
-      taiKhoan: "",
-      matKhau: "",
+      email: "",
+      password: "",
     },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .required("Email không được để trống")
+        .email("Email không đúng định dạng"),
+      password: Yup.string()
+        .required("Mật khẩu không được để trống")
+        .min(3, "Mật khẩu ít nhất có 3 kí tự."),
+    }),
     onSubmit: (values) => {
-      // dispatch();
+      dispatch(loginAction(values,navigate));
     },
   });
 
   return (
-    <div className={styles.login_box}>
+    <div className="login_box">
       <h2>Login</h2>
       <form onSubmit={formik.handleSubmit}>
-        <div className={styles.user_box}>
+        <div className="user_box">
+          <label>Account</label>
           <input
             onChange={formik.handleChange}
             type="text"
-            name="taiKhoan"
-            required
+            name="email"
+            onBlur={formik.handleBlur}
           />
-          <label>Account</label>
+          {formik.touched.email && formik.errors.email ? (
+            <span className="text-danger text-register d-block mb-2">
+              {formik.errors.email}
+            </span>
+          ) : null}
         </div>
-        <div className={styles.user_box}>
+        <div className="user_box">
+          <label>Password</label>
           <input
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             type="password"
-            name="matKhau"
-            required
+            name="password"
           />
-          <label>Password</label>
+          {formik.touched.password && formik.errors.password ? (
+            <span className="text-danger text-register d-block mb-2 ">
+              {formik.errors.password}
+            </span>
+          ) : null}
         </div>
         <div className="btn_div">
-          <h6
-            className="text-danger isuser btn"
-            onClick={() => {
-              dispatch(openRegister(<Register />));
-            }}
-          >
-            Bạn có tài khoản chưa?
-          </h6>
-          <button type="submit" className="btn_movie">
-            Submit
-            <span />
-            <span />
-            <span />
-            <span />
-          </button>
+          <div>
+            <button type="submit" className="btn btn_form">
+              Submit
+              <span />
+              <span />
+              <span />
+              <span />
+            </button>
+          </div>
+          <div className=" text-right">
+            <h6
+              className="text-danger isuser btn"
+              onClick={() => {
+                dispatch(openRegister(<Register classModal={"form_modal"} />));
+              }}
+            >
+              Bạn có tài khoản chưa?
+            </h6>
+          </div>
         </div>
       </form>
     </div>

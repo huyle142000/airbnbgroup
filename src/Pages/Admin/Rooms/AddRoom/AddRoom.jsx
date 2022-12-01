@@ -1,11 +1,16 @@
-import { Form, Input } from "antd";
+import { Form, Input, Switch } from "antd";
 import React from "react";
 import { useAddRoom } from "./useAddRoom";
 
 export default function AddRoom() {
-  const { formik, imgSrc, handleChangeFile, inforRoom } = useAddRoom();
-
-  const { handleSubmit, handleChange, values } = formik;
+  const {
+    formik,
+    imgSrc,
+    handleChangeFile,
+    handleInput,
+    handleChangeSetFieldValue,
+  } = useAddRoom();
+  const { handleSubmit, handleChange } = formik;
   return (
     <>
       <div>
@@ -27,128 +32,62 @@ export default function AddRoom() {
         }}
         layout="horizontal"
       >
-        <Form.Item label="Mã ID">
-          <Input name="id" onChange={handleChange} />
-        </Form.Item>
         <Form.Item label="Tên Phòng">
           <Input name="tenPhong" onChange={handleChange} />
-        </Form.Item>
-        <Form.Item label="Mã vị trí">
-          <Input name="maViTri" />
         </Form.Item>
         <Form.Item label="Mô tả">
           <Input name="moTa" onChange={handleChange} />
         </Form.Item>
 
         <Form.Item label="Sức chứa khách">
-          <Input name="khach" onChange={handleChange} />
+          <Input name="khach" onChange={handleInput} />
         </Form.Item>
         <Form.Item label="Giá tiền">
-          <Input name="giaTien" onChange={handleChange} />
+          <Input name="giaTien" onChange={handleInput} />
         </Form.Item>
         <Form.Item label="Phòng ngủ">
-          <Input name="phongNgu" onChange={handleChange} />
+          <Input name="phongNgu" onChange={handleInput} />
         </Form.Item>
         <Form.Item label="Phòng tắm">
-          <Input name="phongTam" onChange={handleChange} />
+          <Input name="phongTam" onChange={handleInput} />
         </Form.Item>
         <Form.Item label="Số lượng giường">
-          <Input name="giuong" onChange={handleChange} />
+          <Input name="giuong" onChange={handleInput} />
         </Form.Item>
         <Form.Item label="Máy giặt">
-          <select
-            defaultValue={false}
+          <Switch
             name="mayGiat"
-            onChange={handleChange}
-            id=""
-          >
-            <option value={true}>Có</option>
-            <option value={false}>Không</option>
-          </select>
+            onChange={handleChangeSetFieldValue("mayGiat")}
+          />
+          ;
         </Form.Item>
         <Form.Item label="Bàn Là">
-          <select
-            defaultValue={false}
-            name="banLa"
-            onChange={handleChange}
-            id=""
-          >
-            <option value={true}>Có</option>
-            <option value={false}>Không</option>
-          </select>
+          <Switch name="banLa" onChange={handleChangeSetFieldValue("banLa")} />
         </Form.Item>
         <Form.Item label="Tivi">
-          <select
-            defaultValue={false}
-            name="tivi"
-            onChange={handleChange}
-            id=""
-          >
-            <option value={true}>Có</option>
-            <option value={false}>Không</option>
-          </select>
+          <Switch name="tivi" onChange={handleChangeSetFieldValue("tivi")} />
         </Form.Item>
         <Form.Item label="Điều hòa">
-          <select
-            defaultValue={false}
+          <Switch
             name="dieuHoa"
-            onChange={handleChange}
-            id=""
-          >
-            <option value={true}>Có</option>
-            <option value={false}>Không</option>
-          </select>
+            onChange={handleChangeSetFieldValue("dieuHoa")}
+          />
         </Form.Item>
         <Form.Item label="Wifi">
-          <select
-            defaultValue={false}
-            name="wifi"
-            onChange={handleChange}
-            id=""
-          >
-            <option value={true}>Có</option>
-            <option value={false}>Không</option>
-          </select>
+          <Switch name="wifi" onChange={handleChangeSetFieldValue("wifi")} />
         </Form.Item>
         <Form.Item label="Bãi đỗ">
-          <select
-            defaultValue={false}
-            name="doXe"
-            onChange={handleChange}
-            id=""
-          >
-            <option value={true}>Có</option>
-            <option value={false}>Không</option>
-          </select>
+          <Switch name="doXe" onChange={handleChangeSetFieldValue("doXe")} />
         </Form.Item>
         <Form.Item label="Bếp">
-          <select defaultValue={false} name="bep" onChange={handleChange} id="">
-            <option value={true}>Có</option>
-            <option value={false}>Không</option>
-          </select>
+          <Switch name="bep" onChange={handleChangeSetFieldValue("bep")} />
         </Form.Item>
 
         <Form.Item label="Hồ Bơi">
-          <select
-            defaultValue={false}
-            name="hoBoi"
-            onChange={handleChange}
-            id=""
-          >
-            <option value={true}>Có</option>
-            <option value={false}>Không</option>
-          </select>
+          <Switch name="hoBoi" onChange={handleChangeSetFieldValue("hoBoi")} />
         </Form.Item>
         <Form.Item label="Bàn ủi">
-          <select
-            defaultValue={false}
-            name="banUi"
-            onChange={handleChange}
-            id=""
-          >
-            <option value={true}>Có</option>
-            <option value={false}>Không</option>
-          </select>
+          <Switch name="banUi" onChange={handleChangeSetFieldValue("banUi")} />
         </Form.Item>
 
         <Form.Item label={<h6 className="font-weight-bold m-0">Hình ảnh</h6>}>
@@ -158,14 +97,14 @@ export default function AddRoom() {
           label={<h6 className="font-weight-bold m-0">Hình ảnh mô tả:</h6>}
         >
           <img
-            src={imgSrc === "" ? inforRoom.hinhAnh : imgSrc}
+            src={imgSrc}
             style={{ width: "200px", height: "200px" }}
             alt=""
           />
         </Form.Item>
         <Form.Item label={<h6 className="font-weight-bold m-0">Tác vụ</h6>}>
           <button type="submit" className="btn btn-success">
-            Cập Nhật Phòng
+            Thêm Phòng
           </button>
         </Form.Item>
       </Form>

@@ -1,28 +1,21 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  CalendarOutlined,
-} from "@ant-design/icons";
-import { Button, Space, Table } from "antd";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { Table } from "antd";
 import { Input } from "antd";
 
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import "../admincss.css";
 
-import Axios from "axios";
-import { TOKEN } from "../../../utils/setting";
 import {
+  deleteRoomAPI,
   getInfoLocationAPI,
-  getListLocationAPI,
   getListRoomAPI,
 } from "../../../redux/actions/LocationRoomAction";
-import { getLocationList } from "../../../redux/reducer/LocationRoomReducer";
 
 const { Search } = Input;
 
-const ListRoom = (props) => {
+const ListRoom = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { inforLocation } = useSelector((state) => state.LocationRoomReducer);
@@ -33,14 +26,11 @@ const ListRoom = (props) => {
     setFilteredInfo(filters);
     setSortedInfo(sorter);
   };
-  const onSearch = (value) => {
-    dispatch();
-  };
-  //selector,dispatch
+  const onSearch = (value) => {};
   const { roomList } = useSelector((state) => state.LocationRoomReducer);
 
   useEffect(() => {
-    dispatch(getListRoomAPI());
+    dispatch(getListRoomAPI(id));
     dispatch(getInfoLocationAPI(id));
   }, []);
   const columns = [
@@ -111,7 +101,7 @@ const ListRoom = (props) => {
               className="movie_admin-icon text-danger"
               onClick={() => {
                 if (window.confirm("Bạn muốn xóa vị trí này ?")) {
-                  dispatch();
+                  dispatch(deleteRoomAPI(vitri.id, navigate));
                 }
               }}
             >
@@ -139,7 +129,7 @@ const ListRoom = (props) => {
         <button
           className="btn btn-primary"
           onClick={() => {
-            navigate("/admin/addroom");
+            navigate(`/admin/addroom/${id}`);
           }}
         >
           Tôi muốn thêm phòng tại vị trí này

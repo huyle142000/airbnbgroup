@@ -15,6 +15,10 @@ import AddRoom from "./pages/Admin/Rooms/AddRoom/AddRoom";
 import ModalAirBnB from "./Templates/ModalAirBnB/ModalAirBnB";
 import Login from "./pages/Login/Login";
 import EditUser from "./pages/Admin/UserAdmin/EditUser/EditUser";
+import "./assets/sass/main.scss";
+import Register from "./pages/Register/Register";
+import Profile from "./components/FormUser/FormUserDetail/Profile";
+import TravelBooking from "./components/FormUser/FormUserDetail/TravelBooking";
 function App() {
   return (
     <BrowserRouter>
@@ -28,6 +32,8 @@ function App() {
         <Route path="home" element={<Home />} />
 
         <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+
         {/* *************  Admin  ************ */}
         <Route element={<AdminTemplate />}>
           {/******************* USERR *****************/}
@@ -43,8 +49,11 @@ function App() {
           {/* ****************** ROOM ***************** */}
           <Route path="/admin/rooms/:id" element={<ListRoom />} />
           <Route path="/admin/editroom/:id" element={<EditRoom />} />
-          <Route path="/admin/addroom" element={<AddRoom />} />
+          <Route path="/admin/addroom/:id" element={<AddRoom />} />
         </Route>
+        {/* Form */}
+        <Route path="profile" element={<Profile />} />
+        <Route path="travelbooking" element={<TravelBooking />} />
       </Routes>
     </BrowserRouter>
   );

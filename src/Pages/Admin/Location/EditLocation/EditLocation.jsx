@@ -12,7 +12,6 @@ const EditLocation = (props) => {
     handleChangeFile,
     inforLocation,
   } = useEditLocation(props);
-
   const { handleSubmit, handleChange, values } = formik;
   return (
     <>
