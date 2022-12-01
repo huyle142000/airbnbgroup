@@ -1,0 +1,48 @@
+.body_grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(4,1fr);
+}
+.card_item{
+    padding: 0;
+
+    .card_content{
+        display: flex;
+        flex-direction: column;
+        font-size: 15px;
+        line-height: 19px;
+        padding: 10px 0;
+    }
+
+    .card_name{
+        display: flex;
+        justify-content: space-between;
+
+        .card_name_text{
+            font-weight: 700;
+        }
+    }
+    .card_img{
+        position: relative;
+
+        img{
+            width: 100%;
+            border-radius: 10px;
+        }    
+        .card_img_icon{
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: aliceblue;
+        }
+    }
+    .card_des,.card_time{
+        color: #717171;
+    }
+    .card_price{
+        padding-top: 6px;
+    }
+}
+
+
+

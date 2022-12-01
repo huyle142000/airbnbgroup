@@ -1,5 +1,8 @@
 import React from "react";
+import BodyComponent from "../Components/BodyComponent/BodyComponent";
 
 export default function Home() {
-  return <div>Home </div>;
+  return <div>
+        <BodyComponent/>
+     </div>;
 }
