@@ -1,0 +1,17 @@
+@mixin styleText($color, $fs, $fw, $lh) {
+    color: $color;
+    font-size: $fs;
+    font-weight: $fw;
+    line-height: $lh;
+}
+
+@mixin styleTextPd($bg-color, $pd) {
+    background-color: $bg-color;
+    padding: $pd;
+}
+@mixin buttonForm($pd, $fs) {
+    color: $color-white;
+    background-color: $bg-btn-primary;
+    padding: $pd;
+    font-size: $fs;
+}

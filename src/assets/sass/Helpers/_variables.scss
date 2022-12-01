@@ -1,0 +1,52 @@
+//COLOR
+$color-black-1: #000000;
+$color-black-2: #222222;
+$color-gray-1: #717171;
+$color-gray-2: #b0b0b0;
+$color-white: #ffffff;
+$color-white-1: #dddddd;
+$color-white-2: #ebebeb;
+$color-white-3: #f7f7f7;
+$color-white-4: #fff8f6;
+$color-orange-1: #c13515;
+$color-orange-2: #b32505;
+$color-orange-3: #e07912;
+$color-green: #008a05;
+$color-blue: #428bff;
+$color-red-1: #ff385c;
+$color-red-2: #e00b41;
+$color-red-3: #92174d;
+$color-purple: #460479;
+$bg-btn-primary: linear-gradient(to right, #e61e4d 0%, #e31c5f 50%, #d70466 100%);
+$dls19-brand-gradient-radial: radial-gradient(
+    circle at center,
+    #ff385c 0%,
+    #e61e4d 27.5%,
+    #e31c5f 40%,
+    #d70466 57.5%,
+    #bd1e59 75%,
+    #bd1e59 100%
+);
+$gj-z-dpd: linear-gradient(to right, #bd1e59 0%, #92174d 50%, #861453 100%);
+$i-n-t-h-mj: radial-gradient(
+    circle at center,
+    #d70466 0%,
+    #bd1e59 30%,
+    #92174d 55%,
+    #861453 72.5%,
+    #6c0d63 90%,
+    #6c0d63 100%
+);
+$iqds-nv: linear-gradient(to right, #59086e 0%, #460479 50%, #440589 100%);
+$j-m-v-dtd: radial-gradient(
+    circle at center,
+    #6c0d63 0%,
+    #59086e 30%,
+    #460479 55%,
+    #440589 72.5%,
+    #3b07bb 90%,
+    #3b07bb 100%
+);
+
+//box-shadow
+$bx-hover-1: 0 2px 4px rgba(0, 0, 0, 0.18);

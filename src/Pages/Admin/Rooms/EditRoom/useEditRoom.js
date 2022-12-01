@@ -1,17 +1,18 @@
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
-import { MA_NHOM } from "../../../../utils/setting";
 import { useDispatch, useSelector } from "react-redux";
-import { editMovie } from "../../../../redux/actions/MovieManagerAction";
-import moment from "moment";
-import { getInfoMovie } from "../../../../redux/actions/MovieManagerAction";
+import { useParams } from "react-router-dom";
+import {
+  editRoomAPI,
+  getInfoRoomAPI,
+} from "../../../../redux/actions/LocationRoomAction";
 
-export const useEditMovie = (props) => {
+export const useEditRoom = (props) => {
   const dispatch = useDispatch();
-  const { thongTinPhim } = useSelector((state) => state.MovieManagerReducer);
+  const { inforRoom } = useSelector((state) => state.LocationRoomReducer);
+  const { id } = useParams();
   useEffect(() => {
-    const { maPhim } = props.match.params;
-    dispatch(getInfoMovie(maPhim));
+    dispatch(getInfoRoomAPI(id));
   }, []);
   let [imgSrc, setImgSrc] = useState("");
   //   formik
@@ -19,21 +20,30 @@ export const useEditMovie = (props) => {
     // bật enableReinitialize khi thế giá trị bằng props nên dùng chỉ cho trang Edit
     enableReinitialize: true,
     initialValues: {
-      maPhim: thongTinPhim?.maPhim,
-      tenPhim: thongTinPhim?.tenPhim,
-      trailer: thongTinPhim?.trailer,
-      moTa: thongTinPhim?.moTa,
-      ngayKhoiChieu: thongTinPhim?.ngayKhoiChieu,
-      dangChieu: thongTinPhim?.dangChieu,
-      sapChieu: thongTinPhim?.sapChieu,
-      hot: thongTinPhim?.hot === null ? false : true,
-      danhGia: thongTinPhim?.danhGia,
+      id: inforRoom?.id,
+      tenPhong: inforRoom?.tenPhong,
+      khach: inforRoom?.khach,
+      phongNgu: inforRoom?.phongNgu,
+      giuong: inforRoom?.giuong,
+      phongTam: inforRoom?.phongTam,
+      moTa: inforRoom?.moTa,
+      giaTien: inforRoom?.giaTien,
+      mayGiat: inforRoom?.mayGiat,
+      banLa: inforRoom?.banLa,
+      tivi: inforRoom?.tivi,
+      dieuHoa: inforRoom?.dieuHoa,
+      wifi: inforRoom?.wifi,
+      bep: inforRoom?.bep,
+      doXe: inforRoom?.doXe,
+      hoBoi: inforRoom?.hoBoi,
+      banUi: inforRoom?.banUi,
+      maViTri: inforRoom?.maViTri,
       hinhAnh: null,
-      maNhom: thongTinPhim?.maNhom,
     },
     onSubmit: (values, { resetForm }) => {
       // vì post có dữ liệu uploadFile nên ta cần tạo 1 formData
       let formData = new FormData();
+      console.log(values);
       for (let key in values) {
         if (key !== "hinhAnh") {
           formData.append(key, values[key]);
@@ -44,27 +54,17 @@ export const useEditMovie = (props) => {
           }
         }
       }
-      ;
-      dispatch(editMovie(formData));
-      // setImgSrc("");
-      // resetForm();
+      dispatch(editRoomAPI(values.id, formData));
     },
   });
 
   // handleInput
   const { setFieldValue } = formik;
-
-  const handleChangeDatePicker = (value) => {
-    const ngayKhoiChieui = moment(value);
-    setFieldValue("ngayKhoiChieu", ngayKhoiChieui);
-  };
-  //
   const handleChangeSetFieldValue = (name) => {
     return (value) => {
       setFieldValue(name, value);
     };
   };
-  //
   const handleChangeFile = async (e) => {
     let file = e.target.files[0];
     const typeFile = ["image/jpeg", "image/jpg", "image/gif", "image/png"];
@@ -85,9 +85,8 @@ export const useEditMovie = (props) => {
   return {
     formik,
     imgSrc,
-    handleChangeDatePicker,
     handleChangeSetFieldValue,
     handleChangeFile,
-    thongTinPhim,
+    inforRoom,
   };
 };

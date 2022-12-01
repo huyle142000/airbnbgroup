@@ -10,13 +10,13 @@ import "antd/dist/antd.min.css";
 import "./admin.css";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, Outlet, Route } from "react-router-dom";
+import { NavLink, Outlet, Route, useNavigate } from "react-router-dom";
 const { Header, Sider, Content } = Layout;
 
 export default function AdminTemplate(props) {
   const [collapsed, setCollapsed] = useState(false);
   const { Component, ...rest } = props;
- 
+  const navigate = useNavigate();
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -34,7 +34,7 @@ export default function AdminTemplate(props) {
             {
               key: "2",
               icon: <VideoCameraOutlined />,
-              label: <NavLink to="/admin/room">List Room</NavLink>,
+              label: <NavLink to="/location">List Room</NavLink>,
             },
           ]}
         />
