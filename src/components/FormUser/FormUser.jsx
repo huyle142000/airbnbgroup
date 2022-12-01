@@ -25,6 +25,7 @@ function FormUser() {
               Sign Up
             </h6>
             <h6
+              className="border_bottom"
               onClick={() => {
                 dispatch(openLogin(<Login classModal={"form_modal"} />));
               }}
@@ -53,8 +54,8 @@ function FormUser() {
             >
               Profile
             </h6>
-            <h6 onClick={() => {}}>Your Travel Booking</h6>
-            <div>
+            <h6 className="border_bottom" onClick={() => {}}>Your Travel Booking</h6>
+            <div className="border_bottom">
               <h6>Airbnb is your home</h6>
               <h6>Host Experience</h6>
               <h6>Help</h6>
