@@ -5,6 +5,7 @@ import {
   getInforLocation,
   getListRoom,
   getInforRoom,
+  getListFullRoom,
 } from "../reducer/LocationRoomReducer";
 
 export function getListLocationAPI() {
@@ -65,6 +66,16 @@ export function deleteLocationAPI(id, navigate) {
   };
 }
 /***************** ROOM ********************/
+//Full-Rooms
+export function getListFullRoomAPI() {
+  return async (dispatch) => {
+    try {
+      const { data } = await bothServiceToken.get(`phong-thue`);
+      dispatch(getListFullRoom(data.content));
+    } catch (error) {}
+  };
+}
+//IdRoom
 export function getListRoomAPI(id) {
   return async (dispatch) => {
     try {
