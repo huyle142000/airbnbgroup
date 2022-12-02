@@ -1,8 +1,8 @@
 import React, { memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Login from "../../pages/Login/Login";
-import Register from "../../pages/Register/Register";
+import Login from "../../Pages/Login/Login";
+import Register from "../../Pages/Register/Register";
 import { logoutForm } from "../../redux/reducer/FormReducer";
 import { openLogin, openRegister } from "../../redux/reducer/ModalReducer";
 import { USER_LOGIN } from "../../utils/setting";
