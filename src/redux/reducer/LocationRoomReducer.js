@@ -4,6 +4,8 @@ const initialState = {
   locationList: [],
   inforLocation: {},
 
+  roomFullList: [],
+
   roomList: [],
   inforRoom: {},
 };
@@ -23,9 +25,12 @@ export const LocationRoomReducer = createSlice({
     getInforRoom: (state, action) => {
       state.inforRoom = action.payload;
     },
+    getListFullRoom: (state, action) => {
+      state.roomFullList = action.payload;
+    },
   },
 });
 //truyền action
-export const { getLocationList, getListRoom, getInforLocation, getInforRoom } =
+export const { getLocationList, getListRoom, getInforLocation, getInforRoom,getListFullRoom } =
   LocationRoomReducer.actions;
 export default LocationRoomReducer.reducer;
