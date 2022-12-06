@@ -9,6 +9,7 @@ import eu from "../../assets/img/Europe.jpg";
 import sk from "../../assets/img/SouthKorea.jpg";
 import tl from "../../assets/img/Thailand.jpg";
 import us from "../../assets/img/US.jpg";
+import FormUser from "../FormUser/FormUser";
 
 export default function Header() {
     const ADULT_TYPE = 0;

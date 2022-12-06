@@ -5,19 +5,25 @@ import {
   EditOutlined,
   CalendarOutlined,
 } from "@ant-design/icons";
-import { Table } from "antd";
+import { Button, Space, Table } from "antd";
 import { Input } from "antd";
+
 import { NavLink, useNavigate } from "react-router-dom";
 import "../admincss.css";
+
+import Axios from "axios";
+import { TOKEN } from "../../../utils/setting";
 import {
-  deleteUserAPI,
-  getUserListAPI,
-} from "../../../redux/actions/UserAdminAction";
+  deleteLocationAPI,
+  getListLocationAPI,
+} from "../../../redux/actions/LocationRoomAction";
+import { getLocationList } from "../../../redux/reducer/LocationRoomReducer";
+
 const { Search } = Input;
 
-const User = (props) => {
-  const dispatch = useDispatch();
+const ListLocation = (props) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [filteredInfo, setFilteredInfo] = useState({});
   const [sortedInfo, setSortedInfo] = useState({});
   const handleChange = (pagination, filters, sorter) => {
@@ -25,57 +31,59 @@ const User = (props) => {
     setSortedInfo(sorter);
   };
   const onSearch = (value) => {
-    // dispatch(searchUser(value));
+    dispatch();
   };
   //selector,dispatch
+  const { locationList } = useSelector((state) => state.LocationRoomReducer);
+
   useEffect(() => {
-    dispatch(getUserListAPI());
+    dispatch(getListLocationAPI());
   }, []);
-  const { userList } = useSelector((state) => state.UserManagerReducer);
   const columns = [
     {
       title: "ID",
       dataIndex: "id",
       key: "id",
-      width: 200,
+      width: 20,
       sorter: (a, b) => a.id - b.id,
-    },
-    {
-      title: "Họ và Tên",
-      dataIndex: "name",
-      key: "name",
-      width: 200,
-      sorter: (a, b) => a.name - b.name,
-    },
-    {
-      width: 130,
-      title: "Ngày Sinh",
-      dataIndex: "birthday",
-      key: "birthday",
-      sorter: (a, b) => a.birthday - b.birthday,
-    },
-    {
-      width: 170,
-      title: "Loại người dùng",
-      dataIndex: "role",
-      key: "role",
-      sorter: (a, b) => a.role.length - b.role.length,
     },
 
     {
-      width: 180,
-      title: <h6>Tác vụ</h6>,
+      title: "Tên Vị Trí",
+      dataIndex: "tenViTri",
+      key: "tenViTri",
+    },
+    {
+      title: "Tỉnh thành",
+      dataIndex: "tinhThanh",
+      key: "tinhThanh",
+      sorter: (a, b) => {
+        let tinhThanhA = a.tinhThanh.toLowerCase().trim();
+        let tinhThanhB = b.tinhThanh.toLowerCase().trim();
+
+        if (tinhThanhA > tinhThanhB) return 1;
+        return -1;
+      },
+    },
+    {
+      title: "Quốc Gia",
+      dataIndex: "quocGia",
+      key: "quocGia",
+    },
+
+    {
+      title: "Tác vụ",
       dataIndex: "",
       key: "x",
-      render: (text, user) => (
+      render: (text, vitri) => (
         <>
           <div>
             <DeleteOutlined className="movie_admin-icon text-danger" />
             <span
               className="movie_admin-icon text-danger"
               onClick={() => {
-                if (window.confirm("Bạn muốn xóa người dùng này không?")) {
-                  dispatch(deleteUserAPI(user.id, navigate));
+                if (window.confirm("Bạn muốn xóa vị trí này ?")) {
+                  dispatch(deleteLocationAPI(vitri.id,navigate));
                 }
               }}
             >
@@ -83,26 +91,35 @@ const User = (props) => {
             </span>
           </div>
           <div>
-            <NavLink to={`/admin/edituser/${user.id}`}>
+            <NavLink to={`/admin/editvitri/${vitri.id}`}>
               <EditOutlined className="movie_admin-icon text-info" />
               <span className="movie_admin-icon text-info">Chỉnh sửa</span>
+            </NavLink>
+          </div>
+          <div>
+            <NavLink to={`/admin/rooms/${vitri.id}`}>
+              <CalendarOutlined className="movie_admin-icon text-warning" />
+              <span className="movie_admin-icon text-warning">
+                + Xem các phòng đang cho thuê
+              </span>
             </NavLink>
           </div>
         </>
       ),
     },
   ];
+
   return (
     <>
       <div className="d-flex justify-content-between mb-3">
-        <h3>Quản lý người dùng</h3>
+        <h3>Quản lý vị trí</h3>
         <button
-          className="btn btn-warning text-dark font-weight-bold"
+          className="btn btn-primary"
           onClick={() => {
-            navigate("/admin/adduser");
+            navigate("/admin/addlocation");
           }}
         >
-          Tôi muốn thêm người dùng
+          Tôi muốn thêm vị trí
         </button>
       </div>
 
@@ -111,10 +128,10 @@ const User = (props) => {
       <Table
         rowKey="id"
         columns={columns}
-        dataSource={userList}
+        dataSource={locationList}
         onChange={handleChange}
       />
     </>
   );
 };
-export default User;
+export default ListLocation;

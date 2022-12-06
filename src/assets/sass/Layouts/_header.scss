@@ -248,7 +248,7 @@
     .btn--search {
         border: 1px solid transparent;
         border-radius: 24px;
-        background-image: $dc-gy-f-v;
+        background-image: $bg-btn-primary;
         padding: 16px;
         margin-right: 8px;
         @include styleText($color-white, $fs-2, 600, $lh-2);

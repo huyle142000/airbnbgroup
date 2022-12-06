@@ -1,3 +1,13 @@
 .btn--def {
     @include styleButtonDefault($pd-btn-default, $color-white);
 }
+
+.btn_primary {
+    color: $color-white;
+    background-image: $bg-btn-primary;
+}
+.btn_form {
+    @extend.btn_primary;
+    padding: 10px;
+    width: 100%;
+}

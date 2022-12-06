@@ -21,3 +21,10 @@
     background-color: $bg-color;
     border: transparent;
 }
+
+@mixin buttonForm($pd, $fs) {
+    color: $color-white;
+    background-color: $bg-btn-primary;
+    padding: $pd;
+    font-size: $fs;
+}
