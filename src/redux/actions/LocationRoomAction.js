@@ -72,7 +72,9 @@ export function getListFullRoomAPI() {
     try {
       const { data } = await bothServiceToken.get(`phong-thue`);
       dispatch(getListFullRoom(data.content));
-    } catch (error) {}
+    } catch (error) {
+      console.log(error.response)
+    }
   };
 }
 //IdRoom

@@ -1,22 +1,41 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
-const CardComponent = () => (
-  <div className='card_item'> 
-    <div className='card_img'>
-      <img alt="example" src="https://a0.muscache.com/im/pictures/miso/Hosting-717383292590854818/original/28a1caa5-c886-4b9d-95f5-9a2bebe7d970.jpeg?im_w=720" />
-      <div className='card_img_icon'>@$%</div>
-    </div>
-    <div className='card_content'>
-        <div className='card_name'>
-            <div className='card_name_text'>Paris, France</div>
-            <div className='card_name_icon'>
-               <span>@#$</span>
-            </div>
+export default function CardComponent(props) {
+  const {giaTien,tenPhong,phongNgu,khach,giuong,id} = props.card;
+  let ramdomStar = (min,max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  let star = ramdomStar(3,5);
+  return(
+    <NavLink 
+      className='card_item'
+      to={`roomdetail/${id}`}
+      target="_blank"
+    > 
+      <div className='card_img'>
+        <img alt="anh" src={props.img} />
+        <div className='card_img_icon'>
+          <i className="fa-regular fa-heart"></i>
         </div>
-        <div className='card_des'>Đã thêm cách đây 10 tuần</div>
-        <div className='card_time'>Ngày 30-11-2022</div>
-        <div className='card_price'>$500/1night</div>
-    </div>
-  </div>
-);
-export default CardComponent;
+      </div>
+      <div className='card_content'>
+          <div className='card_name'>
+              <div className='card_name_text'>{tenPhong}</div>
+              <div className='card_name_icon'>
+                <span>
+                  <i className="fa-solid fa-star"></i>
+                </span>
+                <span className='icon_star'>
+                  {star}
+                </span>
+              </div>
+          </div>
+          <div className='card_des'>Phòng ngủ: {phongNgu} - Giường: {giuong}</div>
+          <div className='card_time'>Số khách: {khach}</div>
+          <div className='card_price'><strong>${giaTien}</strong> /1đêm</div>
+      </div>
+    </NavLink>
+  )
+};
+  

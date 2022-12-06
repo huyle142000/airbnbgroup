@@ -1,6 +1,10 @@
+.my_container{
+    width: 90%;
+    margin: auto;
+}
 .body_grid {
     display: grid;
-    gap: 20px;
+    gap: 40px 24px;
 }
 .body_grid_template1{
     grid-template-columns: repeat(4,1fr);
@@ -11,6 +15,10 @@
 
 .card_item{
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
 
     .card_content{
         display: flex;
@@ -26,27 +34,42 @@
 
         .card_name_text{
             font-weight: 700;
+            height: 40px;
+            width: 80%;
+            color: #222222;
+        }
+        .card_name_icon{
+            color: #222222;
+
+            .icon_star{
+                padding-left: 5px;
+            }
         }
     }
     .card_img{
         position: relative;
+        height: 100%;
 
         img{
+            height: 100%;
             width: 100%;
             border-radius: 10px;
         }    
         .card_img_icon{
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: aliceblue;
+            top: 15px;
+            right: 14px;
+            color: #fff;
+            font-size: 20px;
         }
     }
     .card_des,.card_time{
         color: #717171;
-    }
+        line-height: 19px;
+    } 
     .card_price{
         padding-top: 6px;
+        color: #222222;
     }
 }
 
