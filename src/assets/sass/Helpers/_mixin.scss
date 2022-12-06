@@ -10,3 +10,14 @@
     padding: $pd;
 }
 
+@mixin displayFlex($jc, $at) {
+    display: flex;
+    justify-content: $jc;
+    align-items: $at;
+}
+
+@mixin styleButtonDefault($pd, $bg-color) {
+    padding: $pd;
+    background-color: $bg-color;
+    border: transparent;
+}

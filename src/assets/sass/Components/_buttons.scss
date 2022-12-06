@@ -1,0 +1,3 @@
+.btn--def {
+    @include styleButtonDefault($pd-btn-default, $color-white);
+}
