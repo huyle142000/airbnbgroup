@@ -8,7 +8,8 @@
 body,
 html {
     font-size: 15px;
-    font-family: Circular, -apple-system, Roboto, Helvetica Neue, sans-serif;
+    font-family: Circular, -apple-system, "Roboto", "Helvetica Neue", sans-serif;
+    letter-spacing: 0.7px;
     line-height: 18px;
     font-weight: 400;
     color: #636363;
@@ -40,4 +41,15 @@ p {
 ol,
 ul {
     list-style: none;
+}
+
+//Global CSS config
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
 }
