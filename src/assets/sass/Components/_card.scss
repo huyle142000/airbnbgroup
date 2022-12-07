@@ -1,10 +1,12 @@
 .my_container{
     width: 90%;
     margin: auto;
+    position: relative;
 }
 .body_grid {
     display: grid;
     gap: 40px 24px;
+    padding-top: 115px;
 }
 .body_grid_template1{
     grid-template-columns: repeat(4,1fr);

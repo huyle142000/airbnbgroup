@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import Login from "../../Pages/Login/Login";
+import Login from "../../pages/Login/Login";
 import { bothServiceToken } from "../../Service/BothTokenService";
 import { USER_LOGIN } from "../../utils/setting";
 import { openLogin } from "../reducer/ModalReducer";

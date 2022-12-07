@@ -1,4 +1,9 @@
 .header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background-color: $color-white;
     @include styleText($color-black-2, $fs-1, inherit, inherit);
 
     .logo {
@@ -19,6 +24,7 @@
         @include displayFlex(space-between, center);
         padding: 12px 0;
         flex-flow: row wrap;
+        z-index: 3;
         .logo svg {
             display: block;
             width: 102px;
@@ -27,15 +33,15 @@
         }
         &::after {
             content: "a";
-            z-index: 0;
-            transform: scale(0);
+            z-index: 2;
+            transition: all 0.4s;
             color: $color-white;
             position: absolute;
             top: 72px;
             left: 0;
             width: 100%;
-            height: 95px;
-            background-color: inherit;
+            height: 0;
+            background-color: $color-white;
         }
     }
     .header__search {
@@ -164,13 +170,13 @@
             transform: scale(1);
         }
         .header__top::after {
-            transform: scale(1);
+            height: 95px;
         }
     }
     .form__search {
         position: absolute;
-        z-index: 1;
-        top: 15%;
+        z-index: 3;
+        top: 80%;
         left: 0;
         right: 0;
         transition: all 0.3s ease;
@@ -260,6 +266,7 @@
     }
 
     .search--extend {
+        z-index: 3;
         position: absolute;
         cursor: auto;
         margin-top: 12px;
@@ -272,6 +279,7 @@
         max-width: 500px;
         box-shadow: $bs-extend-map;
         padding: $pd-extend-search;
+        background-color: $color-white;
         border-radius: 32px;
         .region__content {
             padding: 16px 8px 24px;
@@ -300,6 +308,7 @@
         max-width: 425px;
         box-shadow: $bs-extend-map;
         padding: $pd-extend-search;
+        background-color: $color-white;
         border-radius: 32px;
         letter-spacing: 0.2px;
         .guest__content {
@@ -346,5 +355,8 @@
                 }
             }
         }
+    }
+    .header__bottom{
+        position: relative;
     }
 }
