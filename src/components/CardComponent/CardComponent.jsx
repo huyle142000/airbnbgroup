@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 export default function CardComponent(props) {
-  const {giaTien,tenPhong,phongNgu,khach,giuong,id} = props.card;
+  const {giaTien,tenPhong,phongNgu,khach,giuong,id,img} = props.card;
   let ramdomStar = (min,max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
@@ -14,7 +14,7 @@ export default function CardComponent(props) {
       target="_blank"
     > 
       <div className='card_img'>
-        <img alt="anh" src={props.img} />
+        <img alt="anh" src={img} />
         <div className='card_img_icon'>
           <i className="fa-regular fa-heart"></i>
         </div>

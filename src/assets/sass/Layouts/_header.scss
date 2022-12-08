@@ -32,7 +32,7 @@
             color: $color-red-1;
         }
         &::after {
-            content: "a";
+            content: "";
             z-index: 2;
             transition: all 0.4s;
             color: $color-white;
@@ -359,4 +359,15 @@
     .header__bottom{
         position: relative;
     }
+}
+
+.bg__overlay{
+    display: none;
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.25);
+    height: 100%;
 }
