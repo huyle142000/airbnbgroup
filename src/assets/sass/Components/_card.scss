@@ -74,6 +74,33 @@
         padding-top: 6px;
         color: #222222;
     }
+    &.card__map {
+        position: absolute;
+        transform: translate(-50%);
+        left: 50%;
+        width: 325px;
+        height: 298px;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        .card_img {
+            height: auto;
+        }
+        .card_img img {
+            height: 200px !important;
+            border-radius: 0 !important;
+        }
+        .card_content {
+            padding: 16px;
+            background-color: $color-white;
+            overflow: hidden;
+            .card_name_text {
+            }
+        }
+        .card_name_text {
+            @include styleText($color-black-2, $fs-1, 600, inherit);
+        }
+    }
 }
 
 .show__map {
@@ -97,7 +124,7 @@
             box-shadow: 0 0 0 1px transparent, 0 0 0 4px transparent,
                 0 6px 16px rgba(0, 0, 0, 0.12);
         }
-        i{
+        i {
             margin-left: 8px;
         }
     }

@@ -1,12 +1,12 @@
 import React from "react";
 import { useState } from "react";
-import Map, { Popup } from "react-map-gl";
+import Map, { Marker, Popup } from "react-map-gl";
 import { MAP_BOX_TOKEN } from "../../utils/setting";
 import { roomAddress } from "../../utils/roomAddress";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getGeolocationAPI } from "../../redux/actions/LocationRoomAction";
-import MapMarker from "./MapMarker";
+import CardComponent from "../CardComponent/CardComponent";
 
 export default function MapContainer() {
     const arrRoomModified = [];
@@ -14,6 +14,7 @@ export default function MapContainer() {
     const { roomFullList, arrGeolocationRoom } = useSelector(
         (state) => state.LocationRoomReducer
     );
+    const [showPopup, togglePopup] = useState({});
     const [viewport, setViewport] = useState({
         initialViewState: {
             latitude: 10.86195853994233,
@@ -41,6 +42,8 @@ export default function MapContainer() {
         getLocationAPI();
     }, []);
 
+    useEffect(() => {}, [showPopup]);
+
     const getLocationAPI = () => {
         return arrRoomModified?.map((room) => {
             dispatch(getGeolocationAPI(room));
@@ -49,7 +52,40 @@ export default function MapContainer() {
 
     const renderLocation = () => {
         return arrGeolocationRoom?.map((room) => {
-            return <MapMarker key={room.id} room={room} />;
+            const { id, giaTien, geolocation } = room;
+            const { latitude, longtitude } = geolocation;
+            return (
+                <Marker
+                    onClick={(e) => {
+                        e.originalEvent.stopPropagation();
+                        togglePopup({ ...showPopup, showMap: id });
+                    }}
+                    key={`card--map--${id}`}
+                    latitude={latitude}
+                    longitude={longtitude}
+                    offsetLeft={-20}
+                    offsetTop={-30}
+                >
+                    <div className="marker__price">
+                        <span>{`${giaTien}$`}</span>
+                    </div>
+                    {showPopup.showMap === id && (
+                        <Popup
+                            latitude={latitude}
+                            longitude={longtitude}
+                            closeButton={false}
+                            closeOnClick={true}
+                            focusAfterOpen={true}
+                            onClose={() => {
+                                togglePopup(false);
+                            }}
+                            anchor="top-right"
+                        >
+                            <CardComponent isActiveMap={false} card={room} />
+                        </Popup>
+                    )}
+                </Marker>
+            );
         });
     };
 
