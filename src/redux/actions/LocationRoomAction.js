@@ -13,7 +13,7 @@ export function getListLocationAPI() {
     try {
       const { data } = await bothServiceToken.get("vi-tri");
 
-      dispatch(getLocationList(data.content));
+      await dispatch(getLocationList(data.content));
     } catch (error) {}
   };
 }

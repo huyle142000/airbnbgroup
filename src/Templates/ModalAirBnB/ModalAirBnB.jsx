@@ -29,9 +29,7 @@ export default function ModalAirBnB() {
             className="fa-solid fa-xmark modal-close ml-auto"
             onClick={handleClose}
           ></i>
-          <Modal.Body style={{ backgroundColor: "#182028" }}>
-            {ComponentContentModal}
-          </Modal.Body>
+          <Modal.Body>{ComponentContentModal}</Modal.Body>
         </Modal>
       </>
     </>

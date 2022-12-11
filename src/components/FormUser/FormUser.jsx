@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Login from "../../pages/Login/Login";
 import Register from "../../pages/Register/Register";
 import { logoutForm } from "../../redux/reducer/FormReducer";
-import { openLogin, openRegister } from "../../redux/reducer/ModalReducer";
+import { openModal } from "../../redux/reducer/ModalReducer";
 import { USER_LOGIN } from "../../utils/setting";
 const avatar = "";
 function FormUser() {
@@ -19,7 +19,7 @@ function FormUser() {
           <div className="form_user-popup text-left">
             <h6
               onClick={() => {
-                dispatch(openRegister(<Register classModal={"form_modal"} />));
+                dispatch(openModal(<Register classModal={"form_modal"} />));
               }}
             >
               Sign Up
@@ -27,7 +27,7 @@ function FormUser() {
             <h6
               className="border_bottom"
               onClick={() => {
-                dispatch(openLogin(<Login classModal={"form_modal"} />));
+                dispatch(openModal(<Login classModal={"form_modal"} />));
               }}
             >
               Log In
