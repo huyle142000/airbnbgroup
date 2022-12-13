@@ -45,7 +45,7 @@ export default function Register() {
 
   return (
     <div className="login_box">
-      <h2>Register</h2>
+      <h2 className="pb-4">Register</h2>
       <form onSubmit={formik.handleSubmit}>
         <div className="row">
           <div className="col-6">
@@ -122,7 +122,7 @@ export default function Register() {
               ) : null}
             </div>
           </div>
-          <button type="submit" className="btn btn_form">
+          <button type="submit" className="btn btn_primary">
             Submit
           </button>
         </div>

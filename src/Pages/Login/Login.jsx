@@ -24,7 +24,7 @@ export default function Login() {
         .min(3, "Mật khẩu ít nhất có 3 kí tự."),
     }),
     onSubmit: (values) => {
-      dispatch(loginAction(values,navigate));
+      dispatch(loginAction(values, navigate));
     },
   });
 
@@ -62,12 +62,8 @@ export default function Login() {
         </div>
         <div className="btn_div">
           <div>
-            <button type="submit" className="btn btn_form">
+            <button type="submit" className="btn_primary">
               Submit
-              <span />
-              <span />
-              <span />
-              <span />
             </button>
           </div>
           <div className=" text-right">

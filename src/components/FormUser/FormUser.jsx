@@ -54,7 +54,9 @@ function FormUser() {
             >
               Profile
             </h6>
-            <h6 className="border_bottom" onClick={() => {}}>Your Travel Booking</h6>
+            <h6 className="border_bottom" onClick={() => {}}>
+              Your Travel Booking
+            </h6>
             <div className="border_bottom">
               <h6>Airbnb is your home</h6>
               <h6>Host Experience</h6>
@@ -73,11 +75,12 @@ function FormUser() {
     );
   };
   return (
-    <div className="w-50">
-      <div className="d-flex justify-content-between">
-        <h6>Airbnb is your home</h6>
+    <div className="header__right">
+      <h6>Airbnb is your home</h6>
+      <div className="btn--header globe__icon">
+        <i className="fa-solid fa-globe"></i>
       </div>
-      <div className="form_user text-right w-100">
+      <div className="form_user">
         <div
           className="form_user-icon"
           onClick={() => {
