@@ -5,32 +5,32 @@
     width: calc(100% / 7);
     text-align: center;
     color: $color-black-1;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
     padding: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    height: 40px;
-    .span_underNine {
-        padding: 8px 14px;
-    }
-    .span_overNine {
-        padding: 9px 12px;
-    }
+    height: 45px;
     .bg_isBookday {
         background-color: #ababab;
     }
 
     .span_underNine {
         cursor: pointer;
+        font-weight: 500;
         padding: 8px 14px;
+        font-size: 14px;
+
         border-radius: 50%;
     }
     .span_overNine {
         cursor: pointer;
+        font-weight: 500;
+        font-size: 14px;
+
         border-radius: 50%;
-        padding: 9px 12px;
+        padding: 9px;
     }
     .datebooked {
         @extend.before;
@@ -120,25 +120,25 @@
     h6:first-child {
         font-size: 22px;
         span {
-            margin-left: 4  px;
+            margin-left: 4 px;
 
             font-weight: 400;
             font-size: 17px;
         }
     }
     h6 {
-        span{
+        span {
             margin-right: 10px;
         }
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    ul{
+    ul {
         margin: 0;
     }
     li {
-        list-style-type:"-";
+        list-style-type: "-";
         padding-left: 8px;
     }
 }
@@ -147,6 +147,15 @@
     justify-content: center;
     align-items: center;
     position: relative;
+    .popupCalendar {
+        position: absolute;
+        top: 0;
+        right: 0;
+        .bookForm_pop-up.boxshadow{
+            z-index: 123123;
+        }
+    }
+
     label {
         padding: 0 10px;
         margin-top: 20px;
@@ -188,7 +197,6 @@
         &.border_checkOut.error {
             border-color: red;
         }
-        
     }
     span {
         position: absolute;
@@ -197,10 +205,6 @@
         font-size: 10px;
 
         color: $color-black-1;
-    }
-    .span_underNine,
-    .span_overNine {
-        font-size: 12px;
     }
     input {
         margin-top: 20px;
@@ -213,7 +217,7 @@
         right: 0;
         position: absolute;
         padding: 30px;
-        z-index: 123;
+        z-index: 23;
         width: 850px;
         background-color: white;
         .select_dates {
@@ -224,115 +228,12 @@
         .checkIn-input {
             width: 100%;
         }
+        .no_input {
+            // display: none;
+        }
     }
     .opacity_label {
         opacity: 0.5;
     }
 }
-.wrap_label-guest {
-    position: relative;
-    padding: 5px 10px;
-    .label_guest {
-        position: relative;
-        padding: 8px;
-        width: 100%;
-        cursor: pointer;
-        span {
-            position: absolute;
-            top: 5%;
-            font-size: 10px;
-            color: $color-black-1;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-        input {
-            display: inline-block;
-            width: 100%;
-            outline: none;
-            border: none;
-            pointer-events: none;
-            cursor: pointer;
-            margin-top: 10px;
-            font-size: 14px;
-        }
-    }
-    .label_guest-item {
-        position: absolute;
-        width: 100%;
-        background-color: #fff;
-        left: 0;
-        border-radius: 8px;
-        padding: 10px;
-        padding-bottom: 20px;
-        padding-top: 20px;
-        top: 100%;
-        transform: translateY(10px);
 
-        .label_guest-type {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
-            margin-bottom: 5px;
-        }
-        .label_guest-title {
-        }
-        .label_guest-icon {
-            font-size: 20px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            p {
-                font-size: 16px;
-                margin: 0 15px;
-            }
-            i:hover {
-                opacity: 0.7;
-                cursor: pointer;
-            }
-        }
-        h6 {
-            font-size: 15px;
-        }
-        p {
-            font-size: 14px;
-            margin-top: 2px;
-        }
-    }
-    .label_guest-updown {
-        position: absolute;
-        right: 10%;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 18px;
-    }
-}
-.taxes{
-    margin-top: 40px;
-    color: black;
-    p{
-    font-size: 16px;
-
-    }
-    .taxes-item{
-        margin: 15px 0;
-        display: flex;
-        justify-content: space-between;
-        font-size: 18px;
-        p:first-child{
-            text-decoration: underline;
-
-        }
-    }
-    .taxes-fee{
-        padding-bottom: 20px;
-    }
-    .taxes-total{
-        padding: 10px 0;
-        margin-bottom: 0;
-        p:first-child{
-            text-decoration: none;
-
-        }
-    }
-}

@@ -38,6 +38,7 @@
         transform: translateY(-50%);
     }
     h6 {
+        padding: 5px 0;
         margin: 0;
     }
 }
@@ -69,6 +70,7 @@
 }
 .request_pay {
     .request_pay-card {
+        cursor: pointer;
         padding: 15px 10px;
         position: relative;
         border-radius: 10px;
@@ -117,6 +119,9 @@
         }
     }
 }
+.request_pay-number {
+    margin-bottom: 20px;
+}
 .request_pay-rules {
     padding: 30px 0;
     h6 {
@@ -159,4 +164,77 @@
     padding: 20px;
     border: none;
     font-size: 20px;
+}
+
+.detail_book {
+    .detail_book-img {
+        width: 150px;
+        .detail_book-bgimg {
+            height: 100px;
+            background-size: 200%;
+            background-position: right;
+            width: 100%;
+            background-repeat: no-repeat;
+            border-radius: 15px;
+        }
+    }
+    .detail_book-header {
+        padding: 30px 0;
+        display: flex;
+    }
+    .detail_book-title {
+        margin-left: 10px;
+        display: flex;
+        flex-direction: column;
+
+        span {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+        p {
+            font-size: 12px;
+        }
+    }
+    .detail_book-review {
+        display: flex;
+        margin-top: auto;
+        font-size: 12px;
+        p {
+            font-size: 12px;
+        }
+    }
+    .notify_protected {
+        div {
+            display: flex;
+            align-items: center;
+            padding: 25px 0;
+            vertical-align: middle;
+        }
+        img {
+            margin-left: 3px;
+            width: 65px;
+            height: 15px;
+        }
+    }
+    .detail_prices {
+        padding: 20px 0;
+        .detail_prices-item {
+            .taxes{
+                margin-top: 0;
+            }
+            .taxes-total.taxes-item{
+                p{
+                    font-weight: 500;
+                    color: black;
+                }
+            }
+        }
+    }
+    .detail_total {
+        display: flex;
+        justify-content: space-between;
+        h6 {
+            font-size: 18px;
+        }
+    }
 }

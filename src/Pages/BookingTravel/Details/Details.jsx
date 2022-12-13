@@ -189,7 +189,9 @@ export default function Details(props) {
               {renderTitle()}
               {renderContentDetail()}
               {renderContentFeature()}
-              <CalendarBook codeRoom={inforRoom.id} />
+              <div className="detail_calendar">
+                <CalendarBook codeRoom={inforRoom.id} />
+              </div>
             </div>
             <div className="col-5">
               <BookForm inforRoom={inforRoom} />

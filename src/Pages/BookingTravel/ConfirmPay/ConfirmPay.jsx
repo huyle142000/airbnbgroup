@@ -1,12 +1,69 @@
-import React from "react";
+import moment from "moment";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { bookTravelAPI } from "../../../redux/actions/BookTravelAction";
+import { openModal } from "../../../redux/reducer/ModalReducer";
+import { USER_LOGIN } from "../../../utils/setting";
+import CalendarBook from "../CalendarBook/CalendarBook";
+import { HandleInputCalendar } from "../CalendarBook/HandleInputCalendar";
+
+import GuestForm from "../GuestForm/GuestForm";
 
 export default function ConfirmPay() {
   const dispatch = useDispatch();
-  const { inforDateBook } = useSelector((state) => state.BookTravel);
-  console.log(inforDateBook);
+  const { starComment } = useSelector((state) => state.CommentReducer);
   const navigate = useNavigate();
+  const [isShows, setShows] = useState(false);
+  const [isSelected, setSelected] = useState("Credit or debit card");
+  const { checkDateIn, checkDateOut } = useSelector(
+    (state) => state.CalendarReducer
+  );
+  const { totalGuest, guestAdults, guestChildren, guestInfants, guestPets } =
+    useSelector((state) => state.BookTravel);
+  const { inforRoom } = useSelector((state) => state.LocationRoomReducer);
+  const { checkDateValid } = HandleInputCalendar();
+  const submitCheckIn = async () => {
+    let checkValidDateIn;
+    let checkValidDateOut;
+    try {
+      checkValidDateIn = checkDateValid("checkIn", checkDateIn);
+      checkValidDateOut = checkDateValid("checkOut", checkDateOut);
+
+      if (
+        checkDateIn &&
+        checkDateOut &&
+        totalGuest > 0 &&
+        checkValidDateIn &&
+        checkValidDateOut
+      ) {
+        const currentTime = moment().format("HH:mm:ss");
+        const getCheckInDate = checkDateIn.format("YYYY-MM-DD");
+        const getCheckOutDate = checkDateOut.format("YYYY-MM-DD");
+
+        const checkIndateConvert = moment(`${getCheckInDate} ${currentTime}`, [
+          "YYYY-MM-DD[T]HH:mm:ss[Z]",
+          "DD-MM-YYYY[T]HH:mm:ss[Z]",
+        ]).format("YYYY-MM-DD[T]HH:mm:ss[Z]");
+        const checkOutdateConvert = moment(
+          `${getCheckOutDate} ${currentTime}`,
+          ["YYYY-MM-DD[T]HH:mm:ss[Z]", "DD-MM-YYYY[T]HH:mm:ss[Z]"]
+        ).format("YYYY-MM-DD[T]HH:mm:ss[Z]");
+        let userID = JSON.parse(localStorage.getItem(USER_LOGIN));
+        let data = {
+          id: 0,
+          maPhong: inforRoom?.id,
+          ngayDen: checkIndateConvert,
+          ngayDi: checkOutdateConvert,
+          soLuongKhach: `${totalGuest}`,
+          maNguoiDung: userID?.id,
+        };
+
+        // totalBookedDate
+        dispatch(bookTravelAPI(data,navigate));
+      }
+    } catch (error) {}
+  };
   return (
     <>
       <div className="request_logo border_bottom">
@@ -51,53 +108,123 @@ export default function ConfirmPay() {
               <div className="request_trip-item">
                 <div className="request_trip-title">
                   <p>Dates</p>
-                  <p>12</p>
+                  <p>
+                    {`${moment(checkDateIn).format("MMM DD ")} - ${moment(
+                      checkDateOut
+                    ).format("DD")}, ${moment(checkDateOut).format("YYYY")}`}
+                  </p>
                 </div>
-                <div className="request_edit">Edit</div>
+                <div
+                  className="request_edit"
+                  onClick={() => {
+                    dispatch(
+                      openModal(
+                        <CalendarBook
+                          inforRoom={inforRoom}
+                          classModal={"calendar_modal"}
+                        />
+                      )
+                    );
+                  }}
+                >
+                  Edit
+                </div>
               </div>
               <div className="request_trip-item ">
                 <div className="request_trip-title">
                   <p>Guests</p>
-                  <p>1 guest</p>
+                  <span>{guestAdults !== 0 && `${guestAdults} Adults `}</span>
+                  <span>
+                    {guestChildren !== 0 && `${guestChildren} Children `}
+                  </span>
+                  <span>
+                    {guestInfants !== 0 && `${guestInfants} Infants `}
+                  </span>
+                  <span>{guestPets !== 0 && `${guestPets} Pets`}</span>
                 </div>
-                <div className="request_edit">Edit</div>
+                <div
+                  className="request_edit"
+                  onClick={() => {
+                    dispatch(
+                      openModal(
+                        <GuestForm
+                          totalGuest={totalGuest}
+                          inforRoom={inforRoom}
+                          getFormGuest={true}
+                          noPopUp={true}
+                          classModal={"formGuest_modal"}
+                        />
+                      )
+                    );
+                  }}
+                >
+                  Edit
+                </div>
               </div>
             </div>
             <div className="request_pay border_bottom request_padding">
               <h6>Pay with</h6>
               <div className="request_pay-item">
                 <div className="request_pay-credit  border_around-medium">
-                  <div className="request_pay-card">
+                  <div
+                    className="request_pay-card"
+                    onClick={() => {
+                      setShows(!isShows);
+                    }}
+                  >
                     <i className="fa-regular fa-credit-card card-icon"></i>
-                    <span>Credit or debit card</span>
+                    <span>{isSelected}</span>
                     <div className="request_pay-icon">
-                      <i className="fa-solid fa-chevron-up"></i>
-                      <i className="fa-solid fa-chevron-down"></i>
+                      {isShows && <i className="fa-solid fa-chevron-up"></i>}
+                      {!isShows && <i className="fa-solid fa-chevron-down"></i>}
                     </div>
                   </div>
-                  <div className="request_pay-popup">
-                    <div className="request_pay-credit request_pay-card">
-                      <i className="fa-regular fa-credit-card card-icon"></i>
-                      <span>Credit or debit card</span>
-                      <div className="request_pay-icon">
-                        <i className="fa-solid fa-check"></i>
+                  {isShows && (
+                    <div className="request_pay-popup">
+                      <div
+                        className="request_pay-credit request_pay-card"
+                        onClick={() => {
+                          setSelected("Credit or debit card");
+                        }}
+                      >
+                        <i className="fa-regular fa-credit-card card-icon"></i>
+                        <span>Credit or debit card</span>
+                        <div className="request_pay-icon">
+                          {isSelected === "Credit or debit card" && (
+                            <i className="fa-solid fa-check"></i>
+                          )}
+                        </div>
+                      </div>
+                      <div
+                        className="request_pay-paypal request_pay-card"
+                        onClick={() => {
+                          setSelected("PayPal");
+                        }}
+                      >
+                        <i className="fa-brands fa-cc-paypal card-icon"></i>
+                        <span>PayPal</span>
+                        <div className="request_pay-icon">
+                          {isSelected === "PayPal" && (
+                            <i className="fa-solid fa-check"></i>
+                          )}
+                        </div>
+                      </div>
+                      <div
+                        className="request_pay-applepay request_pay-card"
+                        onClick={() => {
+                          setSelected("ApplePay");
+                        }}
+                      >
+                        <i className="fa-brands fa-cc-apple-pay card-icon"></i>
+                        <span>ApplePay</span>
+                        <div className="request_pay-icon">
+                          {isSelected === "ApplePay" && (
+                            <i className="fa-solid fa-check"></i>
+                          )}
+                        </div>
                       </div>
                     </div>
-                    <div className="request_pay-paypal request_pay-card">
-                      <i className="fa-brands fa-cc-paypal card-icon"></i>
-                      <span>PayPal</span>
-                      <div className="request_pay-icon">
-                        <i className="fa-solid fa-check"></i>
-                      </div>
-                    </div>
-                    <div className="request_pay-applepay request_pay-card">
-                      <i className="fa-brands fa-cc-apple-pay card-icon"></i>
-                      <span>ApplePay</span>
-                      <div className="request_pay-icon">
-                        <i className="fa-solid fa-check"></i>
-                      </div>
-                    </div>
-                  </div>
+                  )}
                 </div>
               </div>
               <div className="request_pay-code border-bottom request_padding">
@@ -144,9 +271,63 @@ export default function ConfirmPay() {
                 amount shown if the Host accepts my booking request.
               </span>
             </div>
-            <button className="btn_primary btn-pay">Request to book</button>
+            <button
+              className="btn_primary btn-pay"
+              onClick={() => {
+                submitCheckIn();
+              }}
+            >
+              Request to book
+            </button>
           </div>
-          <div className="col-5"></div>
+          <div className="col-5">
+            <div className="detail_book">
+              <div className="detail_book-header border-bottom">
+                <div className="detail_book-img ">
+                  <div
+                    className="detail_book-bgimg "
+                    style={{
+                      backgroundImage: `url(${inforRoom?.hinhAnh})`,
+                    }}
+                  />
+                </div>
+                <div className="detail_book-title">
+                  <span>Tiny home</span>
+                  <p>{inforRoom?.tenPhong}</p>
+                  <div className="detail_book-review">
+                    <p>
+                      <i className="fa-solid fa-star"></i>
+                      {starComment.star}
+                    </p>
+
+                    <span>({starComment.total} reviews)</span>
+                    <li>
+                      <i className="fa-solid fa-circle-h"></i>Super Host
+                    </li>
+                  </div>
+                </div>
+              </div>
+              <div className="notify_protected border-bottom">
+                <div>
+                  <span>Your booking is protected by</span>
+                  <img
+                    src="https://a0.muscache.com/im/pictures/54e427bb-9cb7-4a81-94cf-78f19156faad.jpg"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <div className="detail_prices border-bottom">
+                <h6>Price details</h6>
+                <div className="detail_prices-item">
+                  <GuestForm
+                    inforRoom={inforRoom}
+                    getFormGuest={false}
+                    getTax={true}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

@@ -1,3 +1,4 @@
+import _ from "lodash";
 import moment from "moment";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +16,9 @@ export const useCheckDate = (props) => {
   const { arrCheckDateIsBooked } = useSelector(
     (state) => state.CalendarReducer
   );
+
   const checkDateIsBooked = (date) => {
+    let result = "";
     let a = "";
     let b = "";
     let nextdate = moment(date, "YYYY-MM-DD").clone().add(1, "day");
@@ -24,12 +27,11 @@ export const useCheckDate = (props) => {
     let convertBeforeDate = moment(beforedate, "YYYY-MM-DD").format(
       "YYYY-MM-DD"
     );
-
-    let result = "";
-    //
+    let convertDate = moment(date, ["YYYY-MM-DD", "DD-MM-YYYY"])
+      .clone()
+      .format("YYYY-MM-DD");
     arrCheckDateIsBooked?.map((dateBooked) => {
       const { ngayDen, ngayDi } = dateBooked;
-      let convertDate = moment(date, "YYYY-MM-DD").clone().format("YYYY-MM-DD");
       let convertNgayDen = moment(ngayDen, "YYYY-MM-DD")
         .clone()
         .format("YYYY-MM-DD");
@@ -55,21 +57,27 @@ export const useCheckDate = (props) => {
       ) {
         if (a) {
           b = true;
+          return b;
         } else {
           a = true;
+          return a;
         }
       }
+
       if (
         moment(convertBeforeDate, "YYYY-MM-DD").isSame(convertNgayDen, "day") ||
         moment(convertBeforeDate, "YYYY-MM-DD").isSame(convertNgayDi, "day")
       ) {
         if (a) {
           b = true;
+          return b;
         } else {
           a = true;
+          return a;
         }
       }
     });
+
     if (a && b) {
       result = "datebooked";
     }
@@ -97,7 +105,7 @@ export const useCheckDate = (props) => {
     return "span_underNine";
   };
   let dateAfterCheckIn = "";
-  let abc=[]
+  let abc = [];
   const getLimitCheckOutAfterCheckIn = (convertCheckIn, getDayCheckOut) => {
     //Get date after check-In
     let array = [];

@@ -1,5 +1,5 @@
 import moment from "moment";
-import React, { useEffect, useState, memo } from "react";
+import React, { useEffect, useState, memo, useRef } from "react";
 import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -9,17 +9,22 @@ import {
 } from "../../../redux/reducer/CalendarReducer";
 
 import { useCheckDate } from "./checkDate";
+import { HandleInputCalendar } from "./HandleInputCalendar";
 let nameOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 function CalendarBook(props) {
-  const {
-    checkDay,
-    paddingDay,
-    checkInOutDay,
-    checkDateIsBooked,
-  } = useCheckDate(props);
+  // getValue From Use
+  const { checkDay, paddingDay, checkInOutDay, checkDateIsBooked } =
+    useCheckDate(props);
+  const { checkInRef, checkOutRef, renderInputForm } = HandleInputCalendar(
+    props.inforRoom
+  );
+  //Selector
   const { checkDateIn, checkDateOut } = useSelector(
     (state) => state.CalendarReducer
   );
+  useEffect(() => {}, [checkInRef, checkOutRef]);
+  //
+
   const dispatch = useDispatch();
   // Calendar left
   let [value, setValue] = useState(moment());
@@ -67,15 +72,13 @@ function CalendarBook(props) {
   useEffect(() => {
     if (checkDateIn !== "") {
       setCheckIn(moment(checkDateIn));
-    }else{
+    } else {
       setCheckIn("");
-
     }
     if (checkDateOut !== "") {
       setCheckOut(moment(checkDateOut));
-    }else{
+    } else {
       setCheckOut("");
-
     }
   }, [checkDateIn, checkDateOut]);
   const prevMonth = (payload) => {
@@ -181,53 +184,56 @@ function CalendarBook(props) {
   };
 
   return (
-    <>
-      <div className="row">
-        <div className="col-6">
-          <div className="calendar calendar_left ">
-            {value.isSame(new Date(), "month") ? (
-              <div></div>
-            ) : (
+    <div className="bookForm_header-checkDate">
+      <div className="bookForm_pop-up boxshadow">
+        {props.inforRoom && renderInputForm()}
+        <div className="row">
+          <div className="col-6">
+            <div className="calendar calendar_left ">
+              {value.isSame(new Date(), "month") ? (
+                <div></div>
+              ) : (
+                <div
+                  className="decrease_calendar calendar-icon_month"
+                  onClick={() => {
+                    setValue(prevMonth(value));
+                    setValue2(prevMonth(value2));
+                  }}
+                >
+                  <i className="fa-solid fa-angle-left"></i>
+                </div>
+              )}
+              {renderCalendar(calendar, startDay, checkIn, 1)}
+            </div>
+          </div>
+          <div className="col-6">
+            <div className="calendar calendar_left ">
               <div
-                className="decrease_calendar calendar-icon_month"
+                className="increase_calendar calendar-icon_month"
                 onClick={() => {
-                  setValue(prevMonth(value));
-                  setValue2(prevMonth(value2));
+                  setValue(nextMonth(value));
+                  setValue2(nextMonth(value2));
                 }}
               >
-                <i className="fa-solid fa-angle-left"></i>
+                <i className="fa-solid fa-angle-right"></i>
               </div>
-            )}
-            {renderCalendar(calendar, startDay, checkIn, 1)}
-          </div>
-        </div>
-        <div className="col-6">
-          <div className="calendar calendar_left ">
-            <div
-              className="increase_calendar calendar-icon_month"
-              onClick={() => {
-                setValue(nextMonth(value));
-                setValue2(nextMonth(value2));
-              }}
-            >
-              <i className="fa-solid fa-angle-right"></i>
+              {renderCalendar(calendar2, startDay2, checkOut, 2)}
             </div>
-            {renderCalendar(calendar2, startDay2, checkOut, 2)}
           </div>
         </div>
+        <div className="text-right mt-3">
+          <button
+            className="btn btn_second"
+            onClick={() => {
+              setCheckIn("");
+              setCheckOut("");
+            }}
+          >
+            Clear dates
+          </button>
+        </div>
       </div>
-      <div className="text-right mt-3">
-        <button
-          className="btn btn_second"
-          onClick={() => {
-            setCheckIn("");
-            setCheckOut("");
-          }}
-        >
-          Clear dates
-        </button>
-      </div>
-    </>
+    </div>
   );
 }
 export default memo(CalendarBook);

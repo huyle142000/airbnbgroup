@@ -6,11 +6,8 @@ export default function FooterDetail(props) {
   const { inforRoom } = props;
   const { arrListComment } = useSelector((state) => state.CommentReducer);
 
-  console.log(arrListComment);
+  // console.log(arrListComment);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getListCommentAPI(inforRoom?.id));
-  }, [inforRoom?.id]);
   const userComment=(id)=>{
 
   }

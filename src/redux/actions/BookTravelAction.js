@@ -1,11 +1,20 @@
+import { toast } from "react-toastify";
 import { bothServiceToken } from "../../Service/BothTokenService";
 
-export const bookTravel = (data) => {
+export const bookTravelAPI = (payload, navigate) => {
   return async (dispatch) => {
     try {
-      const { data } = await bothServiceToken.post("dat-phong", data);
+      const { data } = await bothServiceToken.post("dat-phong", payload);
+      await navigate(`/bookingtravel/${payload.maPhong}`);
+      toast.success("You have successfully booked travel !", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     } catch (error) {
-      console.log(error.response);
+      toast.error(error.response, {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 };

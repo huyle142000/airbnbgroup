@@ -1,5 +1,5 @@
 import { bothServiceToken } from "../../Service/BothTokenService";
-import { getCommentList } from "../reducer/CommentReducer";
+import { getCommentList, getStarComment } from "../reducer/CommentReducer";
 
 export const getListCommentAPI = (id) => {
   return async (dispatch) => {
@@ -10,7 +10,18 @@ export const getListCommentAPI = (id) => {
       arrFilter = await data.content.filter((phong) => {
         return phong.maPhong == id;
       });
-      dispatch(getCommentList(arrFilter));
+      let totalCmt = 0;
+      let starComment = arrFilter.reduce((total, cur, index) => {
+        totalCmt += 1;
+        return total + Number(cur.saoBinhLuan);
+      }, 0);
+      let convertStar = (Number(starComment) / Number(totalCmt)).toFixed(1);
+      let comment = {
+        total: totalCmt,
+        star: Number(convertStar),
+      };
+      await dispatch(getStarComment(comment));
+      await dispatch(getCommentList(arrFilter));
     } catch (error) {
       console.log(error.response);
     }

@@ -7,7 +7,6 @@
 .border_around {
     border: 2px solid black;
     border-radius: 6px;
-    
 }
 .border_around-thin {
     border: 1px solid #aba9a995;
@@ -16,4 +15,12 @@
 .border_around-medium {
     border: 1px solid #aba9a9e2;
     border-radius: 6px;
+}
+
+.mapboxgl-popup-content {
+    background-color: transparent;
+}
+
+.mapboxgl-popup-tip{
+    opacity: 0;
 }

@@ -58,6 +58,8 @@ function App() {
         {/* Form */}
         <Route path="profile" element={<Profile />} />
         <Route path="travelbooking" element={<TravelBooking />} />
+        <Route path="bookingtravel/:id" element={<BookingTravel />} />
+
         <Route path="confirmpay" element={<ConfirmPay />} />
       </Routes>
     </BrowserRouter>

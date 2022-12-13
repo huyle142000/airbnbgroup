@@ -1,3 +1,4 @@
+import axios from "axios";
 import { toast } from "react-toastify";
 import { bothServiceToken } from "../../Service/BothTokenService";
 import {
@@ -6,7 +7,9 @@ import {
   getListRoom,
   getInforRoom,
   getListFullRoom,
+  getArrGeolocationRoom,
 } from "../reducer/LocationRoomReducer";
+import { roomImage } from "../../utils/roomImage";
 
 export function getListLocationAPI() {
   return async (dispatch) => {
@@ -71,8 +74,20 @@ export function getListFullRoomAPI() {
   return async (dispatch) => {
     try {
       const { data } = await bothServiceToken.get(`phong-thue`);
-      dispatch(getListFullRoom(data.content));
-    } catch (error) {}
+      let arrRoom = [];
+      data.content?.map((room, index) => {
+        let imgSrc = "";
+        if (index >= roomImage.length) {
+          imgSrc = roomImage[index % roomImage.length];
+        } else {
+          imgSrc = roomImage[index];
+        }
+        arrRoom.push({ ...room, img: imgSrc });
+      });
+      dispatch(getListFullRoom(arrRoom));
+    } catch (error) {
+      console.log(error.response);
+    }
   };
 }
 //IdRoom
@@ -132,5 +147,30 @@ export function deleteRoomAPI(id, navigate) {
     } catch (e) {
       toast.error("Error!!!");
     }
+  };
+}
+
+//Get Geolocation of address
+export function getGeolocationAPI(room) {
+  return (middlewareDispatch) => {
+    bothServiceToken
+      .getMapBoxGeocoding(room.address)
+      .then((res) => {
+        middlewareDispatch(
+          getArrGeolocationRoom({
+            geoRoom: {
+              ...room,
+              geolocation: {
+                latitude: res.data.features[0].center[1],
+                longtitude: res.data.features[0].center[0],
+              },
+            },
+          })
+        );
+        console.log(res.data.features[0].center);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 }
