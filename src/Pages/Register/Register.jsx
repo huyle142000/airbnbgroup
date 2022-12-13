@@ -122,7 +122,7 @@ export default function Register() {
               ) : null}
             </div>
           </div>
-          <button type="submit" className="btn btn_primary">
+          <button type="submit" className="btn btn_primary" >
             Submit
           </button>
         </div>
