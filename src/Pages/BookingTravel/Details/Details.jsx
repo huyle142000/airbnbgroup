@@ -9,7 +9,8 @@ import ContentPolicy from "./ContentPolicy/ContentPolicy";
 export default function Details(props) {
   let dispatch = useDispatch();
   const { inforRoom } = props;
-
+  const { inforLocation } = useSelector((state) => state.LocationRoomReducer);
+  const { starComment } = useSelector((state) => state.CommentReducer);
   const renderTitle = () => {
     return (
       <>
@@ -182,6 +183,19 @@ export default function Details(props) {
     <>
       <div className="detail-room_header">
         <h2>{inforRoom?.tenPhong}</h2>
+        <div className="star_comment">
+          <span>
+            <i className="fa-solid fa-star"></i>
+            {starComment?.star} -
+          </span>
+          <span> {`${starComment?.total}`} reviews - </span>
+
+          <p>
+            <span>{`${inforLocation.tenViTri}`},</span>
+            <span>{inforLocation.tinhThanh},</span>
+            <span>{inforLocation.quocGia}</span>
+          </p>
+        </div>
         <img className="img-fluid" src={inforRoom?.hinhAnh} alt="" />
         <div className="detail-room_content mt-5">
           <div className="row">

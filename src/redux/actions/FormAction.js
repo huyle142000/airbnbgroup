@@ -96,3 +96,15 @@ export const updateUser = (id, user, navigate) => {
     };
   };
 };
+// getUserCommentInfo
+export const getUserCommentInfo = (id) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await bothServiceToken.get(`users/${id}`);
+      console.log(data);
+      return data;
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};

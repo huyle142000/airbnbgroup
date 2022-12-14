@@ -47,6 +47,7 @@ export function editLocationAPI(id, datas, navigate) {
 //get Location
 export function getInfoLocationAPI(id) {
   return async (dispatch) => {
+    console.log(id)
     try {
       const { data } = await bothServiceToken.get(`vi-tri/${id}`);
       dispatch(getInforLocation(data.content));

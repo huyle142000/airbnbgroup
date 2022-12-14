@@ -3,6 +3,28 @@
         font-size: 25px;
         padding: 20px 0;
     }
+    p {
+        padding-bottom: 15px;
+        font-size: 13px;
+        color: $color-black-1;
+        font-weight: 500;
+        span {
+            text-decoration: underline;
+        }
+    }
+    .star_comment {
+        display: flex;
+        i {
+            margin-right: 5px;
+        }
+        span {
+            margin-right: 5px;
+            color: $color-black-1;
+            font-size: 13px;
+            font-weight: 500;
+            
+        }
+    }
 }
 .detail-room_title-top,
 .detail-room_title-item {
@@ -82,7 +104,7 @@
     }
     .bookForm_header-checkDate {
         .boxshadow {
-            box-shadow:none;
+            box-shadow: none;
         }
     }
 }
