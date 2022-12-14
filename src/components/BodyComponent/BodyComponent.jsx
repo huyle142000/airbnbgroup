@@ -23,7 +23,7 @@ export default function BodyComponent(props) {
 
             return(
                 <Col key={index}>
-                    <CardComponent img={imgSrc} card={card} />
+                    <CardComponent card={card} img={imgSrc}/>
                 </Col> 
             )
            
