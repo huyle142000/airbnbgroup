@@ -13,6 +13,7 @@ export const UserManagerReducer = createSlice({
     },
     getInforUser: (state, action) => {
       state.userInfo = action.payload;
+      console.log(state.userInfo)
     },
   },
 });

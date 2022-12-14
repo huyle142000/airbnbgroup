@@ -4,7 +4,7 @@ import Login from "../../Pages/Login/Login";
 import { toast } from "react-toastify";
 import { bothServiceToken } from "../../Service/BothTokenService";
 import { getInforUserHome, loginForm } from "../reducer/FormReducer";
-import { closeModal, openLogin } from "../reducer/ModalReducer";
+import { closeModal, openModal } from "../reducer/ModalReducer";
 
 export const loginAction = (userInfo, navigate) => {
   return (dispatch2) => {
@@ -57,7 +57,7 @@ export const registerAction = (userInfo) => {
         position: "top-right",
         autoClose: 3000,
       });
-      dispatch2(openLogin(<Login classModal={"form_modal"} />));
+      dispatch2(openModal(<Login classModal={"form_modal"} />));
     });
     promise.catch((error) => {
       toast.error("Username or email is existed!", {
@@ -94,5 +94,17 @@ export const updateUser = (id, user, navigate) => {
         console.log(e);
       }
     };
+  };
+};
+// getUserCommentInfo
+export const getUserCommentInfo = (id) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await bothServiceToken.get(`users/${id}`);
+      console.log(data);
+      return data;
+    } catch (e) {
+      console.log(e);
+    }
   };
 };

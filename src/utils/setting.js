@@ -4,3 +4,6 @@ export const TOKEN =
 export const token = "token";
 export const USER_LOGIN = "userLogin";
 export const GET_ROOM = "GET_ROOM";
+export const MAP_BOX_TOKEN = "pk.eyJ1IjoibGU3NDE5OTZjZiIsImEiOiJjbGF1czA4OWkwMDQ0M3dsbXVibmR4MTcxIn0.0ks6mlM7Mm6VUZGl1vm7sw";
+export const GEOCODING_ADDRESS_LOCATION_DOMAIN =
+    "https://api.mapbox.com/geocoding/v5/mapbox.places/";
