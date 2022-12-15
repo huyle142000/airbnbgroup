@@ -44,7 +44,7 @@ export default function Profile() {
     },
   });
   return (
-    <div className="container">
+    <div className="container wrapper_box">
       <div className="login_box">
         <h2>Profile</h2>
         <form onSubmit={formik.handleSubmit}>
@@ -127,8 +127,8 @@ export default function Profile() {
                 ) : null}
               </div>
             </div>
-            <button type="submit" className="btn btn_form">
-              Submit
+            <button type="submit" className="btn btn_primary">
+              Submit to edit profile
             </button>
           </div>
         </form>

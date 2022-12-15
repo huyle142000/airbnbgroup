@@ -373,19 +373,7 @@ export default function Header() {
                         </svg>
                     </div>
                     {renderHeaderSearch()}
-                    <div className="header__right">
-                        <span className="btn--header">Airbnb your home</span>
-                        <div className="btn--header globe__icon">
-                            <i className="fa-solid fa-globe"></i>
-                        </div>
-                        <div className="avatar header__border">
-                            <i className="fa-solid fa-bars"></i>
-                            <span className="pd__icon"></span>
-                            <span className="avatar__icon">
-                                <i className="fa-solid fa-user"></i>
-                            </span>
-                        </div>
-                    </div>
+                    <FormUser />
                     {renderSearchForm()}
                 </div>
                 <div className="header__bottom">

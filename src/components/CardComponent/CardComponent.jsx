@@ -12,8 +12,8 @@ export default function CardComponent(props) {
             className={`card_item ${
                 props.isActiveMap === undefined ? "" : "card__map"
             }`}
-            to={`roomdetail/${id}`}
-            target="_blank"
+            end
+            to={`bookingtravel/${id}`}
         >
             <div className="card_img">
                 <img alt="anh" src={img} />

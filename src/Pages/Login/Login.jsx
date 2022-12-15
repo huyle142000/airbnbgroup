@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import Register from "../Register/Register";
-import { openRegister } from "../../redux/reducer/ModalReducer";
+import { openModal } from "../../redux/reducer/ModalReducer";
 import * as Yup from "yup";
 import { loginAction } from "../../redux/actions/FormAction";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 export default function Login() {
   const navigate = useNavigate();
   let dispatch = useDispatch();
-  let { ulogin } = useSelector((state) => state.FormReducer);
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -25,7 +24,7 @@ export default function Login() {
         .min(3, "Mật khẩu ít nhất có 3 kí tự."),
     }),
     onSubmit: (values) => {
-      dispatch(loginAction(values,navigate));
+      dispatch(loginAction(values, navigate));
     },
   });
 
@@ -63,19 +62,15 @@ export default function Login() {
         </div>
         <div className="btn_div">
           <div>
-            <button type="submit" className="btn btn_form">
+            <button type="submit" className="btn_primary">
               Submit
-              <span />
-              <span />
-              <span />
-              <span />
             </button>
           </div>
           <div className=" text-right">
             <h6
               className="text-danger isuser btn"
               onClick={() => {
-                dispatch(openRegister(<Register classModal={"form_modal"} />));
+                dispatch(openModal(<Register classModal={"form_modal"} />));
               }}
             >
               Bạn có tài khoản chưa?

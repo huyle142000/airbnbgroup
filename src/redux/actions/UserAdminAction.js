@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import Login from "../../pages/Login/Login";
 import { bothServiceToken } from "../../Service/BothTokenService";
 import { USER_LOGIN } from "../../utils/setting";
-import { openLogin } from "../reducer/ModalReducer";
+import { openModal } from "../reducer/ModalReducer";
 import { getInforUser, getUserList } from "../reducer/UserManagerReducer";
 export const getUserListAPI = () => {
   return async (dispacth) => {
@@ -55,7 +55,7 @@ export function editUserAPI(id, user, navigate) {
       dispatch(getInfoUserAPI(id));
       if (user.role.trim().toLowerCase() === "admin") {
         getUserListAPI();
-        dispatch(openLogin(<Login classModal={"form_modal"} />));
+        dispatch(openModal(<Login classModal={"form_modal"} />));
         navigate("/admin");
         toast("Hãy đăng nhập tài khoản admin để cấp quyền quản trị!", {
           position: "top-center",
