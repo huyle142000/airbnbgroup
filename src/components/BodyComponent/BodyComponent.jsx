@@ -10,7 +10,6 @@ export default function BodyComponent(props) {
     const dispatch = useDispatch();
     const [activeMap, setActiveMap] = useState(false);
     const { roomFullList } = useSelector((state) => state.LocationRoomReducer);
-    console.log(roomFullList);
     useEffect(() => {
         dispatch(getListFullRoomAPI());
     }, []);

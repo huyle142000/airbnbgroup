@@ -1,15 +1,11 @@
 import { Col, Row } from "antd";
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { useRef } from "react";
 import { useDetectClickOutside } from "react-detect-click-outside";
-import all from "../../assets/img/all.jpg";
-import aus from "../../assets/img/Aus.jpg";
-import eu from "../../assets/img/Europe.jpg";
-import sk from "../../assets/img/SouthKorea.jpg";
-import tl from "../../assets/img/Thailand.jpg";
-import us from "../../assets/img/US.jpg";
+import { regions } from "./Region";
 import FormUser from "../FormUser/FormUser";
+import { useDispatch } from "react-redux";
+import { getSuggestionLocation } from "../../redux/actions/LocationRoomAction";
 
 export default function Header() {
     const ADULT_TYPE = 0;
@@ -23,6 +19,16 @@ export default function Header() {
     const [chidNum, setChidNum] = useState(0);
     const [infantsNum, setInfantsNum] = useState(0);
     const [petNum, setPetNum] = useState(0);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        setTotalGuest(adultsNum + chidNum + infantsNum + petNum);
+    }, [adultsNum, chidNum, infantsNum, petNum]);
+
+    const [totalGuest, setTotalGuest] = useState(0);
+
+    //Region search state
+    const [region, setRegion] = useState("");
+
     useEffect(() => {
         if (activeSearch) {
             setActiveSearchHeader(true);
@@ -107,6 +113,26 @@ export default function Header() {
         }
     };
 
+    //Search region render
+    const renderRegion = () => {
+        return regions.map((region) => {
+            const { id, content, src } = region;
+            return (
+                <Col key={id} span={8}>
+                    <img
+                        onClick={() => {
+                            setRegion(content);
+                        }}
+                        className="img-fluid"
+                        src={src}
+                        alt=""
+                    />
+                    <div className="area">{content}</div>
+                </Col>
+            );
+        });
+    };
+
     const renderExtendSearch = () => {
         //extend region search
         if (activeForm === 0) {
@@ -115,56 +141,7 @@ export default function Header() {
                     <div className="region__container">
                         <div className="region__content">
                             <h3>Search by region</h3>
-                            <Row gutter={[16, 16]}>
-                                <Col span={8}>
-                                    <img
-                                        className="img-fluid"
-                                        src={all}
-                                        alt=""
-                                    />
-                                    <div className="area">I'm flexible</div>
-                                </Col>
-                                <Col span={8}>
-                                    <img
-                                        className="img-fluid"
-                                        src={eu}
-                                        alt=""
-                                    />
-                                    <div className="area">Europe</div>
-                                </Col>
-                                <Col span={8}>
-                                    <img
-                                        className="img-fluid"
-                                        src={tl}
-                                        alt=""
-                                    />
-                                    <div className="area">Thailand</div>
-                                </Col>
-                                <Col span={8}>
-                                    <img
-                                        className="img-fluid"
-                                        src={aus}
-                                        alt=""
-                                    />
-                                    <div className="area">Australia</div>
-                                </Col>
-                                <Col span={8}>
-                                    <img
-                                        className="img-fluid"
-                                        src={sk}
-                                        alt=""
-                                    />
-                                    <div className="area">South Korea</div>
-                                </Col>
-                                <Col span={8}>
-                                    <img
-                                        className="img-fluid"
-                                        src={us}
-                                        alt=""
-                                    />
-                                    <div className="area">United States</div>
-                                </Col>
-                            </Row>
+                            <Row gutter={[16, 16]}>{renderRegion()}</Row>
                         </div>
                     </div>
                 </div>
@@ -299,6 +276,12 @@ export default function Header() {
         }
     };
 
+    const handleInputRegionChange = (evt) => {
+        let val = evt.target.value;
+        dispatch(getSuggestionLocation(val));
+        console.log(val);
+    };
+
     const renderSearchForm = () => {
         return (
             <form className="form__search" action="">
@@ -312,7 +295,13 @@ export default function Header() {
                         }}
                     >
                         <div className="form__label">Where</div>
-                        <input type="text" placeholder="Search destinations" />
+                        <input
+                            onChange={handleInputRegionChange}
+                            type="text"
+                            placeholder={`${
+                                region === "" ? "Search destinations" : region
+                            }`}
+                        />
                     </div>
                     <div
                         className={`checkin ${
@@ -347,7 +336,7 @@ export default function Header() {
                         <div className="search--flex">
                             <div className="search__content">
                                 <div className="form__label">Who</div>
-                                <span>Add guest</span>
+                                {renderTotalGuestNumber()}
                             </div>
                             <div className="btn--search">
                                 <i className="fa-solid fa-magnifying-glass"></i>
@@ -359,6 +348,16 @@ export default function Header() {
                 {renderExtendSearch()}
             </form>
         );
+    };
+
+    const renderTotalGuestNumber = () => {
+        if (totalGuest === 0) {
+            return <span>Add guests</span>;
+        } else if (totalGuest === 1) {
+            return <span className="active__guest">{totalGuest} guest</span>;
+        } else {
+            return <span className="active__guest">{totalGuest} guests</span>;
+        }
     };
 
     return (

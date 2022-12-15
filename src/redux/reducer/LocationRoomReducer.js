@@ -8,6 +8,7 @@ const initialState = {
     arrGeolocationRoom: [],
     roomList: [],
     inforRoom: {},
+    arrSuggest: [],
 };
 export const LocationRoomReducer = createSlice({
     name: "LocationRoomReducer",
@@ -31,6 +32,9 @@ export const LocationRoomReducer = createSlice({
         getArrGeolocationRoom: (state, action) => {
             state.arrGeolocationRoom.push(action.payload.geoRoom);
         },
+        getArrSuggestRegion: (state, action) => {
+            state.arrSuggest = action.payload;
+        }
     },
 });
 //truyền action
@@ -41,5 +45,6 @@ export const {
     getInforRoom,
     getListFullRoom,
     getArrGeolocationRoom,
+    getArrSuggestRegion,
 } = LocationRoomReducer.actions;
 export default LocationRoomReducer.reducer;
