@@ -1,6 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import CalendarBook from "../CalendarBook/CalendarBook";
 import { HandleInputCalendar } from "../CalendarBook/HandleInputCalendar";
 import GuestForm from "../GuestForm/GuestForm";
@@ -8,7 +6,6 @@ import GuestForm from "../GuestForm/GuestForm";
 export default function BookForm(props) {
   let { inforRoom } = props;
   const refCalendar = useRef();
-  const navigate = useNavigate();
   useEffect(() => {
     const handleCalendarPopUp = (e) => {
       if (refCalendar !== null) {

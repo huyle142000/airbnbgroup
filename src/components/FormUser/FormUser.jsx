@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Login from "../../pages/Login/Login";
@@ -12,11 +12,25 @@ function FormUser() {
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem(USER_LOGIN));
   const navigate = useNavigate();
+  const refs = React.useRef(null);
+  useEffect(() => {
+    const handlePopUp = (e) => {
+      if (refs) {
+        if (!refs.current?.contains(e.target)) {
+          setPump(false);
+        }
+      }
+    };
+    document.addEventListener("mousedown", handlePopUp);
+    return () => {
+      document.removeEventListener("mousedown", handlePopUp);
+    };
+  }, []);
   const renderForm = () => {
     return (
       <>
         {isPump && (
-          <div className="form_user-popup text-left">
+          <div className="form_user-popup text-left" ref={refs}>
             <h6
               onClick={() => {
                 dispatch(openModal(<Register classModal={"form_modal"} />));
@@ -32,7 +46,7 @@ function FormUser() {
             >
               Log In
             </h6>
-            <div>
+            <div className="form_user-popup-child">
               <h6>Airbnb is your home</h6>
               <h6>Host Experience</h6>
               <h6>Help</h6>
@@ -46,7 +60,7 @@ function FormUser() {
     return (
       <>
         {isPump && (
-          <div className="form_user-popup text-left">
+          <div className="form_user-popup text-left"  ref={refs}>
             <h6
               onClick={() => {
                 navigate("profile");
@@ -57,7 +71,7 @@ function FormUser() {
             <h6 className="border_bottom" onClick={() => {}}>
               Your Travel Booking
             </h6>
-            <div className="border_bottom">
+            <div className="form_user-popup-child border_bottom">
               <h6>Airbnb is your home</h6>
               <h6>Host Experience</h6>
               <h6>Help</h6>
@@ -75,7 +89,7 @@ function FormUser() {
     );
   };
   return (
-    <div className="header__right">
+    <div className="header__right" >
       <h6>Airbnb is your home</h6>
       <div className="btn--header globe__icon">
         <i className="fa-solid fa-globe"></i>
