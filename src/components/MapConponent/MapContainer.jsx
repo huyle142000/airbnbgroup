@@ -22,6 +22,7 @@ export default function MapContainer() {
             zoom: 10,
         },
     });
+    console.log(arrGeolocationRoom);
 
     useEffect(() => {
         roomFullList?.map((room) => {
@@ -40,7 +41,7 @@ export default function MapContainer() {
             //match address by name
         });
         getLocationAPI();
-    }, []);
+    }, [roomFullList]);
 
     useEffect(() => {}, [showPopup]);
 

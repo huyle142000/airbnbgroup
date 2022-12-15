@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { token, DOMAIN, TOKEN, MAP_BOX_TOKEN, GEOCODING_ADDRESS_LOCATION_DOMAIN } from "../utils/setting";
+import { token, DOMAIN, TOKEN, MAP_BOX_TOKEN, GEOCODING_ADDRESS_LOCATION_DOMAIN, RETRIVE_SUGGEST_LOCATION_DOMAIN } from "../utils/setting";
 
 export class BothTokenService {
     put = (url, data) => {
@@ -50,6 +50,17 @@ export class BothTokenService {
             method: "GET",
             url: `${GEOCODING_ADDRESS_LOCATION_DOMAIN}${address}.json`,
             params: {
+                access_token: MAP_BOX_TOKEN,
+            },
+        });
+    };
+
+    getSuggestLocation = (address) => {
+        return Axios({
+            method: "GET",
+            url: `${RETRIVE_SUGGEST_LOCATION_DOMAIN}${address}`,
+            params: {
+                language: "vn",
                 access_token: MAP_BOX_TOKEN,
             },
         });
