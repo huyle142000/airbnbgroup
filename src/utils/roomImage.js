@@ -8,5 +8,5 @@ export const roomImage = [
     "https://a0.muscache.com/im/pictures/miso/Hosting-35979084/original/4f2ddb55-fa9d-46e2-89f5-d0e63c135e00.jpeg?im_w=720",
     "https://a0.muscache.com/im/pictures/dac4439a-67fb-450a-a70d-b3e74adbfb8c.jpg?im_w=720",
     "https://a0.muscache.com/im/pictures/b98e58fd-2622-41ce-a708-6aa2070dc9de.jpg?im_w=720",
-    "https://a0.muscache.com/im/pictures/miso/Hosting-608576856866191304/original/5db5693b-fb2a-427e-b543-780300b22862.jpeg?im_w=720"
-]
+    "https://a0.muscache.com/im/pictures/miso/Hosting-608576856866191304/original/5db5693b-fb2a-427e-b543-780300b22862.jpeg?im_w=720",
+];
