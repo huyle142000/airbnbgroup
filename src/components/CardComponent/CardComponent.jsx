@@ -34,7 +34,6 @@ export default function CardComponent(props) {
     <NavLink 
       className='card_item'
       // to={`roomdetail/${id}`}
-      target="_blank"
     > 
       <div className='card_img'>
         <ImageSlider image={img}/>
