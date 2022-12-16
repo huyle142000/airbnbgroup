@@ -55,6 +55,13 @@
                 font-size: 13px;
             }
             font-size: 13px;
+            font-weight: 400;
+
+        }
+        .form_user-popup-child {
+            h6 {
+                font-weight: 400;
+            }
         }
     }
     .form_user-icon {
@@ -80,7 +87,6 @@
             border-radius: 50%;
             width: 30px;
             height: 30px;
-
         }
     }
 }

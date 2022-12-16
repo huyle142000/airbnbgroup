@@ -2,12 +2,13 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { bothServiceToken } from "../../Service/BothTokenService";
 import {
-  getLocationList,
-  getInforLocation,
-  getListRoom,
-  getInforRoom,
-  getListFullRoom,
-  getArrGeolocationRoom,
+    getLocationList,
+    getInforLocation,
+    getListRoom,
+    getInforRoom,
+    getListFullRoom,
+    getArrGeolocationRoom,
+    getArrSuggestRegion,
 } from "../reducer/LocationRoomReducer";
 import { roomImage } from "../../utils/roomImage";
 
@@ -151,27 +152,45 @@ export function deleteRoomAPI(id, navigate) {
   };
 }
 
+/* ------------------------------- MAP BOX API ------------------------------ */
 //Get Geolocation of address
 export function getGeolocationAPI(room) {
-  return (middlewareDispatch) => {
-    bothServiceToken
-      .getMapBoxGeocoding(room.address)
-      .then((res) => {
-        middlewareDispatch(
-          getArrGeolocationRoom({
-            geoRoom: {
-              ...room,
-              geolocation: {
-                latitude: res.data.features[0].center[1],
-                longtitude: res.data.features[0].center[0],
-              },
-            },
-          })
-        );
-        console.log(res.data.features[0].center);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+    return (middlewareDispatch) => {
+        bothServiceToken
+            .getMapBoxGeocoding(room.address)
+            .then((res) => {
+                let indexFound = res.data.features.findIndex((location) => {
+                    return Number(location.center[0]) > 100;
+                });
+                middlewareDispatch(
+                    getArrGeolocationRoom({
+                        geoRoom: {
+                            ...room,
+                            geolocation: {
+                                latitude:
+                                    res.data.features[indexFound].center[1],
+                                longtitude:
+                                    res.data.features[indexFound].center[0],
+                            },
+                        },
+                    })
+                );
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+}
+
+export function getSuggestionLocation(keyword) {
+    return (middlewareDispatch) => {
+        bothServiceToken
+            .getMapBoxGeocoding(keyword)
+            .then((res) => {
+                middlewareDispatch(getArrSuggestRegion(res.data.features))
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
 }

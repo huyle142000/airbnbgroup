@@ -138,7 +138,7 @@
             transform: scale(1);
         }
         .header__top::after {
-            height: 122px;
+            height: 80px;
         }
     }
     .form__search {
@@ -172,6 +172,7 @@
         border-radius: 32px;
         min-width: 328px;
         input {
+            
             border: none;
             background-color: inherit;
             &:focus {
@@ -205,6 +206,9 @@
     .checkout,
     .search__content {
         padding: $pd-header-search;
+        .active__guest{
+            @include styleText($color-black-2, $fs-1, 500, inherit);
+        }
     }
     .checkin,
     .checkout {
@@ -324,12 +328,12 @@
             }
         }
     }
-    .header__bottom{
-        position: relative;
+    .header__bottom {
+        position: absolute;
     }
 }
 
-.bg__overlay{
+.bg__overlay {
     display: none;
     position: fixed;
     z-index: 2;
