@@ -19,8 +19,8 @@ import "./assets/sass/main.scss";
 import Register from "./Pages/Register/Register";
 import Profile from "./components/FormUser/FormUserDetail/Profile";
 import TravelBooking from "./components/FormUser/FormUserDetail/TravelBooking";
-import BookingTravel from "./pages/BookingTravel/BookingTravel";
-import ConfirmPay from "./pages/BookingTravel/ConfirmPay/ConfirmPay";
+import BookingTravel from "./Pages/BookingTravel/BookingTravel";
+import ConfirmPay from "./Pages/BookingTravel/ConfirmPay/ConfirmPay";
 function App() {
   return (
     <BrowserRouter>

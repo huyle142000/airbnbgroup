@@ -1,12 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Slider from "react-slick";
+import ImageSlider from './ImageSlider/ImageSlider';
 
 
 
 export default function CardComponent(props) {
   console.log(props)
-  const {giaTien,tenPhong,phongNgu,khach,giuong,id} = props.card;
+  const {giaTien,tenPhong,phongNgu,khach,giuong,id,img} = props.card;
   let ramdomStar = (min,max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
@@ -22,6 +22,7 @@ export default function CardComponent(props) {
     overflow: "visible",
     viewBox: '0 0 15 15'}) =>
   <svg
+    className="svg_heart"
     transform="scale(0.8)"
     style={style}
     xmlns="http://www.w3.org/2000/svg"
@@ -32,12 +33,11 @@ export default function CardComponent(props) {
   return(
     <NavLink 
       className='card_item'
-      to={`roomdetail/${id}`}
-      target="_blank"
+      // to={`roomdetail/${id}`}
+      // target="_blank"
     > 
       <div className='card_img'>
-        <img alt="anh" src={props.img} />
-  
+        <ImageSlider image={img}/>
         <div className='card_img_icon'>
           {SVG()}
         </div>
