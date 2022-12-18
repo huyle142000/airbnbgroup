@@ -1,11 +1,8 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import ImageSlider from './ImageSlider/ImageSlider';
-
-
+import React from "react";
+import { NavLink } from "react-router-dom";
+import ImageSlider from "./ImageSlider/ImageSlider";
 
 export default function CardComponent(props) {
-  console.log(props)
   const {giaTien,tenPhong,phongNgu,khach,giuong,id,img} = props.card;
   let ramdomStar = (min,max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
