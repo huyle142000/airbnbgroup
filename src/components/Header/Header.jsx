@@ -4,8 +4,10 @@ import { useEffect } from "react";
 import { useDetectClickOutside } from "react-detect-click-outside";
 import { regions } from "./Region";
 import FormUser from "../FormUser/FormUser";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getSuggestionLocation } from "../../redux/actions/LocationRoomAction";
+import useSelection from "antd/lib/table/hooks/useSelection";
+import context from "react-bootstrap/esm/AccordionContext";
 
 export default function Header() {
     const ADULT_TYPE = 0;
@@ -24,7 +26,10 @@ export default function Header() {
         setTotalGuest(adultsNum + chidNum + infantsNum + petNum);
     }, [adultsNum, chidNum, infantsNum, petNum]);
 
+    const { arrSuggest } = useSelector((state) => state.LocationRoomReducer);
     const [totalGuest, setTotalGuest] = useState(0);
+    const [keyword, setKeyword] = useState("");
+    const [arrSuggestRegion, setArrSuggestRegion] = useState([]);
 
     //Region search state
     const [region, setRegion] = useState("");
@@ -36,6 +41,17 @@ export default function Header() {
             setActiveSearchHeader(false);
         }
     }, [activeSearch]);
+
+    useEffect(() => {
+        const arrSuggestTemp = [];
+        arrSuggest?.map((location) => {
+            const { center, context } = location;
+            arrSuggestTemp.push({ center, context });
+        });
+        setArrSuggestRegion(arrSuggestTemp);
+    }, [arrSuggest]);
+
+    console.log(arrSuggestRegion);
     const closeActiveSearch = () => {
         setActvieSearch(false);
     };
@@ -133,17 +149,65 @@ export default function Header() {
         });
     };
 
+    const renderExtendRegionSearch = () => {
+        if (arrSuggestRegion?.length === 0) {
+            return (
+                <div className="region__container">
+                    <div className="region__content">
+                        <h3>Search by region</h3>
+                        <Row gutter={[16, 16]}>{renderRegion()}</Row>
+                    </div>
+                </div>
+            );
+        } else {
+            return (
+                <div className="region__container region__search">
+                    {renderSuggestRegion()}
+                </div>
+            );
+        }
+    };
+
+    const renderSuggestRegion = () => {
+        //place/region, country, locality,
+        return arrSuggestRegion?.map((region, index) => {
+            if (region.context !== undefined) {
+                return (
+                    <div onClick={() => { 
+                        
+                     }} key={"region-" + index} className="region__row">
+                        <div className="location__icon">
+                            <i className="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div className="region__name">
+                            {getRegionName(region.context)}
+                        </div>
+                    </div>
+                );
+            }
+        });
+    };
+
+    const getRegionName = (context) => {
+        let regionName = "";
+        context?.map((ct, index) => {
+            const { id, text } = ct;
+            if (!id?.includes("postcode")) {
+                regionName += text;
+                if (index < context.length - 1) {
+                    regionName += ", ";
+                }
+            }
+        });
+        return regionName;
+    };
+
     const renderExtendSearch = () => {
         //extend region search
         if (activeForm === 0) {
             return (
                 <div className="search--extend">
-                    <div className="region__container">
-                        <div className="region__content">
-                            <h3>Search by region</h3>
-                            <Row gutter={[16, 16]}>{renderRegion()}</Row>
-                        </div>
-                    </div>
+                    {renderExtendRegionSearch()};
                 </div>
             );
         }
@@ -278,8 +342,8 @@ export default function Header() {
 
     const handleInputRegionChange = (evt) => {
         let val = evt.target.value;
+        setKeyword(val);
         dispatch(getSuggestionLocation(val));
-        console.log(val);
     };
 
     const renderSearchForm = () => {
