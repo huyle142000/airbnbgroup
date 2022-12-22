@@ -188,8 +188,12 @@ function CalendarBook(props) {
       <div className="bookForm_pop-up boxshadow">
         {props.inforRoom && renderInputForm()}
         <div className="row">
-          <div className="col-6">
-            <div className="calendar calendar_left ">
+          <div
+            className={`col-12 col-xl-6 ${
+              props.calendarRight && "col-sm-6"
+            } calendar_left`}
+          >
+            <div className="calendar ">
               {value.isSame(new Date(), "month") ? (
                 <div></div>
               ) : (
@@ -204,10 +208,23 @@ function CalendarBook(props) {
                 </div>
               )}
               {renderCalendar(calendar, startDay, checkIn, 1)}
+              <div
+                className="increase_calendar calendar-icon_month increase_calendar-lg"
+                onClick={() => {
+                  setValue(nextMonth(value));
+                  setValue2(nextMonth(value2));
+                }}
+              >
+                <i className="fa-solid fa-angle-right"></i>
+              </div>
             </div>
           </div>
-          <div className="col-6">
-            <div className="calendar calendar_left ">
+          <div
+            className={`col-12 col-sm-6 calendar_right ${
+              props.calendarRight && "calendar_medium"
+            }`}
+          >
+            <div className="calendar">
               <div
                 className="increase_calendar calendar-icon_month"
                 onClick={() => {

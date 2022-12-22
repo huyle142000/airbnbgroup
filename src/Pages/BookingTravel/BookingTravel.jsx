@@ -32,7 +32,7 @@ export default function BookingTravel(props) {
   }, [inforRoom?.maViTri]);
 
   return (
-    <div className="container-lg">
+    <div className="container-sm">
       <Details inforRoom={inforRoom} />
       <FooterDetail />
     </div>

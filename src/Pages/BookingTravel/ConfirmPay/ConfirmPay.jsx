@@ -60,7 +60,7 @@ export default function ConfirmPay() {
         };
 
         // totalBookedDate
-        dispatch(bookTravelAPI(data,navigate));
+        dispatch(bookTravelAPI(data, navigate));
       }
     } catch (error) {}
   };
@@ -94,7 +94,7 @@ export default function ConfirmPay() {
         </div>
 
         <div className="row">
-          <div className="col-7">
+          <div className="col-12 col-md-6">
             <div className="request_tag border_around-thin">
               <h6>Good price.</h6>
               <p>
@@ -255,10 +255,10 @@ export default function ConfirmPay() {
               <div className="request_pay-notify">
                 <i className="fa-solid fa-calendar-check"></i>
                 <div>
-                  <h6>
+                  <h4>
                     Your reservation won’t be confirmed until the Host accepts
                     your request (within 24 hours).
-                  </h6>
+                  </h4>
                   <p>You won’t be charged until then.</p>
                 </div>
               </div>
@@ -271,16 +271,8 @@ export default function ConfirmPay() {
                 amount shown if the Host accepts my booking request.
               </span>
             </div>
-            <button
-              className="btn_primary btn-pay"
-              onClick={() => {
-                submitCheckIn();
-              }}
-            >
-              Request to book
-            </button>
           </div>
-          <div className="col-5">
+          <div className="col-12 col-md-6">
             <div className="detail_book">
               <div className="detail_book-header border-bottom">
                 <div className="detail_book-img ">
@@ -329,6 +321,14 @@ export default function ConfirmPay() {
             </div>
           </div>
         </div>
+        <button
+          className="btn_primary btn-pay"
+          onClick={() => {
+            submitCheckIn();
+          }}
+        >
+          Request to book
+        </button>
       </div>
     </>
   );

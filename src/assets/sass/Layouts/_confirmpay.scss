@@ -19,6 +19,10 @@
             }
         }
     }
+    h4 {
+        font-size: 17px;
+        margin-bottom: 5px;
+    }
 }
 .request_logo {
     padding: 30px;
@@ -75,14 +79,14 @@
         position: relative;
         border-radius: 10px;
         .card-icon {
-            font-size: 26px;
+            font-size: 20px;
             vertical-align: middle;
         }
         i {
-            font-size: 20px;
+            font-size: 18px;
         }
         span {
-            font-size: 18px;
+            font-size: 15px;
             margin-left: 10px;
             vertical-align: middle;
         }
@@ -138,6 +142,7 @@
 }
 .request_pay-notify {
     display: flex;
+    padding-top: 20px;
     align-items: center;
     justify-content: space-between;
     h6 {
@@ -220,11 +225,11 @@
     .detail_prices {
         padding: 20px 0;
         .detail_prices-item {
-            .taxes{
+            .taxes {
                 margin-top: 0;
             }
-            .taxes-total.taxes-item{
-                p{
+            .taxes-total.taxes-item {
+                p {
                     font-weight: 500;
                     color: black;
                 }
@@ -236,6 +241,59 @@
         justify-content: space-between;
         h6 {
             font-size: 18px;
+        }
+    }
+}
+// responsive
+@include responsive("large") {
+    .request_book {
+        h6 {
+            font-size: 16px;
+        }
+        h2 {
+            font-size: 25px;
+            span {
+                font-size: 14px;
+            }
+        }
+        h4 {
+            font-size: 13px;
+        }
+    }
+    .request_pay {
+        p {
+            font-size: 12px;
+        }
+        .request_pay-card {
+            padding: 10px 5px;
+            .card-icon {
+                font-size: 20px;
+            }
+            i {
+                font-size: 15px;
+            }
+            span {
+                font-size: 14px;
+                margin-left: 10px;
+                vertical-align: middle;
+            }
+        }
+        .request_pay-code {
+            .request_pay-card {
+                padding: 10px 0px;
+            }
+
+            input:focus ~ span {
+                top: 0%;
+                transform: translateY(0%);
+
+                font-size: 10px;
+            }
+        }
+        .request_pay-rules {
+            li {
+                font-size: 12px;
+            }
         }
     }
 }
