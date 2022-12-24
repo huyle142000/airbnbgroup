@@ -1,4 +1,4 @@
-import { bothServiceToken } from "../../Service/BothTokenService";
+import { bothServiceToken } from "../../services/BothTokenService";
 import { getCommentList, getStarComment } from "../reducer/CommentReducer";
 
 export const getListCommentAPI = (id) => {
