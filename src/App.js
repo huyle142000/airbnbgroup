@@ -21,6 +21,7 @@ import Profile from "./components/FormUser/FormUserDetail/Profile";
 import TravelBooking from "./components/FormUser/FormUserDetail/TravelBooking";
 import BookingTravel from "./pages/BookingTravel/BookingTravel";
 import ConfirmPay from "./pages/BookingTravel/ConfirmPay/ConfirmPay";
+import SearchRoom from "./pages/SearchRoom/SearchRoom";
 function App() {
   return (
     <BrowserRouter>
@@ -32,6 +33,7 @@ function App() {
         <Route path="" element={<Home />} />
         <Route index element={<Home />} />
         <Route path="home" element={<Home />} />
+        <Route path="room-filter/:filter" element={<SearchRoom />} />
 
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />

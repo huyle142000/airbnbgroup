@@ -231,6 +231,10 @@
         .no_input {
             // display: none;
         }
+        &.header__cal{
+            position: relative;
+            box-shadow: none;
+        }
     }
     .opacity_label {
         opacity: 0.5;

@@ -3,11 +3,13 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDetectClickOutside } from "react-detect-click-outside";
 import { regions } from "./Region";
+import { menu } from "./MenuBottom";
 import FormUser from "../FormUser/FormUser";
 import { useDispatch, useSelector } from "react-redux";
 import { getSuggestionLocation } from "../../redux/actions/LocationRoomAction";
-import useSelection from "antd/lib/table/hooks/useSelection";
-import context from "react-bootstrap/esm/AccordionContext";
+import CalendarBook from "../../pages/BookingTravel/CalendarBook/CalendarBook";
+import moment from "moment";
+import { NavLink } from "react-router-dom";
 
 export default function Header() {
     const ADULT_TYPE = 0;
@@ -27,6 +29,9 @@ export default function Header() {
     }, [adultsNum, chidNum, infantsNum, petNum]);
 
     const { arrSuggest } = useSelector((state) => state.LocationRoomReducer);
+    const { checkDateIn, checkDateOut } = useSelector(
+        (state) => state.CalendarReducer
+    );
     const [totalGuest, setTotalGuest] = useState(0);
     const [keyword, setKeyword] = useState("");
     const [arrSuggestRegion, setArrSuggestRegion] = useState([]);
@@ -150,7 +155,7 @@ export default function Header() {
     };
 
     const renderExtendRegionSearch = () => {
-        if (arrSuggestRegion?.length === 0) {
+        if (arrSuggestRegion?.length === 0 || keyword === "" || region === "") {
             return (
                 <div className="region__container">
                     <div className="region__content">
@@ -173,9 +178,13 @@ export default function Header() {
         return arrSuggestRegion?.map((region, index) => {
             if (region.context !== undefined) {
                 return (
-                    <div onClick={() => { 
-                        
-                     }} key={"region-" + index} className="region__row">
+                    <div
+                        onClick={() => {
+                            setRegion(getRegionName(region.context));
+                        }}
+                        key={"region-" + index}
+                        className="region__row"
+                    >
                         <div className="location__icon">
                             <i className="fa-solid fa-location-dot"></i>
                         </div>
@@ -211,6 +220,17 @@ export default function Header() {
                 </div>
             );
         }
+        //extend calender search
+        if (activeForm === 1 || activeForm === 2) {
+            return (
+                <div className="search--extend middle">
+                    <div className="calender__container">
+                        <CalendarBook isSearchCalender={true} />
+                    </div>
+                </div>
+            );
+        }
+
         //extend guest search
         if (activeForm === 3) {
             return (
@@ -342,6 +362,7 @@ export default function Header() {
 
     const handleInputRegionChange = (evt) => {
         let val = evt.target.value;
+        setRegion(val);
         setKeyword(val);
         dispatch(getSuggestionLocation(val));
     };
@@ -358,14 +379,37 @@ export default function Header() {
                             setActiveForm(0);
                         }}
                     >
-                        <div className="form__label">Where</div>
-                        <input
-                            onChange={handleInputRegionChange}
-                            type="text"
-                            placeholder={`${
-                                region === "" ? "Search destinations" : region
-                            }`}
-                        />
+                        <div className="d-flex justify-content-between align-align-items-center">
+                            <div className="search__region">
+                                <div className="form__label">Where</div>
+                                <input
+                                    onChange={handleInputRegionChange}
+                                    type="text"
+                                    onBlur={(e) => {
+                                        e.target.placeholder =
+                                            "Search destinations";
+                                    }}
+                                    placeholder="Search destinations"
+                                    value={`${
+                                        region.length <= 21
+                                            ? region
+                                            : region.substring(0, 21) + "..."
+                                    }`}
+                                />
+                            </div>
+                            <div
+                                className={`icon__del ${
+                                    keyword && region !== "" && activeForm === 0
+                                        ? "active"
+                                        : ""
+                                }`}
+                                onClick={(e) => {
+                                    setRegion("");
+                                }}
+                            >
+                                <i className="fa-solid fa-xmark"></i>
+                            </div>
+                        </div>
                     </div>
                     <div
                         className={`checkin ${
@@ -376,7 +420,11 @@ export default function Header() {
                         }}
                     >
                         <div className="form__label">Check in</div>
-                        <span>Add dates</span>
+                        <span>
+                            {checkDateIn !== ""
+                                ? moment(checkDateIn).format("MMM DD")
+                                : "Add dates"}
+                        </span>
                     </div>
                     <div
                         className={`checkout ${
@@ -387,7 +435,11 @@ export default function Header() {
                         }}
                     >
                         <div className="form__label">Check in</div>
-                        <span>Add dates</span>
+                        <span>
+                            {checkDateOut !== ""
+                                ? moment(checkDateOut).format("MMM DD")
+                                : "Add dates"}
+                        </span>
                     </div>
                     <div
                         className={`ip__who ${
@@ -402,10 +454,12 @@ export default function Header() {
                                 <div className="form__label">Who</div>
                                 {renderTotalGuestNumber()}
                             </div>
-                            <div className="btn--search">
-                                <i className="fa-solid fa-magnifying-glass"></i>
-                                <span>Search</span>
-                            </div>
+                            <NavLink to={`room-filter/`}>
+                                <div className="btn--search">
+                                    <i className="fa-solid fa-magnifying-glass"></i>
+                                    <span>Search</span>
+                                </div>
+                            </NavLink>
                         </div>
                     </div>
                 </div>
@@ -424,6 +478,17 @@ export default function Header() {
         }
     };
 
+    let renderBottomMenu = () => {
+        return menu.map((item) => {
+            return <>
+                <div className="menu__item">
+                    <img className="img-fluid" src={item.src} alt="" />
+                    <div>{item.content}</div>
+                </div>
+            </>;
+        });
+    };
+
     return (
         <>
             <div
@@ -440,11 +505,7 @@ export default function Header() {
                     <FormUser />
                     {renderSearchForm()}
                 </div>
-                <div className="header__bottom">
-                    <div>Bottom header here!!!</div>
-                    <div>Bottom header here!!!</div>
-                    <div>Bottom header here!!!</div>
-                </div>
+                {/* <div className="header__bottom">{renderBottomMenu()}</div> */}
             </div>
             <div
                 className={`bg__overlay ${activeSearch ? "d-block" : "d-none"}`}

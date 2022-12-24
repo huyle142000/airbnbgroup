@@ -40,7 +40,7 @@ export default function CardComponent(props) {
             className={`card_item ${
                 props.isActiveMap === undefined ? "" : "card__map"
             }`}
-            // to={`roomdetail/${id}`}
+            to={`roomdetail/${id}`}
         >
             <div className="card_img">
                 <ImageSlider image={img} />

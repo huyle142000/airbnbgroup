@@ -27,7 +27,7 @@ export default function BodyComponent(props) {
     return (
         <>
             {!activeMap && (
-                <div className="my_container">
+                <div className="my_container container">
                     <div
                         className={`body_grid ${
                             props.size === 4
