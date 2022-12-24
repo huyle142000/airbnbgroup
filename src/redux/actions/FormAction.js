@@ -1,6 +1,6 @@
 import axios from "axios";
 import { token, USER_LOGIN } from "../../utils/setting";
-import Login from "../../pages/Login/Login";
+import Login from "../../Pages/Login/Login";
 import { toast } from "react-toastify";
 import { bothServiceToken } from "../../Service/BothTokenService";
 import { getInforUserHome, loginForm } from "../reducer/FormReducer";
