@@ -1,7 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import "antd/dist/antd.min.css";
-import AdminTemplate from "./Templates/AdminTemplate/AdminTemplate";
+import AdminTemplate from "./templates/AdminTemplate/AdminTemplate";
 import User from "./pages/Admin/UserAdmin/User";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,7 +12,7 @@ import EditLocation from "./pages/Admin/Location/EditLocation/EditLocation";
 import ListRoom from "./pages/Admin/Rooms/ListRoom";
 import EditRoom from "./pages/Admin/Rooms/EditRoom/EditRoom";
 import AddRoom from "./pages/Admin/Rooms/AddRoom/AddRoom";
-import ModalAirBnB from "./Templates/ModalAirBnB/ModalAirBnB";
+import ModalAirBnB from "./templates/ModalAirBnB/ModalAirBnB";
 import Login from "./pages/Login/Login";
 import EditUser from "./pages/Admin/UserAdmin/EditUser/EditUser";
 import "./assets/sass/main.scss";

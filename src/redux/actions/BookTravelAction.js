@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { bothServiceToken } from "../../Service/BothTokenService";
+import { bothServiceToken } from "../../services/BothTokenService";
 
 export const bookTravelAPI = (payload, navigate) => {
   return async (dispatch) => {
