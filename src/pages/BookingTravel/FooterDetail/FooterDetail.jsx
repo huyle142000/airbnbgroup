@@ -12,7 +12,6 @@ export default function FooterDetail() {
   const { inforLocation } = useSelector((state) => state.LocationRoomReducer);
   // console.log(getInforLocation);
   const { nameList } = useFooter();
-  const dispatch = useDispatch();
   const renderComments = () => {
     return (
       <div className="comment border-bottom">
@@ -23,7 +22,7 @@ export default function FooterDetail() {
             let randomImg = Math.floor(Math.random() * 50);
 
             return (
-              <div className="col-6" key={i}>
+              <div className="col-12 col-sm-12 col-xl-6" key={i}>
                 <div className="user_comment">
                   <div className="user_comment-header">
                     <img
@@ -98,7 +97,7 @@ export default function FooterDetail() {
   const renderThinkToKnow = () => {
     return (
       <>
-        <h4>Things to know</h4>
+        <h3>Things to know</h3>
         <div className="row">
           <div className="col-4">
             <ul className="thing-list">
@@ -182,7 +181,7 @@ export default function FooterDetail() {
     );
   };
   return (
-    <div className="footerComment">
+    <div className="footerComment" id="reviews">
       <div className="star_comment">
         <span>
           <i className="fa-solid fa-star"></i>
@@ -255,8 +254,8 @@ export default function FooterDetail() {
         </div>
       </div>
       {renderComments()}
-      <div className="map">
-        <h5>Where you’ll be</h5>
+      <div className="map" id="locations">
+        <h3>Where you’ll be</h3>
         <p>
           {inforLocation.tenViTri}, {inforLocation.tinhThanh},
           {inforLocation.quocGia}

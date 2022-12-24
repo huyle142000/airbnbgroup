@@ -1,5 +1,5 @@
 import moment from "moment";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getInfoRoomAPI } from "../../../redux/actions/LocationRoomAction";
 import { openModal } from "../../../redux/reducer/ModalReducer";
@@ -11,10 +11,32 @@ export default function Details(props) {
   const { inforRoom } = props;
   const { inforLocation } = useSelector((state) => state.LocationRoomReducer);
   const { starComment } = useSelector((state) => state.CommentReducer);
+  let [changeNav, setNav] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      let divNavDetail = document.querySelector("#nav_details");
+      let divTitleDetails = document.querySelector("#detail_room-title");
+
+      if (divNavDetail) {
+        let boudingDivNavDetail = divTitleDetails?.getBoundingClientRect().top;
+        if (boudingDivNavDetail <= 0) {
+          setNav(true);
+        } else {
+          setNav(false);
+        }
+      } else {
+        setNav(false);
+      }
+    });
+  }, []);
   const renderTitle = () => {
     return (
       <>
-        <div className="detail-room_title-top border-bottom">
+        <div
+          className="detail-room_title-top border-bottom"
+          id="detail_room-title"
+        >
           <div className="detail-room_title-feature">
             <h3>Entire villa hosted by Tom</h3>
             <span>
@@ -106,7 +128,7 @@ export default function Details(props) {
           <div className="detail-room_features mt-4 border-bottom pb-4">
             <p>{inforRoom.moTa}</p>
           </div>
-          <div className="detail-room_features-list pt-3 pb-4">
+          <div className="detail-room_features-list pt-3 pb-4" id="features">
             <h3>What this place offers</h3>
             <div className="row">
               {inforRoom.mayGiat && (
@@ -181,7 +203,26 @@ export default function Details(props) {
   };
   return (
     <>
-      <div className="detail-room_header">
+      <div
+        className={`detail_nav border_bottom ${changeNav && "d-block"}`}
+        id="nav_details"
+      >
+        <ul className="detail_nav-list">
+          <li className="detail_nav-item">
+            <a href="#photos">Photos</a>
+          </li>
+          <li className="detail_nav-item">
+            <a href="#features">Amenities</a>
+          </li>
+          <li className="detail_nav-item">
+            <a href="#reviews">Reviews</a>
+          </li>
+          <li className="detail_nav-item">
+            <a href="#locations">Location</a>
+          </li>
+        </ul>
+      </div>
+      <div className="detail-room_header" id="photos">
         <h2>{inforRoom?.tenPhong}</h2>
         <div className="star_comment">
           <span>
@@ -199,7 +240,7 @@ export default function Details(props) {
         <img className="img-fluid" src={inforRoom?.hinhAnh} alt="" />
         <div className="detail-room_content mt-5">
           <div className="row">
-            <div className="col-7">
+            <div className="col-12 col-lg-7">
               {renderTitle()}
               {renderContentDetail()}
               {renderContentFeature()}
@@ -207,7 +248,7 @@ export default function Details(props) {
                 <CalendarBook codeRoom={inforRoom.id} />
               </div>
             </div>
-            <div className="col-5">
+            <div className="col col-lg-5">
               <BookForm inforRoom={inforRoom} />
             </div>
           </div>

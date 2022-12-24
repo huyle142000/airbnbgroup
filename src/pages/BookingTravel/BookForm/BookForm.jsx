@@ -1,4 +1,7 @@
+import moment from "moment";
 import React, { useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
+import { openModal } from "../../../redux/reducer/ModalReducer";
 import CalendarBook from "../CalendarBook/CalendarBook";
 import { HandleInputCalendar } from "../CalendarBook/HandleInputCalendar";
 import GuestForm from "../GuestForm/GuestForm";
@@ -6,6 +9,7 @@ import GuestForm from "../GuestForm/GuestForm";
 export default function BookForm(props) {
   let { inforRoom } = props;
   const refCalendar = useRef();
+  const dispatch = useDispatch();
   useEffect(() => {
     const handleCalendarPopUp = (e) => {
       if (refCalendar !== null) {
@@ -27,14 +31,16 @@ export default function BookForm(props) {
     isShow,
     submitCheckIn,
   } = HandleInputCalendar(inforRoom);
+
   return (
-    <div className="container-sm bookForm boxshadow">
+    <div className="bookForm boxshadow bookForm_md">
       <div className="bookForm_header">
         <div className="bookForm_header-title">
-          <h6>
-            {Number(inforRoom?.giaTien)}$ <span>night</span>
+          <h6 className="bookForm_giaTien">
+            ${Number(inforRoom?.giaTien)}
+            <span>night</span>
           </h6>
-          <h6>
+          <h6 className="bookForm_star-review">
             <span>
               <i className="fa-solid fa-star"></i>4
             </span>
@@ -42,7 +48,35 @@ export default function BookForm(props) {
               <li>34 reviews</li>
             </ul>
           </h6>
+          <div className="bookForm_title-md">
+            {checkInDate && checkOutDate ? (
+              <p
+                onClick={() => {
+                  openModal(
+                    <CalendarBook
+                      inforRoom={inforRoom}
+                      classModal={"calendar_modal"}
+                    />
+                  );
+                }}
+              >{`${moment(checkInDate, ["DD-MM-YYYY", "YYYY-MM-DD"]).format(
+                "MMM DD"
+              )} - ${moment(checkOutDate, ["DD-MM-YYYY", "YYYY-MM-DD"]).format(
+                "DD"
+              )}`}</p>
+            ) : (
+              <h6 className="bookForm_star-md">
+                <span>
+                  <i className="fa-solid fa-star"></i>4
+                </span>
+                <ul>
+                  <li>34 reviews</li>
+                </ul>
+              </h6>
+            )}
+          </div>
         </div>
+
         <div className="bookForm_header-checkDate">
           <label htmlFor="checkIn" className={`border_around label_pop-up`}>
             <span>Check-In</span>
@@ -77,7 +111,7 @@ export default function BookForm(props) {
           </label>
           {isShow && (
             <div className="popupCalendar" ref={refCalendar}>
-              <CalendarBook inforRoom={inforRoom} />
+              <CalendarBook inforRoom={inforRoom} calendarRight={true} />
             </div>
           )}
         </div>
@@ -88,7 +122,7 @@ export default function BookForm(props) {
       {checkInDate && checkOutDate ? (
         <>
           <div
-            className="btn_form btn_primary"
+            className="btn_form btn_primary btn_bookForm d-block"
             onClick={(e) => {
               submitCheckIn(e);
             }}
@@ -97,14 +131,31 @@ export default function BookForm(props) {
           </div>
         </>
       ) : (
-        <div
-          className="btn_form btn_primary"
-          onClick={() => {
-            setShow(true);
-          }}
-        >
-          Check availability
-        </div>
+        <>
+          <div
+            className="btn_form btn_primary btn_bookForm"
+            onClick={() => {
+              setShow(true);
+            }}
+          >
+            Check availability
+          </div>
+          <div
+            className="btn_form btn_primary btn_bookForm-md"
+            onClick={() => {
+              dispatch(
+                openModal(
+                  <CalendarBook
+                    inforRoom={inforRoom}
+                    classModal={"calendar_modal bookForm_md-popup"}
+                  />
+                )
+              );
+            }}
+          >
+            Check availability
+          </div>
+        </>
       )}
     </div>
   );

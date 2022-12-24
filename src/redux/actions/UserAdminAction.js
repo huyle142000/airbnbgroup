@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
-import Login from "../../Pages/Login/Login";
-import { bothServiceToken } from "../../Service/BothTokenService";
+import Login from "../../pages/Login/Login";
+import { bothServiceToken } from "../../services/BothTokenService";
 import { USER_LOGIN } from "../../utils/setting";
 import { openModal } from "../reducer/ModalReducer";
 import { getInforUser, getUserList } from "../reducer/UserManagerReducer";
