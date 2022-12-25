@@ -1,5 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import Home from "./Pages/Home/Home";
+import Home from "./pages/Home/Home";
 import "antd/dist/antd.min.css";
 import AdminTemplate from "./templates/AdminTemplate/AdminTemplate";
 import User from "./pages/Admin/UserAdmin/User";
@@ -16,11 +16,11 @@ import ModalAirBnB from "./templates/ModalAirBnB/ModalAirBnB";
 import Login from "./pages/Login/Login";
 import EditUser from "./pages/Admin/UserAdmin/EditUser/EditUser";
 import "./assets/sass/main.scss";
-import Register from "./Pages/Register/Register";
+import Register from "./pages/Register/Register";
 import Profile from "./components/FormUser/FormUserDetail/Profile";
 import TravelBooking from "./components/FormUser/FormUserDetail/TravelBooking";
-import BookingTravel from "./Pages/BookingTravel/BookingTravel";
-import ConfirmPay from "./Pages/BookingTravel/ConfirmPay/ConfirmPay";
+import BookingTravel from "./pages/BookingTravel/BookingTravel";
+import ConfirmPay from "./pages/BookingTravel/ConfirmPay/ConfirmPay";
 function App() {
   return (
     <BrowserRouter>
