@@ -30,7 +30,11 @@ export default function BodyComponent(props) {
         } else {
             return roomFullList?.map((card, index) => {
                 return (
-                    dispatch()
+                    <Col
+                        key={`${props.size === 4 ? index : "filter-" + index}`}
+                    >
+                        <CardComponent card={card} />
+                    </Col>
                 );
             });
         }
