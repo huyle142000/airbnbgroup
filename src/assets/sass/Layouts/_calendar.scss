@@ -108,20 +108,24 @@
 // Bookform
 .bookForm {
     position: sticky;
-    top: 10%;
+    top: 25%;
     padding: 20px;
     border-radius: 10px;
+    max-width: 400px;
+    margin: 0 auto;
 }
 // headerTitle
 .bookForm_header-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    .bookForm_title-md {
+        display: none;
+    }
     h6:first-child {
         font-size: 22px;
+        display: inline-block;
         span {
-            margin-left: 4 px;
-
             font-weight: 400;
             font-size: 17px;
         }
@@ -151,14 +155,14 @@
         position: absolute;
         top: 0;
         right: 0;
-        .bookForm_pop-up.boxshadow{
+        .bookForm_pop-up.boxshadow {
             z-index: 123123;
         }
     }
 
     label {
         padding: 0 10px;
-        margin-top: 20px;
+        margin-top: 5px;
         p {
             margin-top: 6px;
             color: $color-red-2;
@@ -170,11 +174,14 @@
         }
     }
     .label_pop-up {
+        flex-basis: 50%;
         cursor: pointer;
         input {
+            width: 100%;
             pointer-events: none;
         }
     }
+
     .label_checkIn {
         p {
             display: none;
@@ -207,6 +214,8 @@
         color: $color-black-1;
     }
     input {
+        width: 100%;
+        font-size: 13px;
         margin-top: 20px;
         margin-bottom: 5px;
         border: none;
@@ -224,12 +233,39 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            .select_dates-title {
+                flex-basis: 60%;
+                p {
+                    font-weight: 400;
+                    color: $color-gray-1;
+                    text-transform: none;
+                    margin: 5px 0;
+                    font-size: 12px;
+                }
+            }
+            .form_calendar {
+                flex-basis: 40%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                label {
+                    flex-basis: 50%;
+                }
+            }
         }
         .checkIn-input {
             width: 100%;
         }
-        .no_input {
-            // display: none;
+        .calendar_left {
+            .increase_calendar-lg.calendar-icon_month {
+                display: none;
+                top: 0;
+                transform: translateY(50%);
+            }
+        }
+
+        .calendar_right.calendar_medium {
+            display: block;
         }
         &.header__cal{
             position: relative;
@@ -240,4 +276,132 @@
         opacity: 0.5;
     }
 }
+//
+.calendar_modal {
+    .modal-dialog{
+        padding: 0 60px;
+        top: 25%;
+    }
+    .bookForm_header-checkDate {
+        .bookForm_pop-up {
+            right: 50%;
+            transform: translateX(50%);
+            width: 100%;
+        }
+    }
+}
 
+@include responsive("large") {
+    .bookForm_header-title {
+        margin-top: 20px;
+
+        h6:first-child {
+            font-size: 18px;
+            span {
+                font-size: 14px;
+            }
+        }
+        h6 {
+            font-size: 18px;
+            transform: translateY(-50%);
+            span {
+                margin-right: 10px;
+                font-size: 12px;
+            }
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        ul {
+            margin: 0;
+        }
+        li {
+            list-style-type: "-";
+            padding-left: 8px;
+            font-size: 12px;
+        }
+    }
+    //
+    .bookForm_header-checkDate {
+        .bookForm_pop-up {
+            width: 680px;
+            .calendar_span span {
+                font-size: 12px;
+            }
+            .calendar_right {
+                display: none;
+            }
+            .calendar_left {
+                .increase_calendar-lg.calendar-icon_month {
+                    display: block;
+                }
+            }
+        }
+        .select_dates {
+            h3 {
+                font-size: 23px;
+            }
+        }
+        span {
+            font-size: 9px;
+        }
+    }
+}
+.btn_bookForm-md {
+    display: none;
+}
+@include responsive("medium") {
+    .bookForm.bookForm_md {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: unset;
+        z-index: 123;
+        background-color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 100%;
+        padding: 0 20px;
+        .wrap_label-guest {
+            display: none;
+        }
+        .btn_bookForm {
+            flex-basis: 20%;
+            display: none;
+        }
+        .btn_bookForm-md {
+            display: block;
+            flex-basis: 20%;
+        }
+        .bookForm_header-title {
+            display: block;
+            .bookForm_giaTien {
+                span {
+                    margin-left: 2px;
+                }
+            }
+            .bookForm_title-md {
+                display: block;
+                p {
+                    color: $color-black-1;
+                    text-decoration: underline;
+                    font-weight: 500;
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+            }
+            .bookForm_star-md {
+                display: flex;
+            }
+            .bookForm_star-review {
+                display: none;
+            }
+        }
+        .bookForm_header-checkDate {
+            display: none;
+        }
+    }
+}

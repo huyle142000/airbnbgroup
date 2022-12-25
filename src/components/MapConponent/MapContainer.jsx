@@ -22,7 +22,6 @@ export default function MapContainer() {
             zoom: 10,
         },
     });
-    console.log(arrGeolocationRoom);
 
     useEffect(() => {
         roomFullList?.map((room) => {

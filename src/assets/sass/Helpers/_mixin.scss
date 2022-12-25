@@ -28,3 +28,23 @@
     padding: $pd;
     font-size: $fs;
 }
+
+$breakpoints: (
+    "extra-large": 1200px,
+    "large": 992px,
+    "medium": 768px,
+    "small": 576px,
+);
+//$screen:tên màn hình muốn lấy kích thước
+@mixin responsive($screen) {
+    @if (map-has-key($map: $breakpoints, $key: $screen)) {
+        //tìm thấy tên màn hình trong danh sách breakpoints
+        $value: map-get(
+            $map: $breakpoints,
+            $key: $screen,
+        );
+        @media screen and (max-width: $value) {
+            @content;
+        }
+    }
+}

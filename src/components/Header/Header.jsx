@@ -56,7 +56,6 @@ export default function Header() {
         setArrSuggestRegion(arrSuggestTemp);
     }, [arrSuggest]);
 
-
     const closeActiveSearch = () => {
         setActvieSearch(false);
     };

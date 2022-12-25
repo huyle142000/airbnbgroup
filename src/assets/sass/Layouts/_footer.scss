@@ -45,7 +45,7 @@
 .user_comment-content {
     p {
         font-size: 16px;
-        font-weight: 500;
+        font-weight: 400;
         color: $color-black-1;
     }
 }
@@ -192,6 +192,87 @@
     .footer_desc-right {
         li {
             margin: 0 10px;
+        }
+    }
+}
+//
+@include responsive("large") {
+    .footerComment {
+        .star_comment {
+            span {
+                i {
+                }
+                font-size: 16px;
+            }
+        }
+        .star_detail-item {
+            .wrap_star-number {
+                flex-basis: 50%;
+            }
+            .star_detail-title {
+                font-size: 12px;
+            }
+        }
+    }
+    .user_comment-content {
+        p {
+            font-size: 12px;
+        }
+    }
+    .user_comment-header {
+        img {
+            border-radius: 50%;
+            margin-right: 10px;
+            width: 40px;
+            height: 40px;
+        }
+        .user_comment-name {
+            p:first-child {
+                font-size: 12px;
+                font-weight: 500;
+                color: $color-black-1;
+            }
+            p {
+                margin-top: 4px;
+                font-size: 10px;
+            }
+        }
+    }
+    .super_host {
+        padding: 30px 0px;
+        .super_host-header {
+            .super_host-name {
+                p {
+                    font-size: 16px;
+                }
+            }
+        }
+        .super_host-content {
+            p {
+                font-size: 14px;
+            }
+        }
+    }
+    .thing-toKnow {
+        li:first-child {
+            font-size: 13px;
+        }
+        li {
+            font-size: 14px;
+        }
+    }
+    .footer_desc {
+        li:first-child {
+            i {
+                font-size: 12px;
+            }
+        }
+        li {
+            font-size: 11.5px;
+            i {
+                font-size: 16px;
+                cursor: pointer;
+            }
         }
     }
 }
