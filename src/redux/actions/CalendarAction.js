@@ -1,6 +1,6 @@
 import _ from "lodash";
 import moment from "moment";
-import { bothServiceToken } from "../../Service/BothTokenService";
+import { bothServiceToken } from "../../services/BothTokenService";
 import { getDateIsBooked } from "../reducer/CalendarReducer";
 
 export const getDateIsBookedAPI = (id) => {

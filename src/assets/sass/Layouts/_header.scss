@@ -159,7 +159,7 @@
         background-color: $color-gray-3;
         margin-top: 1rem;
         cursor: pointer;
-        span {
+        span.calender__date {
             @include styleText($color-gray-1, $fs-1, 400, inherit);
         }
     }

@@ -56,7 +56,7 @@ export default function Header() {
         setArrSuggestRegion(arrSuggestTemp);
     }, [arrSuggest]);
 
-    console.log(arrSuggestRegion);
+
     const closeActiveSearch = () => {
         setActvieSearch(false);
     };
@@ -420,7 +420,7 @@ export default function Header() {
                         }}
                     >
                         <div className="form__label">Check in</div>
-                        <span>
+                        <span className="calender__date">
                             {checkDateIn !== ""
                                 ? moment(checkDateIn).format("MMM DD")
                                 : "Add dates"}
@@ -435,7 +435,7 @@ export default function Header() {
                         }}
                     >
                         <div className="form__label">Check in</div>
-                        <span>
+                        <span className="calender__date">
                             {checkDateOut !== ""
                                 ? moment(checkDateOut).format("MMM DD")
                                 : "Add dates"}
@@ -454,7 +454,7 @@ export default function Header() {
                                 <div className="form__label">Who</div>
                                 {renderTotalGuestNumber()}
                             </div>
-                            <NavLink to={`room-filter/`}>
+                            <NavLink to={`room-filter/region=${region}&checkin=${moment(checkDateIn).format("MMM DD yyyy")}&checkout=${moment(checkDateOut).format("MMM DD yyyy")}&guest=${totalGuest}`}>
                                 <div className="btn--search">
                                     <i className="fa-solid fa-magnifying-glass"></i>
                                     <span>Search</span>

@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import ImageSlider from "./ImageSlider/ImageSlider";
 
 export default function CardComponent(props) {
-    console.log(props);
     const { giaTien, tenPhong, phongNgu, khach, giuong, id, img } = props.card;
     let ramdomStar = (min, max) => {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -36,17 +35,16 @@ export default function CardComponent(props) {
         </svg>
     );
     return (
-        <NavLink
+        <div
             className={`card_item ${
                 props.isActiveMap === undefined ? "" : "card__map"
             }`}
-            to={`roomdetail/${id}`}
         >
             <div className="card_img">
                 <ImageSlider image={img} />
                 <div className="card_img_icon">{SVG()}</div>
             </div>
-            <div className="card_content">
+            <NavLink className="card_content" to={`bookingtravel/${id}`}>
                 <div className="card_name">
                     <div className="card_name_text">
                         {tenPhong.length > 50
@@ -71,7 +69,7 @@ export default function CardComponent(props) {
                 <div className="card_price">
                     <strong>${giaTien}</strong> /1đêm
                 </div>
-            </div>
-        </NavLink>
+            </NavLink>
+        </div>
     );
 }
