@@ -77,7 +77,6 @@ function GuestForm(props) {
     if (props?.totalGuest) {
       dispatch(getTotalGuest(props.totalGuest));
       if (totalGuest === inforRoom?.khach) {
-        console.log(totalGuest);
         setOverGuest(true);
       }
     }

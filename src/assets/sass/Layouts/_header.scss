@@ -45,6 +45,7 @@
             background-color: $color-white;
         }
     }
+
     .header__search {
         position: relative;
         .btn--left {
@@ -158,7 +159,7 @@
         background-color: $color-gray-3;
         margin-top: 1rem;
         cursor: pointer;
-        span {
+        span.calender__date {
             @include styleText($color-gray-1, $fs-1, 400, inherit);
         }
     }
@@ -185,6 +186,23 @@
     }
     .form__label {
         @include styleText($color-black-2, $fs-0, 600, inherit);
+    }
+    .icon__del {
+        display: none;
+        border-radius: 50%;
+        background-color: $color-gray-3;
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+        align-self: center;
+        text-align: center;
+        color: black;
+        &:hover {
+            background-color: #ddd;
+        }
+        &.active {
+            display: block;
+        }
     }
     .checkin,
     .checkout,
@@ -354,8 +372,38 @@
             }
         }
     }
+
+    .calender__container {
+        box-shadow: $bs-extend-map;
+        padding: $pd-extend-search;
+        background-color: $color-white;
+        border-radius: 32px;
+    }
+
     .header__bottom {
         position: absolute;
+        padding: 32px 0;
+        padding-left: 20px;
+        background-color: white;
+        @include displayFlex(flex-start, center);
+        gap: 32px;
+        text-align: center;
+        .menu__item {
+            img {
+                max-width: 24px;
+                margin-bottom: 8px;
+            }
+        }
+    }
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: $color-gray-1;
+        opacity: 0.1;
     }
 }
 

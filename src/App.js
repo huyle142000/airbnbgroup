@@ -18,9 +18,11 @@ import EditUser from "./pages/Admin/UserAdmin/EditUser/EditUser";
 import "./assets/sass/main.scss";
 import Register from "./pages/Register/Register";
 import Profile from "./components/FormUser/FormUserDetail/Profile";
-import TravelBooking from "./components/FormUser/FormUserDetail/TravelBooking";
 import BookingTravel from "./pages/BookingTravel/BookingTravel";
 import ConfirmPay from "./pages/BookingTravel/ConfirmPay/ConfirmPay";
+import SearchRoom from "./pages/SearchRoom/SearchRoom";
+import YourBooking from "./components/FormUser/FormUserDetail/YourBooking";
+import HomeTemplate from "./templates/HomeTemplate/HomeTemplate";
 function App() {
   return (
     <BrowserRouter>
@@ -32,11 +34,12 @@ function App() {
         <Route path="" element={<Home />} />
         <Route index element={<Home />} />
         <Route path="home" element={<Home />} />
+        <Route path="room-filter/:filter" element={<SearchRoom />} />
 
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         {/*************** BookingRoom *****************/}
-        <Route path="bookingtravel" element={<BookingTravel />} />
+        <Route path="bookingtravel/" element={<BookingTravel />} />
 
         {/* *************  Admin  ************ */}
         <Route element={<AdminTemplate />}>
@@ -57,9 +60,12 @@ function App() {
         </Route>
         {/* Form */}
         <Route path="profile" element={<Profile />} />
-        <Route path="travelbooking" element={<TravelBooking />} />
-        <Route path="bookingtravel/:id" element={<BookingTravel />} />
+        <Route element={<HomeTemplate />}>
+          <Route path="yourbooking" element={<YourBooking />} />
+        </Route>
 
+        {/*Booking  */}
+        <Route path="bookingtravel/:id" element={<BookingTravel />} />
         <Route path="confirmpay" element={<ConfirmPay />} />
       </Routes>
     </BrowserRouter>

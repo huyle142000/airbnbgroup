@@ -267,6 +267,10 @@
         .calendar_right.calendar_medium {
             display: block;
         }
+        &.header__cal{
+            position: relative;
+            box-shadow: none;
+        }
     }
     .opacity_label {
         opacity: 0.5;

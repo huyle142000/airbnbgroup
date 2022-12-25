@@ -127,7 +127,6 @@ export const HandleInputCalendar = (inforRoom) => {
         setErrorDateOut(false);
         return true;
       } else {
-        console.log(123123);
         setErrorDateOut(true);
         dispatch(getCheckOut(""));
         return false;
@@ -148,30 +147,7 @@ export const HandleInputCalendar = (inforRoom) => {
         checkValidDateIn &&
         checkValidDateOut
       ) {
-        // const currentTime = moment().format("HH:mm:ss");
-        // const checkIndateConvert = moment(`${checkInDate} ${currentTime}`, [
-        //   "YYYY-MM-DD[T]HH:mm:ss[Z]",
-        //   "DD-MM-YYYY[T]HH:mm:ss[Z]",
-        // ]).format("YYYY-MM-DD[T]HH:mm:ss[Z]");
-        // const checkOutdateConvert = moment(`${checkOutDate} ${currentTime}`, [
-        //   "YYYY-MM-DD[T]HH:mm:ss[Z]",
-        //   "DD-MM-YYYY[T]HH:mm:ss[Z]",
-        // ]).format("YYYY-MM-DD[T]HH:mm:ss[Z]");
-        // let userID = JSON.parse(localStorage.getItem(USER_LOGIN));
-        // let data = {
-        //   id: 0,
-        //   maPhong: inforRoom?.id,
-        //   ngayDen: checkIndateConvert,
-        //   ngayDi: checkOutdateConvert,
-        //   soLuongKhach: `${adult + children + infant + pet}`,
-        //   maNguoiDung: userID?.id,
-        //   hinhAnh: inforRoom?.hinhAnh,
-        //   tenPhong: inforRoom?.tenPhong,
-        //   totalDate: totalBookedDate,
-        // };
-        // // totalBookedDate
-        // await dispatch(getInforDateToBook(data));
-        await navigate("/confirmpay");
+        navigate("/confirmpay");
       }
     } catch (error) {}
   };
@@ -208,66 +184,66 @@ export const HandleInputCalendar = (inforRoom) => {
           }}
           className="form_calendar"
         >
-            <label
-              htmlFor="checkIn"
-              className={`border_around label_checkIn ${
-                errorDateIn && "error"
-              } ${focus && "border_checkIn"}`}
-            >
-              <span>Check-In</span>
-              <input
-                value={checkInDate}
-                className="checkIn-input"
-                placeholder="DD/MM/YYYY"
-                onBlur={(e) => {
-                  let { name, value } = e.target;
-                  checkDateValid(name, value);
-                }}
-                onClick={(e) => {
-                  focusInput(e);
-                }}
-                ref={checkInRef}
-                type="text"
-                name="checkIn"
-                id="checkIn"
-                onChange={(e) => handleChange(e)}
-              />
-              <p>
-                <i className="fa-solid fa-circle-exclamation"></i>Date is not
-                Valid
-              </p>
-            </label>
-            <label
-              htmlFor="checkOut"
-              className={`border_around ${
-                isCheckOut || checkOutDate !== "" ? "" : "opacity_label"
-              } ${errorDateOut && "error"} ${
-                !focus && "border_checkOut"
-              } label_checkOut`}
-            >
-              <span>Check-Out</span>
-              <input
-                onBlur={(e) => {
-                  let { name, value } = e.target;
-                  checkDateValid(name, value);
-                }}
-                onClick={(e) => {
-                  focusInput(e);
-                }}
-                value={checkOutDate}
-                placeholder="DD/MM/YYYY"
-                disabled={isCheckOut || checkOutDate !== "" ? false : true}
-                type="text"
-                id="checkOut"
-                name="checkOut"
-                onChange={(e) => handleChange(e)}
-                ref={checkOutRef}
-              />
-              <p>
-                <i className="fa-solid fa-circle-exclamation"></i>Date is not
-                Valid
-              </p>
-            </label>
+          <label
+            htmlFor="checkIn"
+            className={`border_around label_checkIn ${errorDateIn && "error"} ${
+              focus && "border_checkIn"
+            }`}
+          >
+            <span>Check-In</span>
+            <input
+              value={checkInDate}
+              className="checkIn-input"
+              placeholder="DD/MM/YYYY"
+              onBlur={(e) => {
+                let { name, value } = e.target;
+                checkDateValid(name, value);
+              }}
+              onClick={(e) => {
+                focusInput(e);
+              }}
+              ref={checkInRef}
+              type="text"
+              name="checkIn"
+              id="checkIn"
+              onChange={(e) => handleChange(e)}
+            />
+            <p>
+              <i className="fa-solid fa-circle-exclamation"></i>Date is not
+              Valid
+            </p>
+          </label>
+          <label
+            htmlFor="checkOut"
+            className={`border_around ${
+              isCheckOut || checkOutDate !== "" ? "" : "opacity_label"
+            } ${errorDateOut && "error"} ${
+              !focus && "border_checkOut"
+            } label_checkOut`}
+          >
+            <span>Check-Out</span>
+            <input
+              onBlur={(e) => {
+                let { name, value } = e.target;
+                checkDateValid(name, value);
+              }}
+              onClick={(e) => {
+                focusInput(e);
+              }}
+              value={checkOutDate}
+              placeholder="DD/MM/YYYY"
+              disabled={isCheckOut || checkOutDate !== "" ? false : true}
+              type="text"
+              id="checkOut"
+              name="checkOut"
+              onChange={(e) => handleChange(e)}
+              ref={checkOutRef}
+            />
+            <p>
+              <i className="fa-solid fa-circle-exclamation"></i>Date is not
+              Valid
+            </p>
+          </label>
         </form>
       </div>
     );

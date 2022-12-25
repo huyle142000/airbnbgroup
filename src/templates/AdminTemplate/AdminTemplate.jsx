@@ -8,15 +8,13 @@ import {
 import { Layout, Menu } from "antd";
 import "antd/dist/antd.min.css";
 import "./admin.css";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { NavLink, Outlet, Route, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink, Outlet } from "react-router-dom";
 const { Header, Sider, Content } = Layout;
 
 export default function AdminTemplate(props) {
   const [collapsed, setCollapsed] = useState(false);
   const { Component, ...rest } = props;
-  const navigate = useNavigate();
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
