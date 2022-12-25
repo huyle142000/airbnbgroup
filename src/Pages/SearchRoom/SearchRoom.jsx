@@ -1,6 +1,7 @@
 import { Col, Row } from "antd";
 import React, { useState } from "react";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import BodyComponent from "../../components/BodyComponent/BodyComponent";
 import Header from "../../components/Header/Header";
@@ -8,6 +9,7 @@ import MapContainer from "../../components/MapConponent/MapContainer";
 
 export default function SearchRoom() {
     const { filter } = useParams();
+    const { roomFullList } = useSelector((state) => state.LocationRoomReducer);
     const [filterData, setFilterData] = useState({
         region: "",
         checkin: "",
@@ -59,14 +61,16 @@ export default function SearchRoom() {
     return (
         <>
             <Header />
-            <Row>
-                <Col>
-                    <BodyComponent dataFilter={filterData} size={2} />
-                </Col>
-                <Col>
-                   
-                </Col>
-            </Row>
+            <div className="row">
+                <div className="col-6">
+                    <div className="over__flow">
+                        <BodyComponent dataFilter={filterData} size={2} />
+                    </div>
+                </div>
+                <div className="col-6">
+                <MapContainer arrRoom={roomFullList} dataFilter={filterData} />
+                </div>
+            </div>
         </>
     );
 }

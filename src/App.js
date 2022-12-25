@@ -24,52 +24,63 @@ import SearchRoom from "./pages/SearchRoom/SearchRoom";
 import YourBooking from "./components/FormUser/FormUserDetail/YourBooking";
 import HomeTemplate from "./templates/HomeTemplate/HomeTemplate";
 function App() {
-  return (
-    <BrowserRouter>
-      <ToastContainer />
-      <ModalAirBnB />
-      <Routes>
-        <Route path="*" element={<Navigate to="" />} />
+    return (
+        <BrowserRouter>
+            <ToastContainer />
+            <ModalAirBnB />
+            <Routes>
+                <Route path="*" element={<Navigate to="" />} />
 
-        <Route path="" element={<Home />} />
-        <Route index element={<Home />} />
-        <Route path="home" element={<Home />} />
-        <Route path="room-filter/:filter" element={<SearchRoom />} />
+                <Route path="" element={<Home />} />
+                <Route index element={<Home />} />
+                <Route path="home" element={<Home />} />
+                <Route path="room-filter/:filter" element={<SearchRoom />} />
 
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-        {/*************** BookingRoom *****************/}
-        <Route path="bookingtravel/" element={<BookingTravel />} />
+                <Route path="login" element={<Login />} />
+                <Route path="register" element={<Register />} />
+                {/*************** BookingRoom *****************/}
+                <Route path="bookingtravel/" element={<BookingTravel />} />
 
-        {/* *************  Admin  ************ */}
-        <Route element={<AdminTemplate />}>
-          {/******************* USERR *****************/}
-          <Route path="/admin" element={<User />} />
-          <Route path="/admin/userlist" element={<User />} />
-          <Route path="/admin/edituser/:id" element={<EditUser />} />
-          <Route path="/admin/adduser" element={<AddUser />} />
+                {/* *************  Admin  ************ */}
+                <Route element={<AdminTemplate />}>
+                    {/******************* USERR *****************/}
+                    <Route path="/admin" element={<User />} />
+                    <Route path="/admin/userlist" element={<User />} />
+                    <Route path="/admin/edituser/:id" element={<EditUser />} />
+                    <Route path="/admin/adduser" element={<AddUser />} />
 
-          {/* *****************  Location  ***************** */}
-          <Route path="/location" element={<ListLocation />} />
-          <Route path="/admin/addlocation" element={<AddLocation />} />
-          <Route path="/admin/editvitri/:id" element={<EditLocation />} />
-          {/* ****************** ROOM ***************** */}
-          <Route path="/admin/rooms/:id" element={<ListRoom />} />
-          <Route path="/admin/editroom/:id" element={<EditRoom />} />
-          <Route path="/admin/addroom/:id" element={<AddRoom />} />
-        </Route>
-        {/* Form */}
-        <Route path="profile" element={<Profile />} />
-        <Route element={<HomeTemplate />}>
-          <Route path="yourbooking" element={<YourBooking />} />
-        </Route>
+                    {/* *****************  Location  ***************** */}
+                    <Route path="/location" element={<ListLocation />} />
+                    <Route
+                        path="/admin/addlocation"
+                        element={<AddLocation />}
+                    />
+                    <Route
+                        path="/admin/editvitri/:id"
+                        element={<EditLocation />}
+                    />
+                    {/* ****************** ROOM ***************** */}
+                    <Route path="/admin/rooms/:id" element={<ListRoom />} />
+                    <Route path="/admin/editroom/:id" element={<EditRoom />} />
+                    <Route path="/admin/addroom/:id" element={<AddRoom />} />
+                </Route>
+                {/* Form */}
+                <Route path="profile" element={<Profile />} />
+                <Route element={<HomeTemplate />}>
+                    <Route path="yourbooking" element={<YourBooking />} />
+                </Route>
 
-        {/*Booking  */}
-        <Route path="bookingtravel/:id" element={<BookingTravel />} />
-        <Route path="confirmpay" element={<ConfirmPay />} />
-      </Routes>
-    </BrowserRouter>
-  );
+                {/*Booking  */}
+                <Route element={<HomeTemplate />}>
+                    <Route
+                        path="bookingtravel/:id"
+                        element={<BookingTravel />}
+                    />
+                </Route>
+                <Route path="confirmpay" element={<ConfirmPay />} />
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;

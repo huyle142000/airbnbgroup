@@ -44,6 +44,14 @@ ul {
     list-style: none;
 }
 
+.overflow{
+    overflow: hidden;
+}
+.over__flow{
+    overflow-y: scroll;
+    max-height: 100vh;
+}
+
 //Global CSS config
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
