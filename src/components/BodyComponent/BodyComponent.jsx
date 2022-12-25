@@ -17,7 +17,7 @@ export default function BodyComponent(props) {
     console.log("dataFilter", dataFilter);
 
     let renderListCard = () => {
-        if (dataFilter === null) {
+        if (dataFilter === undefined) {
             return roomFullList?.map((card, index) => {
                 return (
                     <Col
@@ -41,7 +41,7 @@ export default function BodyComponent(props) {
     };
 
     let renderBodyCpn = () => {
-        if (dataFilter === null) {
+        if (dataFilter === undefined) {
             return (
                 <>
                     {!activeMap && (
