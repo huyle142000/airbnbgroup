@@ -10,7 +10,6 @@ export default function FooterDetail() {
   );
   const { inforRoom } = useSelector((state) => state.LocationRoomReducer);
   const { inforLocation } = useSelector((state) => state.LocationRoomReducer);
-  // console.log(getInforLocation);
   const { nameList } = useFooter();
   const renderComments = () => {
     return (

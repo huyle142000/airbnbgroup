@@ -38,7 +38,6 @@ export default function Register() {
         .matches(/^[0-9]*$/, "Số điện thoại phải là số"),
     }),
     onSubmit: (values) => {
-      console.log(values);
       dispatch(registerAction(values));
     },
   });

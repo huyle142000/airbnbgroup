@@ -18,9 +18,10 @@ import EditUser from "./pages/Admin/UserAdmin/EditUser/EditUser";
 import "./assets/sass/main.scss";
 import Register from "./pages/Register/Register";
 import Profile from "./components/FormUser/FormUserDetail/Profile";
-import TravelBooking from "./components/FormUser/FormUserDetail/TravelBooking";
 import BookingTravel from "./pages/BookingTravel/BookingTravel";
 import ConfirmPay from "./pages/BookingTravel/ConfirmPay/ConfirmPay";
+import YourBooking from "./components/FormUser/FormUserDetail/YourBooking";
+import HomeTemplate from "./templates/HomeTemplate/HomeTemplate";
 function App() {
   return (
     <BrowserRouter>
@@ -57,9 +58,12 @@ function App() {
         </Route>
         {/* Form */}
         <Route path="profile" element={<Profile />} />
-        <Route path="travelbooking" element={<TravelBooking />} />
-        <Route path="bookingtravel/:id" element={<BookingTravel />} />
+        <Route element={<HomeTemplate />}>
+          <Route path="yourbooking" element={<YourBooking />} />
+        </Route>
 
+        {/*Booking  */}
+        <Route path="bookingtravel/:id" element={<BookingTravel />} />
         <Route path="confirmpay" element={<ConfirmPay />} />
       </Routes>
     </BrowserRouter>

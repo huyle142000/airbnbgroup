@@ -29,7 +29,6 @@ export default function EditUser(props) {
       role: userInfo?.role,
     },
     onSubmit: (values, { resetForm }) => {
-      console.log(123123)
       dispatch(editUserAPI(id, values,navigate));
       // resetForm();
     },

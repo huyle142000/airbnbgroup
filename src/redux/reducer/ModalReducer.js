@@ -12,7 +12,6 @@ export const ModalReducer = createSlice({
       state.show = false;
     },
     openModal: (state, action) => {
-      console.log("first")
       state.show = true;
       state.ComponentContentModal = action.payload;
     },

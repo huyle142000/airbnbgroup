@@ -2,6 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   inforDateBook: {},
+  inforYourTrips: [],
+  arrListTrips: [],
+
   totalGuest: 0,
   guestAdults: 1,
   guestChildren: 0,
@@ -30,10 +33,18 @@ export const BookTravel = createSlice({
     getGuestPets: (state, action) => {
       state.guestPets = action.payload;
     },
+    getInforYourTrips: (state, action) => {
+      state.inforYourTrips = action.payload;
+    },
+    getListTrips: (state, action) => {
+      state.arrListTrips = action.payload;
+    },
   },
 });
 //truyền action
 export const {
+  getListTrips,
+  getInforYourTrips,
   getInforDateToBook,
   getTotalGuest,
   getGuestAdults,

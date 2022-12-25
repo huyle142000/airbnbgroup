@@ -19,7 +19,6 @@ export const CalendarReducer = createSlice({
       state.checkDateOut = action.payload;
     },
     getLimitCheckOut: (state, action) => {
-      console.log(action);
       state.checkDateOutLimit = action.payload;
     },
     getCheckDateBefore: (state, action) => {

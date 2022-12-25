@@ -43,7 +43,6 @@ export const useEditRoom = (props) => {
     onSubmit: (values, { resetForm }) => {
       // vì post có dữ liệu uploadFile nên ta cần tạo 1 formData
       let formData = new FormData();
-      console.log(values);
       for (let key in values) {
         if (key !== "hinhAnh") {
           formData.append(key, values[key]);

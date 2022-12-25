@@ -14,7 +14,6 @@ export const FormReducer = createSlice({
   initialState,
   reducers: {
     loginForm: (state, action) => {
-      console.log(action);
       state.uLogin = action.payload;
     },
     logoutForm: (state, action) => {

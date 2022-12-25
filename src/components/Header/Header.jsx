@@ -51,7 +51,6 @@ export default function Header() {
         setArrSuggestRegion(arrSuggestTemp);
     }, [arrSuggest]);
 
-    console.log(arrSuggestRegion);
     const closeActiveSearch = () => {
         setActvieSearch(false);
     };
@@ -439,11 +438,6 @@ export default function Header() {
                     {renderHeaderSearch()}
                     <FormUser />
                     {renderSearchForm()}
-                </div>
-                <div className="header__bottom">
-                    <div>Bottom header here!!!</div>
-                    <div>Bottom header here!!!</div>
-                    <div>Bottom header here!!!</div>
                 </div>
             </div>
             <div

@@ -68,7 +68,10 @@ function FormUser() {
             >
               Profile
             </h6>
-            <h6 className="border_bottom" onClick={() => {}}>
+            <h6 className="border_bottom" onClick={() => {
+                navigate("yourbooking");
+
+            }}>
               Your Travel Booking
             </h6>
             <div className="form_user-popup-child border_bottom">

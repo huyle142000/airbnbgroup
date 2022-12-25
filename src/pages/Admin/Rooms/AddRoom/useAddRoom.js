@@ -13,11 +13,12 @@ export const useAddRoom = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   let [imgSrc, setImgSrc] = useState("");
+
   //   formik
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      id: 203,
+      id: 0,
       tenPhong: "string",
       khach: 0,
       phongNgu: 0,
@@ -34,7 +35,7 @@ export const useAddRoom = () => {
       doXe: true,
       hoBoi: true,
       banUi: true,
-      maViTri: 1400,
+      maViTri: id,
       hinhAnh: "string",
     },
     onSubmit: (values, { resetForm }) => {
@@ -46,7 +47,6 @@ export const useAddRoom = () => {
   const { setFieldValue } = formik;
   const handleChangeSetFieldValue = (name) => {
     return (value) => {
-      console.log(name, value);
       setFieldValue(name, value);
     };
   };

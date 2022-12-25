@@ -21,3 +21,17 @@
         opacity: 0.8;
     }
 }
+.btn-searching {
+    color: $color-black-1;
+    background-color: $color-white;
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
+    padding: 10px 30px;
+    font-weight: 500;
+    border: 1px solid #ababab;
+    &:hover {
+        background-color: rgba(113, 86, 86, 0.11);
+
+    }
+}
