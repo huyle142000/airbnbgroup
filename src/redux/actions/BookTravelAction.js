@@ -42,6 +42,7 @@ export const getInforTripsAPI = (id) => {
         }
         a = date.ngayDen;
       });
+      
       dispatch(getInforYourTrips(arrFilters));
     } catch (error) {
       toast.error(error.response, {

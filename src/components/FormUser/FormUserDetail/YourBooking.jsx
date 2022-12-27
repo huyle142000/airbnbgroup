@@ -1,41 +1,49 @@
+import { wait } from "@testing-library/user-event/dist/utils";
 import moment from "moment";
 import React, { useEffect, useLayoutEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getInforTripsAPI } from "../../../redux/actions/BookTravelAction";
+import { getListTrips } from "../../../redux/reducer/BookTravel";
 import { bothServiceToken } from "../../../services/BothTokenService";
 
 export default function YourBooking() {
   const { uLogin } = useSelector((state) => state.FormReducer);
-  const { inforYourTrips } = useSelector((state) => state.BookTravel);
+  const { inforYourTrips, arrListTrips } = useSelector(
+    (state) => state.BookTravel
+  );
   const [trips, setTrips] = useState([]);
-  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getInforTripsAPI(uLogin.id));
   }, []);
-  useLayoutEffect(() => {
+  const handleTripAPI = async () => {
     let a = [];
-    inforYourTrips.map(async (trip) => {
-      try {
-        let room = await bothServiceToken.get(`phong-thue/${trip.maPhong}`);
-        let { data } = await bothServiceToken.get(
-          `vi-tri/${room.data.content.maViTri}`
-        );
-        let viTri = data.content.tenViTri;
-        let tinhThanh = data.content.tinhThanh;
-        let quocGia = data.content.quocGia;
+    for (let index = 0; index < inforYourTrips.length; index++) {
+      let { data } = await bothServiceToken.get(
+        `phong-thue/${inforYourTrips[index].maPhong}`
+      );
+      let response = await bothServiceToken.get(
+        `vi-tri/${data.content.maViTri}`
+      );
 
-        a.push({
-          ngayDen: trip.ngayDen,
-          ngayDi: trip.ngayDi,
-          tenPhong: room.data.content.tenPhong,
+      let viTri = await response.data.content.tenViTri;
+      let tinhThanh = await response.data.content.tinhThanh;
+      let quocGia = await response.data.content.quocGia;
+      setTrips((prevData) =>
+        prevData.concat({
+          ngayDen: inforYourTrips[index].ngayDen,
+          ngayDi: inforYourTrips[index].ngayDi,
+          tenPhong: data.content.tenPhong,
           viTri: `${viTri}, ${tinhThanh}, ${quocGia} `,
-        });
-        setTrips(a);
-      } catch (error) {}
-    });
+        })
+      );
+    }
+  };
+  useEffect(() => {
+    handleTripAPI();
   }, [inforYourTrips]);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const renderNoTrip = () => {
     return (
