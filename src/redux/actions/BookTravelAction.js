@@ -37,7 +37,6 @@ export const getInforTripsAPI = (id) => {
         return new Date(b.ngayDi) - new Date(a.ngayDi);
       });
       let a;
-      // console.log(arrFilter,12)
       arrFilters = arrFilters.filter((date) => {
         if (!moment(date.ngayDen).isSame(a)) {
           a = date.ngayDen;
@@ -45,11 +44,7 @@ export const getInforTripsAPI = (id) => {
         }
         a = date.ngayDen;
       });
-<<<<<<< HEAD
-      // console.log(arrFilters)
-=======
       
->>>>>>> huyle
       dispatch(getInforYourTrips(arrFilters));
     } catch (error) {
       toast.error(error.response, {
