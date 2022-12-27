@@ -42,9 +42,25 @@
 
 
 @include responsive("large") {
+    .your_booking{
+        h2{
+            font-size: 24px;
+            span {
+                i {
+                    font-size: 14px;
+                }
+            }
+        }
+
+    }
     .trips-title {
         th {
             width: 30px;
+        }
+    }
+    .trips_content-list{
+        td{
+            font-size: 13px;
         }
     }
 }

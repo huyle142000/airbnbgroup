@@ -1,79 +1,48 @@
+import { wait } from "@testing-library/user-event/dist/utils";
 import moment from "moment";
 import React, { useEffect, useLayoutEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getInforTripsAPI } from "../../../redux/actions/BookTravelAction";
-import { getArrListTripOfUser } from "../../../redux/reducer/BookTravel";
 import { bothServiceToken } from "../../../services/BothTokenService";
 
 export default function YourBooking() {
   const { uLogin } = useSelector((state) => state.FormReducer);
-  const { inforYourTrips } = useSelector((state) => state.BookTravel);
+  const { inforYourTrips } = useSelector(
+    (state) => state.BookTravel
+  );
   const [trips, setTrips] = useState([]);
-  const [tripsB, setTripsB] = useState([]);
-
-  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getInforTripsAPI(uLogin.id));
   }, []);
-
-  useEffect(() => {
+  const handleTripAPI = async () => {
     let a = [];
-    inforYourTrips.map(async (trip) => {
-      try {
-        let room = await bothServiceToken.get(`phong-thue/${trip.maPhong}`);
-        const { maViTri } = await room.data.content;
+    for (let index = 0; index < inforYourTrips.length; index++) {
+      let { data } = await bothServiceToken.get(
+        `phong-thue/${inforYourTrips[index].maPhong}`
+      );
+      let response = await bothServiceToken.get(
+        `vi-tri/${data.content.maViTri}`
+      );
 
-        // if (room.data.content.maViTri) {
-        //   console.log(result)
-        // }
-
-        // await bcd(room.data.content.maViTri, trip.ngayDen, trip.ngayDi);
-        // await Promise.each(room, async ({ data }) => {
-        //   console.log(123123)
-        //   try {
-
-        //     console.log(result);
-        //   } catch (error) {}
-        // });
-        // let viTri = await data.content.tenViTri;
-        // let tinhThanh = await data.content.tinhThanh;
-        // let quocGia = await data.content.quocGia;
-        a.push({ maViTri });
-        setTrips(a);
-
-        // console.log(a, "trips");
-      } catch (error) {}
-    });
-  }, [inforYourTrips]);
+      let viTri = await response.data.content.tenViTri;
+      let tinhThanh = await response.data.content.tinhThanh;
+      let quocGia = await response.data.content.quocGia;
+      setTrips((prevData) =>
+        prevData.concat({
+          ngayDen: inforYourTrips[index].ngayDen,
+          ngayDi: inforYourTrips[index].ngayDi,
+          tenPhong: data.content.tenPhong,
+          viTri: `${viTri}, ${tinhThanh}, ${quocGia} `,
+        })
+      );
+    }
+  };
   useEffect(() => {
-    // console.log(trips);
-    let b = [];
-    trips?.map(async (trip) => {
-      // console.log(first)
-      try {
-        let response = await bothServiceToken.get(`vi-tri/${trip.maViTri}`);
-        // console.log(data, "1");
-        // console.log(result, "2");
-
-        // const { tenViTri, tinhThanh, quocGia } = await result.data.content;
-        // for (let i = 0; i < response.data.content.length; i++) {
-        //   console.log(response)
-        //   b.push(response.data.content[i]);
-        //   setTripsB(b)
-        // }
-        b.push(response);
-        setTripsB(b);
-
-        // console.log(b);
-      } catch (error) {}
-      setTripsB(b);
-    });
-  }, [trips]);
-  console.log(tripsB);
-
-  // console.log(trips, 12341324);
+    handleTripAPI();
+  }, [inforYourTrips]);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const renderNoTrip = () => {
     return (

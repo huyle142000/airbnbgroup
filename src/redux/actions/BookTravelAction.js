@@ -45,7 +45,11 @@ export const getInforTripsAPI = (id) => {
         }
         a = date.ngayDen;
       });
+<<<<<<< HEAD
       // console.log(arrFilters)
+=======
+      
+>>>>>>> huyle
       dispatch(getInforYourTrips(arrFilters));
     } catch (error) {
       toast.error(error.response, {
