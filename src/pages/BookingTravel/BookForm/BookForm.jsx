@@ -1,6 +1,7 @@
 import moment from "moment";
 import React, { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { openModal } from "../../../redux/reducer/ModalReducer";
 import CalendarBook from "../CalendarBook/CalendarBook";
 import { HandleInputCalendar } from "../CalendarBook/HandleInputCalendar";
@@ -10,6 +11,7 @@ export default function BookForm(props) {
   let { inforRoom } = props;
   const refCalendar = useRef();
   const dispatch = useDispatch();
+
   useEffect(() => {
     const handleCalendarPopUp = (e) => {
       if (refCalendar !== null) {

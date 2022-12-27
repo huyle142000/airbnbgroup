@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   editRoomAPI,
   getInfoRoomAPI,
@@ -14,6 +14,8 @@ export const useEditRoom = (props) => {
   useEffect(() => {
     dispatch(getInfoRoomAPI(id));
   }, []);
+  const navigate = useNavigate();
+
   let [imgSrc, setImgSrc] = useState("");
   //   formik
   const formik = useFormik({
@@ -41,7 +43,7 @@ export const useEditRoom = (props) => {
       hinhAnh: "string",
     },
     onSubmit: (values, { resetForm }) => {
-      dispatch(editRoomAPI(values.id, values));
+      dispatch(editRoomAPI(values.id, values,navigate));
     },
   });
 

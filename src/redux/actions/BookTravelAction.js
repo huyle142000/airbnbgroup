@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { bothServiceToken } from "../../services/BothTokenService";
 import { getInforYourTrips } from "../reducer/BookTravel";
 import { getCheckIn, getCheckOut } from "../reducer/CalendarReducer";
+import { getDateIsBookedAPI } from "./CalendarAction";
 
 export const bookTravelAPI = (payload, navigate) => {
   return async (dispatch) => {
@@ -10,9 +11,10 @@ export const bookTravelAPI = (payload, navigate) => {
       const { data } = await bothServiceToken.post("dat-phong", payload);
       await dispatch(getCheckIn(""));
       await dispatch(getCheckOut(""));
+
       await navigate(`/bookingtravel/${payload.maPhong}`);
-      await navigate(0);
-      toast.success("You have successfully booked travel !", {
+      await dispatch(getDateIsBookedAPI(payload.maPhong));
+      await toast.success("You have successfully booked travel !", {
         position: "top-right",
         autoClose: 3000,
       });
@@ -35,6 +37,7 @@ export const getInforTripsAPI = (id) => {
         return new Date(b.ngayDi) - new Date(a.ngayDi);
       });
       let a;
+      // console.log(arrFilter,12)
       arrFilters = arrFilters.filter((date) => {
         if (!moment(date.ngayDen).isSame(a)) {
           a = date.ngayDen;
@@ -42,6 +45,7 @@ export const getInforTripsAPI = (id) => {
         }
         a = date.ngayDen;
       });
+      // console.log(arrFilters)
       dispatch(getInforYourTrips(arrFilters));
     } catch (error) {
       toast.error(error.response, {

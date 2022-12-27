@@ -4,6 +4,7 @@ const initialState = {
   inforDateBook: {},
   inforYourTrips: [],
   arrListTrips: [],
+  arrListTripOfUser: [],
 
   totalGuest: 0,
   guestAdults: 1,
@@ -39,10 +40,14 @@ export const BookTravel = createSlice({
     getListTrips: (state, action) => {
       state.arrListTrips = action.payload;
     },
+    getArrListTripOfUser: (state, action) => {
+      state.arrListTripOfUser = action.payload;
+    },
   },
 });
 //truyền action
 export const {
+  getArrListTripOfUser,
   getListTrips,
   getInforYourTrips,
   getInforDateToBook,

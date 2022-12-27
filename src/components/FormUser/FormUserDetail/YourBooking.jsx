@@ -4,38 +4,76 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getInforTripsAPI } from "../../../redux/actions/BookTravelAction";
+import { getArrListTripOfUser } from "../../../redux/reducer/BookTravel";
 import { bothServiceToken } from "../../../services/BothTokenService";
 
 export default function YourBooking() {
   const { uLogin } = useSelector((state) => state.FormReducer);
   const { inforYourTrips } = useSelector((state) => state.BookTravel);
   const [trips, setTrips] = useState([]);
+  const [tripsB, setTripsB] = useState([]);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getInforTripsAPI(uLogin.id));
   }, []);
-  useLayoutEffect(() => {
+
+  useEffect(() => {
     let a = [];
     inforYourTrips.map(async (trip) => {
       try {
         let room = await bothServiceToken.get(`phong-thue/${trip.maPhong}`);
-        let { data } = await bothServiceToken.get(
-          `vi-tri/${room.data.content.maViTri}`
-        );
-        let viTri = data.content.tenViTri;
-        let tinhThanh = data.content.tinhThanh;
-        let quocGia = data.content.quocGia;
+        const { maViTri } = await room.data.content;
 
-        a.push({
-          ngayDen: trip.ngayDen,
-          ngayDi: trip.ngayDi,
-          tenPhong: room.data.content.tenPhong,
-          viTri: `${viTri}, ${tinhThanh}, ${quocGia} `,
-        });
+        // if (room.data.content.maViTri) {
+        //   console.log(result)
+        // }
+
+        // await bcd(room.data.content.maViTri, trip.ngayDen, trip.ngayDi);
+        // await Promise.each(room, async ({ data }) => {
+        //   console.log(123123)
+        //   try {
+
+        //     console.log(result);
+        //   } catch (error) {}
+        // });
+        // let viTri = await data.content.tenViTri;
+        // let tinhThanh = await data.content.tinhThanh;
+        // let quocGia = await data.content.quocGia;
+        a.push({ maViTri });
         setTrips(a);
+
+        // console.log(a, "trips");
       } catch (error) {}
     });
   }, [inforYourTrips]);
+  useEffect(() => {
+    // console.log(trips);
+    let b = [];
+    trips?.map(async (trip) => {
+      // console.log(first)
+      try {
+        let response = await bothServiceToken.get(`vi-tri/${trip.maViTri}`);
+        // console.log(data, "1");
+        // console.log(result, "2");
+
+        // const { tenViTri, tinhThanh, quocGia } = await result.data.content;
+        // for (let i = 0; i < response.data.content.length; i++) {
+        //   console.log(response)
+        //   b.push(response.data.content[i]);
+        //   setTripsB(b)
+        // }
+        b.push(response);
+        setTripsB(b);
+
+        // console.log(b);
+      } catch (error) {}
+      setTripsB(b);
+    });
+  }, [trips]);
+  console.log(tripsB);
+
+  // console.log(trips, 12341324);
   const navigate = useNavigate();
   const renderNoTrip = () => {
     return (
@@ -71,6 +109,7 @@ export default function YourBooking() {
           </thead>
           <tbody className="trips_content">
             {trips?.map((trip, i) => {
+              // console.log(trips, "trip");
               return (
                 <tr className="trips_content-list trips-title" key={i}>
                   <td>{trip.tenPhong}</td>
@@ -123,7 +162,7 @@ export default function YourBooking() {
         </h2>
       </div>
       <div className="your_booking-content">
-        {trips.length === 0 ? renderNoTrip() : renderTrips()}
+        {/* {trips.length === 0 ? renderNoTrip() : renderTrips()} */}
       </div>
     </div>
   );

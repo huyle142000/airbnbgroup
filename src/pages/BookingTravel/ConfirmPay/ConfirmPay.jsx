@@ -1,10 +1,11 @@
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bookTravelAPI } from "../../../redux/actions/BookTravelAction";
 import { openModal } from "../../../redux/reducer/ModalReducer";
 import { USER_LOGIN } from "../../../utils/setting";
+import Login from "../../Login/Login";
 import CalendarBook from "../CalendarBook/CalendarBook";
 import { HandleInputCalendar } from "../CalendarBook/HandleInputCalendar";
 
@@ -14,18 +15,28 @@ export default function ConfirmPay() {
   const dispatch = useDispatch();
   const { starComment } = useSelector((state) => state.CommentReducer);
   const navigate = useNavigate();
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, []);
   const [isShows, setShows] = useState(false);
   const [isSelected, setSelected] = useState("Credit or debit card");
   const { checkDateIn, checkDateOut } = useSelector(
     (state) => state.CalendarReducer
   );
+
+  const { uLogin } = useSelector((state) => state.FormReducer);
   const { totalGuest, guestAdults, guestChildren, guestInfants, guestPets } =
     useSelector((state) => state.BookTravel);
   const { inforRoom } = useSelector((state) => state.LocationRoomReducer);
   const { checkDateValid } = HandleInputCalendar();
+
   const submitCheckIn = async () => {
     let checkValidDateIn;
     let checkValidDateOut;
+    if (!uLogin) {
+      dispatch(openModal(<Login classModal={"form_modal"} />));
+      return;
+    }
     try {
       checkValidDateIn = checkDateValid("checkIn", checkDateIn);
       checkValidDateOut = checkDateValid("checkOut", checkDateOut);
@@ -64,6 +75,7 @@ export default function ConfirmPay() {
       }
     } catch (error) {}
   };
+
   return (
     <>
       <div className="request_logo border_bottom">
