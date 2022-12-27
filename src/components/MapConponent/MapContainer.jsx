@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getGeolocationAPI } from "../../redux/actions/LocationRoomAction";
 import CardComponent from "../CardComponent/CardComponent";
 
-export default function MapContainer() {
+export default function MapContainer(props) {
     const arrRoomModified = [];
     const dispatch = useDispatch();
     const { roomFullList, arrGeolocationRoom } = useSelector(
@@ -22,7 +22,6 @@ export default function MapContainer() {
             zoom: 10,
         },
     });
-
     useEffect(() => {
         roomFullList?.map((room) => {
             const { id } = room;
@@ -60,7 +59,11 @@ export default function MapContainer() {
                         e.originalEvent.stopPropagation();
                         togglePopup({ ...showPopup, showMap: id });
                     }}
-                    key={`card--map--${id}`}
+                    key={`${
+                        props.dataFilter === undefined
+                            ? `card--map--${id}`
+                            : `card--filter--${id}`
+                    }`}
                     latitude={latitude}
                     longitude={longtitude}
                     offsetLeft={-20}
@@ -90,7 +93,11 @@ export default function MapContainer() {
     };
 
     return (
-        <div className="map__container">
+        <div
+            className={`map__container ${
+                props.dataFilter !== undefined ? "filter" : ""
+            }`}
+        >
             <Map
                 {...viewport}
                 mapStyle="mapbox://styles/mapbox/streets-v9"

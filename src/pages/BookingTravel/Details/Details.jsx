@@ -17,13 +17,15 @@ export default function Details(props) {
     window.addEventListener("scroll", () => {
       let divNavDetail = document.querySelector("#nav_details");
       let divTitleDetails = document.querySelector("#detail_room-title");
-
+      let divNavHeader = document.querySelector(".header");
       if (divNavDetail) {
         let boudingDivNavDetail = divTitleDetails?.getBoundingClientRect().top;
         if (boudingDivNavDetail <= 0) {
           setNav(true);
+          divNavHeader.classList.add("d-none");
         } else {
           setNav(false);
+          divNavHeader.classList.remove("d-none");
         }
       } else {
         setNav(false);

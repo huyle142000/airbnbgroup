@@ -2,20 +2,36 @@ import React, { useEffect, useState } from "react";
 import { Col, Row } from "antd";
 import CardComponent from "../CardComponent/CardComponent";
 import { useDispatch, useSelector } from "react-redux";
-import { getListFullRoomAPI } from "../../redux/actions/LocationRoomAction";
+import {
+    getBookingRoomAPI,
+    getListFullRoomAPI,
+} from "../../redux/actions/LocationRoomAction";
 import { roomImage } from "../../utils/roomImage";
 import MapContainer from "../MapConponent/MapContainer";
 
 export default function BodyComponent(props) {
     const dispatch = useDispatch();
     const [activeMap, setActiveMap] = useState(false);
-    const { roomFullList } = useSelector((state) => state.LocationRoomReducer);
+    const { roomFullList, roomFilter } = useSelector(
+        (state) => state.LocationRoomReducer
+    );
+    const [roomFIlterArr, setRoomFilterArr] = useState([]);
     const { dataFilter } = props;
     useEffect(() => {
+        if(props.dataFilter !== undefined){
+            document.querySelector("body").classList.add("overflow");
+        } else {
+            document.querySelector("body").classList.remove("overflow");
+        }
         dispatch(getListFullRoomAPI());
     }, []);
-    console.log("dataFilter", dataFilter);
-
+    useEffect(() => {
+        let roomFilterArr = [];
+        if (roomFullList?.length > 0) {
+           
+        }
+        setRoomFilterArr(roomFilterArr);
+    }, [roomFilter]);
     let renderListCard = () => {
         if (dataFilter === undefined) {
             return roomFullList?.map((card, index) => {
@@ -37,6 +53,14 @@ export default function BodyComponent(props) {
                     </Col>
                 );
             });
+
+            // roomFullList?.map((card, index) => {
+            //     let { id, khach } = card;
+            //     if (dataFilter.guestNum <= khach) {
+            //         console.log(index);
+            //         // dispatch(getBookingRoomAPI(dataFilter, id));
+            //     }
+            // });
         }
     };
 
@@ -45,7 +69,7 @@ export default function BodyComponent(props) {
             return (
                 <>
                     {!activeMap && (
-                        <div className="my_container container">
+                        <div className={`my_container container ${props.dataFilter!==undefined ? "overflow" : ""}`}>
                             <div
                                 className={`body_grid ${
                                     props.size === 4

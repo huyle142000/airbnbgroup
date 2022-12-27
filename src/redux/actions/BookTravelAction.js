@@ -56,19 +56,19 @@ export const getListTripsAPI = (id) => {
     try {
       const { data } = await bothServiceToken.get(`phong-thue/${id}`);
       const arrFilter = [...data.content];
-      
-      // let arrFilters = arrFilter.sort((a, b) => {
-      //   return new Date(b.ngayDi) - new Date(a.ngayDi);
-      // });
-      // let a;
-      // arrFilters = arrFilters.filter((date) => {
-      //   if (!moment(date.ngayDen).isSame(a)) {
-      //     a = date.ngayDen;
-      //     return date;
-      //   }
-      //   a = date.ngayDen;
-      // });
-      // dispatch(getInforYourTrips(arrFilters));
+
+      let arrFilters = arrFilter.sort((a, b) => {
+        return new Date(b.ngayDi) - new Date(a.ngayDi);
+      });
+      let a;
+      arrFilters = arrFilters.filter((date) => {
+        if (!moment(date.ngayDen).isSame(a)) {
+          a = date.ngayDen;
+          return date;
+        }
+        a = date.ngayDen;
+      });
+      dispatch(getInforYourTrips(arrFilters));
     } catch (error) {
       toast.error(error.response, {
         position: "top-right",

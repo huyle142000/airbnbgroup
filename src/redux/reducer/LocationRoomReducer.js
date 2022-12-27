@@ -9,6 +9,7 @@ const initialState = {
     roomList: [],
     inforRoom: {},
     arrSuggest: [],
+    roomFilter: [],
 };
 export const LocationRoomReducer = createSlice({
     name: "LocationRoomReducer",
@@ -34,7 +35,10 @@ export const LocationRoomReducer = createSlice({
         },
         getArrSuggestRegion: (state, action) => {
             state.arrSuggest = action.payload;
-        }
+        },
+        getRoomIdFilter: (state, action) => {
+            state.roomFilter.push(action.payload);
+        },
     },
 });
 //truyền action
@@ -46,5 +50,6 @@ export const {
     getListFullRoom,
     getArrGeolocationRoom,
     getArrSuggestRegion,
+    getRoomIdFilter,
 } = LocationRoomReducer.actions;
 export default LocationRoomReducer.reducer;

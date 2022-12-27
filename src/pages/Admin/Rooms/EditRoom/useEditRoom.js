@@ -38,22 +38,10 @@ export const useEditRoom = (props) => {
       hoBoi: inforRoom?.hoBoi,
       banUi: inforRoom?.banUi,
       maViTri: inforRoom?.maViTri,
-      hinhAnh: null,
+      hinhAnh: "string",
     },
     onSubmit: (values, { resetForm }) => {
-      // vì post có dữ liệu uploadFile nên ta cần tạo 1 formData
-      let formData = new FormData();
-      for (let key in values) {
-        if (key !== "hinhAnh") {
-          formData.append(key, values[key]);
-        } else {
-          // bởi vì hinhAnh ko thay đổi thì file vẫn giữ giá trị cũ nên ko cần push lên(ở đây giá trị là null)
-          if (values.hinhAnh !== null) {
-            formData.append("File", values.hinhAnh, values.hinhAnh.name);
-          }
-        }
-      }
-      dispatch(editRoomAPI(values.id, formData));
+      dispatch(editRoomAPI(values.id, values));
     },
   });
 

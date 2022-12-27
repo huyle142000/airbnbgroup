@@ -32,7 +32,7 @@ export default function BookingTravel(props) {
   }, [inforRoom?.maViTri]);
 
   return (
-    <div className="container-sm">
+    <div className="container-sm over__header">
       <Details inforRoom={inforRoom} />
       <FooterDetail />
     </div>
