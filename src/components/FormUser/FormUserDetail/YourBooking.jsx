@@ -131,7 +131,7 @@ export default function YourBooking() {
         </h2>
       </div>
       <div className="your_booking-content">
-        {/* {trips.length === 0 ? renderNoTrip() : renderTrips()} */}
+        {trips.length === 0 ? renderNoTrip() : renderTrips()}
       </div>
     </div>
   );
