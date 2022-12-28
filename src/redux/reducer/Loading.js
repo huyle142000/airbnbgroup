@@ -13,7 +13,7 @@ export const LoadingSpinner = createSlice({
     },
     openSpinner: (state, action) => {
         state.show = true;
-        wait(700)
+        wait(500)
     },
   },
 });

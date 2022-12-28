@@ -77,7 +77,7 @@ export function deleteLocationAPI(id, navigate) {
 //Full-Rooms
 export function getListFullRoomAPI() {
   return async (dispatch) => {
-    await dispatch(openSpinner(true));
+    await dispatch(openSpinner());
     try {
       const { data } = await bothServiceToken.get(`phong-thue`);
       let arrRoom = [];
@@ -95,7 +95,7 @@ export function getListFullRoomAPI() {
     } catch (error) {
       console.log(error.response);
     } finally {
-      await dispatch(closeSpinner(true));
+      await dispatch(closeSpinner());
     }
   };
 }
@@ -140,7 +140,7 @@ export function getBookingRoomAPI(dataFilter, roomId) {
 //IdRoom
 export function getListRoomAPI(id) {
   return async (dispatch) => {
-    await dispatch(openSpinner(true));
+    await dispatch(openSpinner());
 
     try {
       const { data } = await bothServiceToken.get(
@@ -149,7 +149,7 @@ export function getListRoomAPI(id) {
       dispatch(getListRoom(data.content));
     } catch (error) {
     } finally {
-      await dispatch(closeSpinner(true));
+      await dispatch(closeSpinner());
     }
   };
 }
@@ -183,7 +183,7 @@ export function editRoomAPI(id, datas, navigate) {
 //get Room
 export function getInfoRoomAPI(id) {
   return async (dispatch) => {
-    await dispatch(openSpinner(true));
+    await dispatch(openSpinner());
 
     try {
       const { data } = await bothServiceToken.get(`phong-thue/${id}`);
@@ -192,7 +192,7 @@ export function getInfoRoomAPI(id) {
       console.log(e);
       toast.error("Error!!!");
     } finally {
-      await dispatch(closeSpinner(true));
+      await dispatch(closeSpinner());
     }
   };
 }

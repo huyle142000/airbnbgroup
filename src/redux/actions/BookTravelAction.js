@@ -1,4 +1,3 @@
-// import { delay } from "@reduxjs/toolkit/dist/utils";
 import { wait } from "@testing-library/user-event/dist/utils";
 
 import moment from "moment";
@@ -11,7 +10,7 @@ import { getDateIsBookedAPI } from "./CalendarAction";
 
 export const bookTravelAPI = (payload, navigate) => {
   return async (dispatch) => {
-    await dispatch(openSpinner(true));
+    await dispatch(openSpinner());
     try {
       const { data } = await bothServiceToken.post("dat-phong", payload);
       await dispatch(getCheckIn(""));
@@ -29,13 +28,14 @@ export const bookTravelAPI = (payload, navigate) => {
         autoClose: 3000,
       });
     } finally {
-      await dispatch(closeSpinner(true));
+      await dispatch(closeSpinner());
     }
   };
 };
 export const getInforTripsAPI = (id) => {
   return async (dispatch) => {
-    await dispatch(openSpinner(true));
+    await dispatch(openSpinner());
+
     try {
       const { data } = await bothServiceToken.get(
         `dat-phong/lay-theo-nguoi-dung/${id}`
@@ -60,7 +60,7 @@ export const getInforTripsAPI = (id) => {
         autoClose: 3000,
       });
     } finally {
-      await dispatch(closeSpinner(true));
+      await dispatch(closeSpinner());
     }
   };
 };

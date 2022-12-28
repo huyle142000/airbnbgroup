@@ -1,4 +1,5 @@
 import moment from "moment";
+import { wait } from "@testing-library/user-event/dist/utils";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { getInforTripsAPI } from "../../../redux/actions/BookTravelAction";
 import { getInforYourTrips } from "../../../redux/reducer/BookTravel";
 import { bothServiceToken } from "../../../services/BothTokenService";
+import { closeSpinner, openSpinner } from "../../../redux/reducer/Loading";
 
 export default function YourBooking() {
   const { uLogin } = useSelector((state) => state.FormReducer);
@@ -18,25 +20,33 @@ export default function YourBooking() {
     };
   }, []);
   const handleTripAPI = async () => {
-    for (let index = 0; index < inforYourTrips.length; index++) {
-      let { data } = await bothServiceToken.get(
-        `phong-thue/${inforYourTrips[index].maPhong}`
-      );
-      let response = await bothServiceToken.get(
-        `vi-tri/${data.content.maViTri}`
-      );
+    try {
+      dispatch(openSpinner());
 
-      let viTri = await response.data.content.tenViTri;
-      let tinhThanh = await response.data.content.tinhThanh;
-      let quocGia = await response.data.content.quocGia;
-      setTrips((prevData) =>
-        prevData.concat({
-          ngayDen: inforYourTrips[index].ngayDen,
-          ngayDi: inforYourTrips[index].ngayDi,
-          tenPhong: data.content.tenPhong,
-          viTri: `${viTri}, ${tinhThanh}, ${quocGia} `,
-        })
-      );
+      for (let index = 0; index < inforYourTrips.length; index++) {
+        let { data } = await bothServiceToken.get(
+          `phong-thue/${inforYourTrips[index].maPhong}`
+        );
+        let response = await bothServiceToken.get(
+          `vi-tri/${data.content.maViTri}`
+        );
+        let viTri = await response.data.content.tenViTri;
+        let tinhThanh = await response.data.content.tinhThanh;
+        let quocGia = await response.data.content.quocGia;
+        setTrips((prevData) =>
+          prevData.concat({
+            ngayDen: inforYourTrips[index].ngayDen,
+            ngayDi: inforYourTrips[index].ngayDi,
+            tenPhong: data.content.tenPhong,
+            viTri: `${viTri}, ${tinhThanh}, ${quocGia} `,
+          })
+        );
+      }
+      await wait(2000);
+    } catch (error) {
+    } finally {
+      dispatch(closeSpinner());
+
     }
   };
   useEffect(() => {

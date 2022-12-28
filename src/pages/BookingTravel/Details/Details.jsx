@@ -32,6 +32,9 @@ export default function Details(props) {
       }
     });
   }, []);
+  const handleScrollTo = (ele) => {
+    document.getElementById(`${ele}`).scrollIntoView();
+  };
   const renderTitle = () => {
     return (
       <>
@@ -210,17 +213,37 @@ export default function Details(props) {
         id="nav_details"
       >
         <ul className="detail_nav-list">
-          <li className="detail_nav-item">
-            <a href="#photos">Photos</a>
+          <li
+            className="detail_nav-item"
+            onClick={() => {
+              handleScrollTo("photos");
+            }}
+          >
+            <p>Photos</p>
           </li>
-          <li className="detail_nav-item">
-            <a href="#features">Amenities</a>
+          <li
+            className="detail_nav-item"
+            onClick={() => {
+              handleScrollTo("features");
+            }}
+          >
+            <p>Amenities</p>
           </li>
-          <li className="detail_nav-item">
-            <a href="#reviews">Reviews</a>
+          <li
+            className="detail_nav-item"
+            onClick={() => {
+              handleScrollTo("reviews");
+            }}
+          >
+            <p>Reviews</p>
           </li>
-          <li className="detail_nav-item">
-            <a href="#locations">Location</a>
+          <li
+            className="detail_nav-item"
+            onClick={() => {
+              handleScrollTo("locations");
+            }}
+          >
+            <p>Location</p>
           </li>
         </ul>
       </div>
