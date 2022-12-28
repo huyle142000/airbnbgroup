@@ -1,23 +1,23 @@
-import { wait } from "@testing-library/user-event/dist/utils";
 import moment from "moment";
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getInforTripsAPI } from "../../../redux/actions/BookTravelAction";
+import { getInforYourTrips } from "../../../redux/reducer/BookTravel";
 import { bothServiceToken } from "../../../services/BothTokenService";
 
 export default function YourBooking() {
   const { uLogin } = useSelector((state) => state.FormReducer);
-  const { inforYourTrips } = useSelector(
-    (state) => state.BookTravel
-  );
+  const { inforYourTrips } = useSelector((state) => state.BookTravel);
   const [trips, setTrips] = useState([]);
   useEffect(() => {
     dispatch(getInforTripsAPI(uLogin.id));
+    return () => {
+      dispatch(getInforYourTrips([]));
+    };
   }, []);
   const handleTripAPI = async () => {
-    let a = [];
     for (let index = 0; index < inforYourTrips.length; index++) {
       let { data } = await bothServiceToken.get(
         `phong-thue/${inforYourTrips[index].maPhong}`
@@ -78,7 +78,6 @@ export default function YourBooking() {
           </thead>
           <tbody className="trips_content">
             {trips?.map((trip, i) => {
-              // console.log(trips, "trip");
               return (
                 <tr className="trips_content-list trips-title" key={i}>
                   <td>{trip.tenPhong}</td>

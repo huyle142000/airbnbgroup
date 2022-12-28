@@ -1,12 +1,17 @@
+// import { delay } from "@reduxjs/toolkit/dist/utils";
+import { wait } from "@testing-library/user-event/dist/utils";
+
 import moment from "moment";
 import { toast } from "react-toastify";
 import { bothServiceToken } from "../../services/BothTokenService";
 import { getInforYourTrips } from "../reducer/BookTravel";
 import { getCheckIn, getCheckOut } from "../reducer/CalendarReducer";
+import { closeSpinner, openSpinner } from "../reducer/Loading";
 import { getDateIsBookedAPI } from "./CalendarAction";
 
 export const bookTravelAPI = (payload, navigate) => {
   return async (dispatch) => {
+    await dispatch(openSpinner(true));
     try {
       const { data } = await bothServiceToken.post("dat-phong", payload);
       await dispatch(getCheckIn(""));
@@ -23,11 +28,14 @@ export const bookTravelAPI = (payload, navigate) => {
         position: "top-right",
         autoClose: 3000,
       });
+    } finally {
+      await dispatch(closeSpinner(true));
     }
   };
 };
 export const getInforTripsAPI = (id) => {
   return async (dispatch) => {
+    await dispatch(openSpinner(true));
     try {
       const { data } = await bothServiceToken.get(
         `dat-phong/lay-theo-nguoi-dung/${id}`
@@ -44,13 +52,15 @@ export const getInforTripsAPI = (id) => {
         }
         a = date.ngayDen;
       });
-      
+
       dispatch(getInforYourTrips(arrFilters));
     } catch (error) {
       toast.error(error.response, {
         position: "top-right",
         autoClose: 3000,
       });
+    } finally {
+      await dispatch(closeSpinner(true));
     }
   };
 };

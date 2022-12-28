@@ -18,9 +18,6 @@ export default function BookingTravel(props) {
     dispatch(getInfoRoomAPI(getIdRoom[2]));
   }, []);
   const { inforRoom } = useSelector((state) => state.LocationRoomReducer);
-  const { inforLocation } = useSelector(
-    (state) => state.LocationRoomReducer
-  );
 
   useEffect(() => {
     dispatch(getListCommentAPI(inforRoom?.id));

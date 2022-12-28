@@ -1,4 +1,4 @@
-import axios from "axios";
+import { wait } from "@testing-library/user-event/dist/utils";
 import { toast } from "react-toastify";
 import { bothServiceToken } from "../../services/BothTokenService";
 import {
@@ -13,6 +13,7 @@ import {
 } from "../reducer/LocationRoomReducer";
 import { roomImage } from "../../utils/roomImage";
 import moment from "moment";
+import { closeSpinner, openSpinner } from "../reducer/Loading";
 
 export function getListLocationAPI() {
   return async (dispatch) => {
@@ -76,9 +77,11 @@ export function deleteLocationAPI(id, navigate) {
 //Full-Rooms
 export function getListFullRoomAPI() {
   return async (dispatch) => {
+    await dispatch(openSpinner(true));
     try {
       const { data } = await bothServiceToken.get(`phong-thue`);
       let arrRoom = [];
+
       data.content?.map((room, index) => {
         let imgSrc = "";
         if (index >= roomImage.length) {
@@ -91,6 +94,8 @@ export function getListFullRoomAPI() {
       dispatch(getListFullRoom(arrRoom));
     } catch (error) {
       console.log(error.response);
+    } finally {
+      await dispatch(closeSpinner(true));
     }
   };
 }
@@ -135,12 +140,17 @@ export function getBookingRoomAPI(dataFilter, roomId) {
 //IdRoom
 export function getListRoomAPI(id) {
   return async (dispatch) => {
+    await dispatch(openSpinner(true));
+
     try {
       const { data } = await bothServiceToken.get(
         `phong-thue/lay-phong-theo-vi-tri?maViTri=${id}`
       );
       dispatch(getListRoom(data.content));
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      await dispatch(closeSpinner(true));
+    }
   };
 }
 // upLoad
@@ -173,12 +183,16 @@ export function editRoomAPI(id, datas, navigate) {
 //get Room
 export function getInfoRoomAPI(id) {
   return async (dispatch) => {
+    await dispatch(openSpinner(true));
+
     try {
       const { data } = await bothServiceToken.get(`phong-thue/${id}`);
       dispatch(getInforRoom(data.content));
     } catch (e) {
       console.log(e);
       toast.error("Error!!!");
+    } finally {
+      await dispatch(closeSpinner(true));
     }
   };
 }
