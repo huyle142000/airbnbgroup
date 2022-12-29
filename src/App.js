@@ -20,7 +20,7 @@ import Register from "./pages/Register/Register";
 import Profile from "./components/FormUser/FormUserDetail/Profile";
 import BookingTravel from "./pages/BookingTravel/BookingTravel";
 import ConfirmPay from "./pages/BookingTravel/ConfirmPay/ConfirmPay";
-// import SearchRoom from "./pages/SearchRoom/SearchRoom";
+import SearchRoom from "./pages/SearchRoom/SearchRoom";
 import YourBooking from "./components/FormUser/FormUserDetail/YourBooking";
 import HomeTemplate from "./templates/HomeTemplate/HomeTemplate";
 import SpinnerLoading from "./components/SpinnerLoading/SpinnerLoading";
@@ -38,7 +38,7 @@ function App() {
         <Route path="" element={<Home />} />
         <Route index element={<Home />} />
         <Route path="home" element={<Home />} />
-        {/* <Route path="room-filter/:filter" element={<SearchRoom />} /> */}
+        <Route path="room-filter/:filter" element={<SearchRoom />} />
 
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
