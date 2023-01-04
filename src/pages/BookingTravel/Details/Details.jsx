@@ -252,7 +252,7 @@ export default function Details(props) {
         <div className="star_comment">
           <span>
             <i className="fa-solid fa-star"></i>
-            {starComment?.star} -
+            {isNaN(starComment?.star) ? "No reviews yet" : starComment.star} -
           </span>
           <span> {`${starComment?.total}`} reviews - </span>
 
