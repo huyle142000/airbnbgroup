@@ -70,10 +70,9 @@ function CalendarBook(props) {
   };
   useEffect(() => {
     arrCalendarDate();
-    renderCalendar(calendar, startDay)
-    renderCalendar(calendar2, startDay2)
-
-  }, [value,param]);
+    renderCalendar(calendar, startDay);
+    renderCalendar(calendar2, startDay2);
+  }, [value, param]);
   useEffect(() => {
     if (checkDateIn !== "") {
       setCheckIn(moment(checkDateIn));
@@ -253,6 +252,8 @@ function CalendarBook(props) {
             onClick={() => {
               setCheckIn("");
               setCheckOut("");
+              dispatch(getCheckOut(""));
+              dispatch(getCheckIn(""));
             }}
           >
             Clear dates

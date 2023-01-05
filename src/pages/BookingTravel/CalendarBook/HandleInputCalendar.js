@@ -65,6 +65,8 @@ export const HandleInputCalendar = (inforRoom) => {
       } else {
         setDateOut(moment(checkDateOut._d).format("DD/MM/YYYY"));
       }
+    } else {
+      setDateOut("");
     }
 
     if (checkDateOut && checkDateIn) {
